@@ -11,6 +11,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+      beforeInit: "macros.js"
 ---
 
 
@@ -21,11 +22,15 @@ options(htmltools.dir.version = FALSE)
 ---
 # Outline of class
 
+1. Data dimensions 
+
+1. Metadata
+
 1. Create a data sheet for the field/lab
 
 1. Create a data sheet for data analysis
 
-These are two different, but equally important tools for transparent data. 
+These are different, but equally important tools for transparent data. 
 
 
 <img src="https://i1.wp.com/lookslikelanguage.com/wp-content/uploads/2016/09/Data-Download-Freebie-from-LLL_page_1.jpg?resize=778%2C1024&ssl=1" />
@@ -85,6 +90,75 @@ These are two different, but equally important tools for transparent data.
 There are pros and cons to both depending on the type of data you collect. These will become more evident as you code throughout the semester.
 
 ---
+# Hybrid data
+
+ ### A mix of everything....
+ 
+ ![Hybrid Example](libs/images/HybridData.PNG)
+ 
+ --
+ 
+ .center[
+ <img src="https://media.tenor.com/images/276d75f8d15629a6813c8dead58dfedb/tenor.gif" />
+ ]
+ 
+---
+# What is metadata?
+
+Metadata is simply data about **data**. It means it is a description and context of the data. It helps to organize, find and understand data.
+
+--
+ ## Typical metadata
+ 
+ - Title and description  
+ - Tags and categories  
+ - Who created or collected the data and when  
+ - Who last modified and when  
+ - Who can access or update   
+ - Units of measurements for each parameter  
+ - Notes associated with the collect  
+
+
+.footnote[https://dataedo.com/kb/data-glossary/what-is-metadata]
+
+---
+# We use metadata in our everyday lives
+
+<img src="https://dataedo.com/asset/img/kb/glossary/metadata_photo.png" />
+.footnote[https://dataedo.com/kb/data-glossary/what-is-metadata]
+
+---
+# We use metadata in our everyday lives
+
+.center[
+<img src="https://dataedo.com/asset/img/kb/glossary/metadata_book.png", width=75% />
+]
+
+.footnote[https://dataedo.com/kb/data-glossary/what-is-metadata]
+
+---
+# We use metadata in our everyday lives
+
+.center[
+<img src="https://dataedo.com/asset/img/kb/glossary/metadata_secret_files.png
+", width=75% />]
+
+.footnote[https://dataedo.com/kb/data-glossary/what-is-metadata]
+
+---
+# What do you think is important metadata for your research?
+
+--
+
+### Required metadata for different biological databases
+
+ - BCO-DMO (oceanographic data: [Dataset metadata form](https://www.bco-dmo.org/files/bcodmo/DATASET.rtf) )
+ - NCBI (Sequence data/GenBank: [GenBank metadata](https://www.ncbi.nlm.nih.gov/genbank/structuredcomment/))
+ - EML (Ecological metadata: (EML Guide)[https://nceas.github.io/oss-lessons/ecological-metadata/ecological-metadata.html] )
+
+
+---
+
 
 # Creating a good data collecting sheet
 
@@ -98,11 +172,151 @@ There are pros and cons to both depending on the type of data you collect. These
 
 1. Can you use it at 4am?
 
+<img src="https://www.researchgate.net/profile/Emily_Saarinen/publication/283736006/figure/fig2/AS:355143120900097@1461684126256/A-sample-datasheet-for-field-work-and-tissue-collection.png" />
 
 ---
-# Data are everywhere!
+# Making a data sheet for the field/lab
 
-<img src="https://miro.medium.com/max/810/0*VpUIWouoCIgggZ_Q." width=100%, align="center" />
+Things to keep in mind when making a data sheet:
+- Font size matters (will you be able to see it in the field easily?)
+
+- Bolding can be helpful
+
+- Have well defined lines
+
+- Have a space to write down who took the data
+
+- When were the data were taken?
+
+- Where were the data were taken?
+
+- Does your sheet fit on one piece of paper?
+
+- Does it make more sense to have your sheet in landscape or portrait?
+
+- Print and check out how your data sheet looks before it is finalized
+
+- Do you have enough space to write your data into the boxes?
+
+---
+
+ ![Twitter 1](libs/images/FieldTwitter1.PNG)
+
+---
+
+
+ ![Twitter 2](libs/images/FieldTwitter2.PNG)
+
+---
+# NOT good field or lab data sheets?
+.pull-left[
+<img src="https://c8.alamy.com/comp/AG65BN/writing-notes-on-paper-and-your-hand-AG65BN.jpg", width=100% />
+]
+
+.pull-right[
+<img src="https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/zvjd5wnbeiptmfvqbto2.jpg", width=100%/>
+]
+
+
+ .center[
+  ## Keep a hard/original copy of everything]
+
+---
+# Creating good spreadsheets for analysis
+
+### Tips from Browman and Woo (2017)
+
+--
+ 
+ 1. Be consistent  
+ 
+--
+ 
+ 1. Choose good names  
+ 
+--
+ 
+ 1. Write dates as YYYY-MM-DD 
+ 
+--
+ 
+ 1. No empty cells  
+ 
+--
+ 
+ 1. Just put one thing in a cell 
+ 
+--
+ 
+ 1. Make it a rectangle  
+ 
+--
+ 
+ 1. Create a data dictionary  
+ 
+--
+ 
+ 1. No calculations in the raw data file  
+ 
+--
+ 
+ 1. Do not use color or highlights  
+ 
+--
+ 
+ 1. Make back-ups  
+ 
+--
+ 
+ 1. Use data validation to avoid errors  
+ 
+--
+ 
+ 1. Save as plain text  
+ 
+
+---
+# 1. Be consistent
+
+--
+
+Use consistent terminology throughout:
+ - Do: male/female; m/f; Male/Female
+ - Do not: Male/female; M/female, or change throughout the data sheet
+
+--
+
+Use consistent variable names:
+- Do: High_treatment/Low_treatment; Glucose_6wk/Glucose_10wk
+- Do not: High_treatment/Treatment_14C; Glucode_6wk/ Glucose 10 weeks
+
+--
+
+Be careful with spaces! (I always copy and paste instead of typing each cell)
+- Do not: "Site A"; " Site A"; "Site A " 
+
+--
+
+Use consistent file names:
+- Do: CondData_S32_011721.csv; CondData_S32_011821.csv  
+- Do not: S32_CondSensor_011821; CondData_S32_011921.csv
+
+---
+# 2. Choose good names
+
+Avoid spaces in names:
+- Site 1
+- Site_1; Site.1; Site1 are all options, though Site_1 will make it easier to split the name if needed
+
+---
+# What is wrong with this data sheet?
+
+<img src="https://njsilbiger.github.io/images/Week2/ShortFormat.png" />
+
+---
+# What is wrong with this data sheet?
+
+ ![Lauren's data](libs/images/LaurenData.PNG)
 
 ---
 
