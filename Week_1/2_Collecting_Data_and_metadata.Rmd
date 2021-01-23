@@ -223,57 +223,73 @@ Things to keep in mind when making a data sheet:
 
 ---
 # Creating good spreadsheets for analysis
-
 ### Tips from Browman and Woo (2017)
 
 --
+
+.pull-left[
+  1: Be consistent  
+ ]
  
- 1. Be consistent  
+--
+
+.pull-left[ 
+2: Choose good names  
+ ]
+--
+ 
+ .pull-left[ 
+ 3: Write dates as YYYY-MM-DD 
+ ]
+--
+ .pull-left[ 
+ 4: No empty cells  
+ ]
+--
+ 
+ .pull-left[ 
+ 5: Just put one thing in a cell 
+ ]
  
 --
  
- 1. Choose good names  
+ .pull-left[ 
+ 6: Make it a rectangle  
+ ]
  
 --
  
- 1. Write dates as YYYY-MM-DD 
+.pull-left[ 
+ 7: Create a data dictionary  
+ ]
  
 --
  
- 1. No empty cells  
+ .pull-left[ 
+ 8: No calculations in the raw data file  
+ ]
  
 --
  
- 1. Just put one thing in a cell 
+ .pull-left[ 
+ 9: Do not use color or highlights  
+ ]
+--
+ 
+ .pull-left[ 
+ 10: Make back-ups  
+ ]
+--
+ 
+ .pull-left[ 
+ 11: Use data validation to avoid errors  
+ ]
  
 --
  
- 1. Make it a rectangle  
- 
---
- 
- 1. Create a data dictionary  
- 
---
- 
- 1. No calculations in the raw data file  
- 
---
- 
- 1. Do not use color or highlights  
- 
---
- 
- 1. Make back-ups  
- 
---
- 
- 1. Use data validation to avoid errors  
- 
---
- 
- 1. Save as plain text  
- 
+ .pull-left[ 
+ 12: Save as plain text  
+ ]
 
 ---
 # 1. Be consistent
@@ -303,11 +319,155 @@ Use consistent file names:
 
 ---
 # 2. Choose good names
+.pull-left[
+### Avoid spaces in names:
+- **Site 1**: Site_1; Site.1; Site1 are all options, though **Site_1** is best
+- Be careful about extra spaces at the beginning or end of a variable (e.g. "high", " high" will mean different things to R)
+]
+--
 
-Avoid spaces in names:
-- Site 1
-- Site_1; Site.1; Site1 are all options, though Site_1 will make it easier to split the name if needed
+.pull-left[
+### Do not use special characters:
+- ($, @, %, #, &, *, (, ), !, /, etc.)
+- These have different meanings in coding languages and can cause problems
+]
 
+--
+
+Keep names *short, but meaningful*
+
+![Table Names](libs/images/Tablenames.PNG)
+
+---
+# 2. Choose good names
+
+.center[
+### Never name a document as "final"... it is a curse.
+
+<img src="http://www.phdcomics.com/comics/archive/phd101212s.gif", width= 50%/>
+]
+---
+# 3. Write dates in ISO 8601 format
+- YYYY-MM-DD (2021-23-01)
+- excel can make lots of mistakes with different date formats
+
+.center[
+<img src="https://imgs.xkcd.com/comics/iso_8601_2x.png"/, width= 50%>
+]
+---
+
+# 4. No empty cells in your word doc
+
+- Missing data and 0 mean very different things. An empty box makes that information unknown.
+- If data are missing put **NA** 
+- If there are 0 counts of something put a **0**
+- Do not leave it blanks
+
+--
+
+# 5. Put only one thing in each cell
+
+- Plate example: Instead of plate-well as "13-A01", have one columne for plate and one column for well (13, A01)
+- Don't put units in your cells (this will come back when we talk about data dictionaries). (e.g., "46 g" is just 46). If you really want, you can have one column for the value (46) and one column for the units (g)
+- Don't put your notes with the data (e.g., "0 below detection"). Just put a 0 and have another column for your notes
+
+---
+# 6. Make your spreadsheet a rectangle
+
+- Only have one row for your variable names on top.  Do not have multiple rows of headers
+- Make every row an individual measurement (or subject or sample ID) and every column one variable
+
+--
+
+.center[
+### Bad examples:
+![nonrectangle :scale 50%](libs/images/Nonrectangle.PNG){width=50%}
+]
+
+---
+# 6. Make your spreadsheet a rectangle
+- It is ok to have multiple rectangles, just put them on different spreadsheets
+
+.center[
+### Good examples:
+
+
+![rectangle](libs/images/rectangle.PNG)
+]
+
+---
+7. Make a data dictionary
+
+### This will contain very important metadata for your datasheet
+It should contain (at least):
+- The exact variable name as in the data file  
+- A version of the variable name that might be used in data
+visualizations  (e.g. a "pretty name")  
+- A longer explanation of what the variable means  
+-  The measurement units  
+
+
+.center[
+![Data Dictionary](libs/images/DataDictionary.PNG)
+]
+
+---
+# 8. **NO** calculations in your spreadsheets
+
+### This is not transparent data analysis. Once your file is saved outside of excel (like a .csv), you may loose what those calculations are. 
+
+ - This can lead to major errors in your data analysis that are not easily traceable 
+ - All your calculations shoud be within your code for true transparency 
+ 
+ .center[
+ <img src="https://cdn4syt-solveyourtech.netdna-ssl.com/wp-content/uploads/2014/07/subtract-excel-2013-formula-2.jpg?w=640".>
+]
+---
+# 9. Do not use highlight or colors in your spreadsheet
+- You will lose that information
+
+.center[
+### Ex. where an outlier is highlighted (left). What you should do (right).
+![highlight](libs/images/highlight.PNG)
+]
+
+---
+# 10. Make back-ups!!
+
+### We will talk more about using an online repository called GitHub next week. 
+
+Consider also using box, dropbox, or google drive.  Never have your data just on your hard drive.  Your future self will thank you.
+
+.center[
+This actually happened to me...
+
+<img src="https://image.shutterstock.com/image-photo/red-wine-spill-on-laptop-260nw-1411670672.jpg"/>
+]
+
+---
+# 11. Use data validation feature to avoid errors
+
+In excel:
+- Select a column
+- In the menu bar, choose Data→ Validation
+- Choose appropriate validation criteria. For example,    
+  – A whole number in some range
+  – A decimal number insome range
+  – A list of possible values
+  – Text, but with a limit on length
+  
+An error will pop-up when typing if it is outside the range
+
+![excelerror](libs/images/excelerror.PNG)
+---
+# 12. Save data as plain text file
+
+- Always save your spreadsheets as a .csv
+- This is a non-proprietary format and can be opened in any spreadsheet program
+
+.center[
+<img src="https://www.efilecabinet.com/wp-content/uploads/2019/03/csv-01.png" />
+]
 ---
 # What is wrong with this data sheet?
 
@@ -320,346 +480,11 @@ Avoid spaces in names:
 
 ---
 
-# Data are everywhere!
-
-<img src="https://pbs.twimg.com/media/DUU0UOMU8AAwh0-.jpg" width=100%, align="center" />
-
----
-
-# Data are everywhere!
-
-<img src="https://www.smrfoundation.org/wp-content/uploads/2009/09/2009-September-Bernie-Hogan-Facebook-Network-Visualization.png" width=100%, align="center" />
-
----
-
-# We live in a data filled world
-
-
-## Data can take make forms
-<img src="https://businessoverbroadway.com/wp-content/uploads/2014/09/big-data.jpg" width=50%, align="right" />
-- Althetic performance
-- Timeseries of polls
-- Sequence Data
-- Measurements of physical properties
-- Spatial data (e.g., Maps)
-- Timing of events
-- Images
-- Networks
-- Plain Text 
-- So much more....
-
----
-class: inverse, middle, center
-
-# Data is at the center of biology
-
----
-# Data is at the center of biology
-
-<img src = "https://emea.illumina.com/content/dam/illumina-marketing/images/informatics/v2/web-graphics/data-analysis-web-graphic.png"/>
-
----
-
-# Data is at the center of biology
-
-<img src = "https://media.fugro.com/media/images/default-source/expertise/our-world/seawatch-headere3a882f1f3db67859f9dff250019aa6e.jpg?sfvrsn=d673e51a_11"/>
-
----
-# Data is at the center of biology
-
-<img src = "https://newheavenreefconservation.org/templates/yootheme/cache/MarineCourses_13-62f353dd.jpeg"/>
-
----
-
-# This semester, we will all become data scientists!
-
-<img src = "https://media1.tenor.com/images/c0c2264911d8cd4a688acd0542240f95/tenor.gif?itemid=7603564", align="center" />
-
---
-# But, first, tell me about you...
-Ice Breaker: 
-1. tell us your name 
-1. why you wanted to take this class 
-1. if you could create any function in the world what would it be?
-
-
----
-
-# Our semester: venturing into the wonderful world of reproducible and transparent data
-
---
-
-This class is **NOT**:
-- A statistics course (check out Biometry)
-- A bioinformtics course (check out bioinformatics)
-
---
-
-We **will**:
-
-- Learn best practices for data entry
-- Learn how to create clean and reproducible scripts in the program *R*
-- Learn to share code and data on a public version-controlled repository
-- Work collaboratively on a project
-- Create high quality visuals using *R*
-- Learn to love working with Data!
-
---
-
-<img src = "https://i.imgflip.com/2ll45k.jpg", width=50%, align="right" />
-
-
----
-# Our semester: venturing into the wonderful world of reproducible and transparent data
-
-
-<img src = "https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png", align="center", width=120% />
-
----
-
-# Our semester: venturing into the wonderful world of reproducible and transparent data
-
-### We will learn **R** and **Markdown** languages
-
-<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/r_rollercoaster.png", width=80%, align="center" />  
-
-Image credit: [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
----
-
-# Our semester: venturing into the wonderful world of reproducible and transparent data
-
-### We will create beautiful graphics that enable us to better understand our data using #TidyTuesday (details to follow)
-
-```{r, echo=FALSE, fig.width = 1}
-library(tweetrmd)
-tweet_screenshot(tweet_url("nsilbiger", "1219857312807940096"),
-  #maxwidth = 100,
-  theme = "dark",
-  scale = 0.5
-)
-
-
-tweet_screenshot(tweet_url("dbarnas", "1260379224608669696"),
-  #maxwidth = 100,
-  theme = "dark",
-  scale = 0.5
-)
-
-
-```
-
-
-
----
-class: center
-
-# Grading
-
-
-| Component   |      Percent      |  
-|----------|:-------------:|------:|
-| Tidy Tuesday Plots |  15% | 
-| Lab Assignments |    30%   | 
-| Group R Package Presentation | 20% | 
-| Group Assessment | 5% | 
-| Final Independent Project | 30%| 
-
---
-
-I will go over each of these components in future lectures.   
-
-
-All rubrics are on Canvas and details on syllabus.
-
-<img src = "https://media1.tenor.com/images/bdf4fc8b29583b18c9f4723c5d587bc5/tenor.gif?itemid=10873905", align="center", width=50% />
-
-
----
-# Communication
-<img src = "https://seekvectorlogo.com/wp-content/uploads/2019/05/slack-technologies-vector-logo.png", width=50%, align="center" />
-
-I created a class slack channel that you all can use to easily ask your classmates for help, give advice, and share resources.
-
-[Click Here to Join](https://join.slack.com/t/biol551csun/shared_invite/zt-kgyyp4k3-lvbGUeyNnvqC1YFgb5h1FA) or see in the syllabus.
-
-What is slack? [See here](https://slack.com/intl/en-pf/)
-
-Is it free? **YES**
-
----
-
-# How to get class assignments and lectures?
-
-This week, everything will be on Canvas.
-Starting next week all assignments and lecture slides will be on Github (a free online repository).  
-
-- We will have weekly lab assignments that can be started (even completed!) during lab time.
-
---
-
-
-
-What is Github?
-
-<img src ="https://miro.medium.com/max/719/1*WaaXnUvhvrswhBJSw4YTuQ.png", align="right", width=50% />
---
-
-Stay tuned....
-
----
-# Readings
-
-All textbooks are free and online for this class.
-
-- Links for the books are in the syllabus.  
-
---
-
-- All required reading (listed each week) should be completed **before** class.  
-
---
-
-- Use active reading. Most readings come with code. If you do it before class then it will be much easier to work through and understand the content in class  
-
-
-
-<img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png", width=25% /> 
- <img src = "https://leotechpress.com/wp-content/uploads/2019/05/9789352138111.jpg",  width=25% /> 
- <img src ="https://image.ebooks.com/previews/096/096295/096295629/096295629-hq-168-80.jpg", width=25% />
-
-
----
-# Projects
-
-### Group Project
-- Present an R package that we did not discuss in class and present it to your peers
-
---
-
-### Independent Final Project
-- Visualization and explanation of a data set of your choosing (from your own work or found data)
-- Bringing together multiple data sets are encouraged!
-- In the coming weeks start thinking about what data you would like to use and what questions you would like to answer. You will propose your ideas with me for approval.
-
----
-class: inverse, middle, center
-
-# What is data?
-
----
-
-# Data comes in lots of forms
-
-### There are several **Data Types** in R that you will need to know
-
---
-character : Can be a letter or a combination of letters enclosed by quotes is considered as a character data type by R. It can be alphabets or numbers  
-- ex: "a", "my name is Dr. Silbiger"
-
---
-
- numeric: Numbers that have a decimal value or are a fraction in nature have a data type as numeric.(also called "double")  
-- ex: 2.0, 14.573849 
-
---
-
- integer: Numbers that do not contain decimal values have a data type as an integer  
-- ex: 1, 2, 3, 4
-
---
-
- logical: A variable that can have a value of True and False  
-- ex: TRUE, FALSE
-
----
-
-# Data types con't
-
-complex: An imaginary number.
-- ex: 1+4i
-
---
-
- factor: They are a data type that is used to refer to a qualitative relationship like colors, good & bad, course or movie ratings, etc. They are useful in statistical modeling.
-- ex: "Good", "Better", "Best"
-
---
-
-### Knowing the names of all these data types and what they mean is important
-
----
-# Data can also come in many *structures*
-
-<img src ="https://res.cloudinary.com/dyd911kmh/image/upload/f_auto,q_auto:best/v1579700665/datatypesR_skztbb.png"/>
----
-# Data can also come in many *structures*
-
-| Dims   |      Homogeneous (same data type)     |   Heterogeneous (diff data type) |  
-|----------|:-------------:|:------:|
-|1D |  Atomic vector |    List     |
-|2D |    Matrix   | DataFrame |
-| ND | Array |    |
- 
- --
- 
-.pull-left[
- ```{r, echo=FALSE}
- Vector<-c(1,2,3,4)
- print(Vector)
-   ```
-]
-
---
-
-.pull-right[
-```{r, echo=FALSE}
-List<-list(1, "a" ,"TRUE")
- print(List)
-```
-]
-
----
-# Data can also come in many *structures*
-
-| Dims   |      Homogeneous (same data type)     |   Heterogeneous (diff data type) |  
-|----------|:-------------:|:------:|
-|1D |  Atomic vector |    List     |
-|2D |    Matrix   | DataFrame |
-| ND | Array |    |
- 
- --
- 
-.pull-left[
- ```{r, echo=FALSE}
-matrix(1:6, ncol = 3, nrow = 2)
- 
-   ```
-]
-
---
-
-.pull-right[
-```{r, echo=FALSE}
-data.frame(
-  x = 1:3,
-  y = c("a", "b", "c"),
-  stringsAsFactors = FALSE)
-```
-]
-
---
-
-```{r, echo=FALSE}
-data.frame(x = 1:3, y = I(matrix(1:9, nrow = 3)))
-```
----
 class: center, middle
 
-### Our first lab is an intro to R/R refresher. 
+# In lab today we will make a field/lab sheet, data sheet, and metadata (data dictionary).
 
-### But, first, a 10 minute break!
-
-### Next class is all about making data sheets. Don't forget to read the assignment before class.
+But, first 10 minute break
 
 ---
 
