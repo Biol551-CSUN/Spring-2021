@@ -4,8 +4,8 @@ subtitle: "Introduction to reproducible and transparent data science"
 author: "Dr. Nyssa Silbiger"
 institute: "CSUN Spring 2021"
 date: "(updated: `r Sys.Date()`)"
-output:
-  xaringan::moon_reader:
+output: 
+    xaringan::moon_reader:
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -16,6 +16,7 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
+options(htmltools.preserve.raw = FALSE)
 ```
 
 ---
@@ -178,14 +179,14 @@ degree
 ---
 # What is your experience
 
-```{r}
+```{r, echo=FALSE, warning=FALSE, message = FALSE}
 Rexper
 ```
 
 ---
 # What is your experience
 
-```{r}
+```{r, echo=FALSE, warning=FALSE, message = FALSE}
 gitexper
 ```
 
