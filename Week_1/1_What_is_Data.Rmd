@@ -172,9 +172,22 @@ gitexper<-survey %>%
         axis.text.x = element_blank())
 
 
-degree/Rexper/gitexper
+degree
 ```
 
+---
+# What is your experience
+
+```{r}
+Rexper
+```
+
+---
+# What is your experience
+
+```{r}
+gitexper
+```
 
 ---
 # What do you want to learn?
