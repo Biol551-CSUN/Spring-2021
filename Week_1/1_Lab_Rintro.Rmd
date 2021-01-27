@@ -126,14 +126,14 @@ Image credit: [Allison Horst](https://github.com/allisonhorst/stats-illustration
 ---
 # Interacting with R
 
-- **">"**   This symbol in the console means that R is ready for you. If you do not see this sign, R is busy doing something else that you told it to do.   
+- **">"**   This symbol in the console means that R is ready for you. If you do not see this sign, R is busy doing something else that you told it to do.     
 --
 
 - If R is still waiting for you to enter more data because it isn’t complete yet, the console with show a **“+”**.  It means that you haven’t finished entering data.  
 
 --
 
-- To assign an object (i.e. give something a name so that you can save it and use it later) use **“<-”**.  An **“=“** will work for simple things, but for reasons we won’t discuss in class today it is incorrect and will cause you lots of problems when you get into more complicated coding. 
+- To assign an object (i.e. give something a name so that you can save it and use it later) use **“<-”**.  An **“=“** will work for simple things, but for reasons we won’t discuss in class today it is incorrect and will cause you lots of problems when you get into more complicated coding.  
 
 --
 
@@ -257,7 +257,7 @@ b
 
 ### Run through these data carpentry lessons before Monday for an intro/refresher in R.
 
-Even if you are already intermediate, still do it becausse practice makes perfect!  
+Even if you are already intermediate, still do it because practice makes perfect!  
 
 Click on the links below
 
