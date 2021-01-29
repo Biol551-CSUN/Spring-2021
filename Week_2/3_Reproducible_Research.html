@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## What is reproducible research and why is it important?
 ### Dr. Nyssa Silbiger
 ### CSUN Spring 2021
-### (updated: 2021-01-27)
+### (updated: 2021-01-28)
 
 ---
 
@@ -56,259 +56,135 @@ DOI: 10.1126/scitranslmed.aaf5027
 ---
 # We are in a reproducibility crisis in science
 .center[
-![RepoCrisis](libs/RepoCrisis.png)
+![RepoCrisis](libs/Images/RepoCrisis.png)
 ]
 .foot-note[Monya Baker (2016). 1500 scientists lift the lid on reproducibility. Nature 533 (7604).
 ]
 
 ---
 
-# Long  data
+# Types of reproducibility
 
- ### One unique measurement per row and all the info about that measurement in the same row
+.foot-note[From Victoria Stodden (as summarized in the ROpenSci Reproducibility Guide)] 
 
-
-| Sample ID| Treatment   |      Measurement_Type      | Value | Units | 
-|----------|:-------------:|------:|----:|
-| 1 | High|  Nitrate | 1.2| uM_L|
-| 1 | High|    Temp   | 7.2| deg_C |
-| 1 | High |Salinity | 34.1|psu|
-| 2 | High |Nitrate| 3.0| uM_L|
-| 2 | High| Temp| 7.9| deg_C|
-| 2 | High| Salinity| 34.0| psu|
-
+“**Computational reproducibility**: when detailed information is provided about code, software, hardware and implementation details.”
 
 --
 
-There are pros and cons to both depending on the type of data you collect. These will become more evident as you code throughout the semester.
-
----
-# Hybrid data
-
- ### A mix of everything....
- 
- ![Hybrid Example](libs/images/HybridData.PNG)
- 
- --
- 
- .center[
- &lt;img src="https://media.tenor.com/images/276d75f8d15629a6813c8dead58dfedb/tenor.gif" /&gt;
- ]
- 
----
-# What is metadata?
-
-Metadata is simply data about **data**. It means it is a description and context of the data. It helps to organize, find and understand data.
+“**Empirical reproducibility**: when detailed information is provided about non-computational empirical scientific experiments and observations. In practise this is enabled by making data freely available, as well as details of how the data was collected.”
 
 --
- ## Typical metadata
+
+“**Statistical reproducibility**: when detailed information is provided about the choice of statistical tests, model parameters, threshold values, etc. This mostly relates to pre-registration of study design to prevent p-value hacking and other manipulations.”
+
+---
+# Is this how you have been working?
+
+ ### If so, that's ok! Let's learn together.
  
- - Title and description  
- - Tags and categories  
- - Who created or collected the data and when  
- - Who last modified and when  
- - Who can access or update   
- - Units of measurements for each parameter  
- - Notes associated with the collection  
-
-
-.footnote[https://dataedo.com/kb/data-glossary/what-is-metadata]
+ ![ExcelWord](libs/Images/excelword.png)
+ 
 
 ---
-# We use metadata in our everyday lives
+# What about this workflow makes it hard to reproduce?
 
-&lt;img src="https://dataedo.com/asset/img/kb/glossary/metadata_photo.png" /&gt;
-.footnote[https://dataedo.com/kb/data-glossary/what-is-metadata]
+ 
+ ![ExcelWord](libs/Images/excelword.png)
+ 
+---
+# A few areas for improvement
+
+--
+
+- No clear or organized history of what’s been done to the data from raw data through final figures/results  
+
+--
+
+- Lack of comments/annotation describing the steps  
+
+--
+
+- Tedious &amp; time consuming for a collaborator to recreate the analyses 
+
+--
+
+- Backed up w/version control? Probably not…  
+
+--
+
+- How do we transfer this into a final report or presentation? Is that reproducible?  
+
+--
+
+- Note all the slides I make for this class are.... in R!
 
 ---
-# We use metadata in our everyday lives
+# Why does this matter?
+
+Say I’ve been **arrested for a murder** that was committed 6 months ago. My attorney says it’s very important to remember exactly what I did on the day of the murder to establish an alibi. I try my best to remember, and come up with this diagram describing my day: 
 
 .center[
-&lt;img src="https://dataedo.com/asset/img/kb/glossary/metadata_book.png", width=75% /&gt;
+![arrested](libs/Images/arrested1.jpg)
 ]
 
-.footnote[https://dataedo.com/kb/data-glossary/what-is-metadata]
-
 ---
-# We use metadata in our everyday lives
+
+## My attorney is like “bummer...” 
 
 .center[
-&lt;img src="https://dataedo.com/asset/img/kb/glossary/metadata_secret_files.png
-", width=75% /&gt;]
-
-.footnote[https://dataedo.com/kb/data-glossary/what-is-metadata]
-
----
-# What do you think is important metadata for your research?
-
---
-
-### Required metadata for different biological databases
-
- - BCO-DMO (oceanographic data: [Dataset metadata form](https://www.bco-dmo.org/files/bcodmo/DATASET.rtf) )
- - NCBI (Sequence data/GenBank: [GenBank metadata](https://www.ncbi.nlm.nih.gov/genbank/structuredcomment/))
- - EML (Ecological metadata: [EML Guide](https://nceas.github.io/oss-lessons/ecological-metadata/ecological-metadata.html)
+&lt;img src="https://media.tenor.com/images/505870ffff0e7dbe9f13e4221b2c32dd/tenor.gif"/ with=125%&gt;
+]  
 
 
 ---
 
+## I wrack my brain and come up with this order of things:
 
-# Creating a good data collecting sheet
-
-1. How easy is it to read?
-
-1. Are column and row definitions clear?
-
-1. Is there metadata?
-
-1. How similar is it to your data entry sheet?
-
-1. Can you use it at 4am?
-
-&lt;img src="https://www.researchgate.net/profile/Emily_Saarinen/publication/283736006/figure/fig2/AS:355143120900097@1461684126256/A-sample-datasheet-for-field-work-and-tissue-collection.png" /&gt;
-
----
-# Making a data sheet for the field/lab
-
-Things to keep in mind when making a data sheet:
-- Font size matters (will you be able to see it in the field easily?)
-
-- Bolding can be helpful
-
-- Have well defined lines
-
-- Have a space to write down who took the data
-
-- When were the data taken?
-
-- Where were the data taken?
-
-- Does your sheet fit on one piece of paper?
-
-- Does it make more sense to have your sheet in landscape or portrait?
-
-- Print and check out how your data sheet looks before it is finalized
-
-- Do you have enough space to write your data into the boxes?
-
----
-
- ![Twitter 1](libs/images/FieldTwitter1.PNG)
-
----
-
-
- ![Twitter 2](libs/images/FieldTwitter2.PNG)
-
----
-# NOT good field or lab data sheets?
-.pull-left[
-&lt;img src="https://c8.alamy.com/comp/AG65BN/writing-notes-on-paper-and-your-hand-AG65BN.jpg", width=100% /&gt;
+.center[
+![arrested2](libs/Images/arrested2.jpg){width=30%}
 ]
 
-.pull-right[
-&lt;img src="https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/zvjd5wnbeiptmfvqbto2.jpg", width=100%/&gt;
-]
+.foot-note[Still not great...]
 
 
- .center[
-  ## Keep a hard/original copy of everything]
 
 ---
-# Creating good spreadsheets for analysis
-### Tips from Browman and Woo (2017)
 
---
 
-.pull-left[
-  1: Be consistent  
- ]
- 
---
+## But then! I remember I had a datebook with all this information...
 
-.pull-left[ 
-2: Choose good names  
- ]
---
- 
- .pull-left[ 
- 3: Write dates as YYYY-MM-DD 
- ]
---
- .pull-left[ 
- 4: No empty cells  
- ]
---
- 
- .pull-left[ 
- 5: Just put one thing in a cell 
- ]
- 
---
- 
- .pull-left[ 
- 6: Make it a rectangle  
- ]
- 
---
- 
-.pull-left[ 
- 7: Create a data dictionary  
- ]
- 
---
- 
- .pull-left[ 
- 8: No calculations in the raw data file  
- ]
- 
---
- 
- .pull-left[ 
- 9: Do not use color or highlights  
- ]
---
- 
- .pull-left[ 
- 10: Make back-ups  
- ]
---
- 
- .pull-left[ 
- 11: Use data validation to avoid errors  
- ]
- 
---
- 
- .pull-left[ 
- 12: Save as plain text  
- ]
+![arrested3](libs/Images/arrested3.jpg)
+ .center[&lt;img src="https://media4.giphy.com/media/Xpj7V61MQ4wEQRub8c/giphy.gif"/, width=25%/&gt;]
+
 
 ---
-# 1. Be consistent
+# Do your **Data Sci** like it is going to need an **alibi**.
 
---
+![alibi](libs/Images/alibi.png)
 
-Use consistent terminology throughout:
- - Do: male/female; m/f; Male/Female
- - Do not: Male/female; M/female, or change throughout the data sheet
 
---
+---
+# With data that looks something like...
 
-Use consistent variable names:
-- Do: High_treatment/Low_treatment; Glucose_6wk/Glucose_10wk
-- Do not: High_treatment/Treatment_14C; Glucode_6wk/ Glucose 10 weeks
+ ![RepoData](libs/Images/repodata.png)
 
---
+---
 
-Be careful with spaces! (I always copy and paste instead of typing each cell)
-- Do not: "Site A"; " Site A"; "Site A " 
+# The workflow we will grow in this class...
 
---
+*We will do everything in **well-annotated, organized scripts** that contain streamlined and easy-to-follow records of our entire analyses from **raw data** through **final reports**, with **unbreakable file paths** and with **a complete history** of changes made.*   
 
-Use consistent file names:
-- Do: CondData_S32_011721.csv; CondData_S32_011821.csv  
-- Do not: S32_CondSensor_011821; CondData_S32_011921.csv
+
+---
+
+![repo data 2](libs/Images/repodata2.png)
+
+
+---
+
+# Our tools this semester
+
+![R and Git](libs/Images/RandGit.png)
 
 ---
 # 2. Choose good names
