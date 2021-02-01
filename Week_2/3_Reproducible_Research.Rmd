@@ -285,110 +285,217 @@ Git and GitHub play a big role in global software development.
 
 
 ---
-# 6. Make your spreadsheet a rectangle
-- It is ok to have multiple rectangles, just put them on different spreadsheets
-
-.center[
-### Good examples:
-
-
-![rectangle](libs/images/rectangle.PNG)
-]
-
----
-# 7 Make a data dictionary
-
-### This will contain very important metadata for your datasheet
-It should contain (at least):
-- The exact variable name as in the data file  
-- A version of the variable name that might be used in data
-visualizations  (e.g. a "pretty name")  
-- A longer explanation of what the variable means  
--  The measurement units  
-
-
-.center[
-![Data Dictionary](libs/images/DataDictionary.PNG)
-]
-
----
-# 8. **NO** calculations in your spreadsheets
-
-### This is not transparent data analysis. Once your file is saved outside of excel (like a .csv), you may loose what those calculations are. 
-
- - This can lead to major errors in your data analysis that are not easily traceable 
- - All your calculations shoud be within your code for true transparency 
+# Git and Rstudio work well together
  
- .center[
- <img src="https://cdn4syt-solveyourtech.netdna-ssl.com/wp-content/uploads/2014/07/subtract-excel-2013-formula-2.jpg?w=640".>
-]
----
-# 9. Do not use highlight or colors in your spreadsheet
-- You will lose that information
+ We will start with Rprojects to keep organized.
 
-.center[
-### Ex. where an outlier is highlighted (left). What you should do (right).
-![highlight](libs/images/highlight.PNG)
+.center[ 
+ <img src="https://i0.wp.com/raw.githubusercontent.com/martinctc/blog/master/images/RPROJECT_2000dpi.png?w=578&ssl=1", width=50%/>
 ]
 
 ---
-# 10. Make back-ups!!
-
-### We will talk more about using an online repository called GitHub next week. 
-
-Consider also using box, dropbox, or google drive.  Never have your data just on your hard drive.  Your future self will thank you.
-
-.center[
-This actually happened to me...
-
-<img src="https://image.shutterstock.com/image-photo/red-wine-spill-on-laptop-260nw-1411670672.jpg"/>
-]
+# 10 min break and then we will make our first repository together
 
 ---
-# 11. Use data validation feature to avoid errors
+# First, sign into GitHub and we will create a new repository
 
-In excel:
-- Select a column
-- In the menu bar, choose Data→ Validation
-- Choose appropriate validation criteria. For example,    
-  – A whole number in some range
-  – A decimal number insome range
-  – A list of possible values
-  – Text, but with a limit on length
+- Press the new button  
+
+![New button](libs/Images/newrepobutton.PNG)
+
+
+---
+# We are going to make a test repo
+
+- Fill in the name and description
+- Click "add ReadMe"
+
+<img src="libs/Images/testrepo.PNG", width=75% />
+
+---
+# Here is your empty repo
+![Empty repo](libs/Images/NewRepo.PNG)
+
+---
+# "Clone it" and bring it into Rstudio
+- Click the green "code" button
+- Click the clipboard to copy the link
+![Clone it](libs/Images/Clone1.PNG)
+
+---
+# Open RStudio
+- click the carrot on the top right 
+![Rstudio1](libs/Images/Rstudio1.PNG)
+
+- Click New project
+![Rstudio1](libs/Images/NewProj.PNG)
+
+---
+# Create a version controlled project
+- Click Version control
+![Version](libs/Images/VersControl.PNG)
+
+---
+# Create a version controlled project
+- Click Git
+![Click Git](libs/Images/ClickGit.PNG)
+
+---
+# Create a version controlled project
+- Paste the url that you copied from GitHub
+- Decide where you want it to live on your computer
+- Click Create Project
+
+![Repo](libs/Images/CreateRepo2.PNG)
+
+---
+# You have a version-controlled project!
+![project](libs/Images/TestProject.PNG)
+
+.center[<img src="https://media3.giphy.com/media/l2JJA5fbJ5o328Odi/giphy.gif", width=50%/>]
+
+---
+# So, now what....
+
+### Most important things to know to version-control your repository
+ # P
+ # A
+ # C
+ # P
+
+
+---
+
+# So, now what....
+
+### Most important things to know to version-control your repository
+ # Pull      
+ # Add           
+ # Commit    
+ # Push     
+
+---
+
+# So, now what....
+
+### Most important things to know to version-control your repository
+ # Pull      (please)
+ # Add       (always)    
+ # Commit    (carry)
+ # Push      (pizza)
+ 
+---
+ 
+ # Most important commands
+
+**Pull** - [git pull] this “downloads” any changes to your repository on github, by your collaborators, or your past self on a different machine. (always do this first! You may have forgotten that you made a change.)
+ 
+--
+ 
+**Add**  - [git add] this stages files. It tells git, "I want to add these to the repository"  
+ 
+--
+ 
+**Commit** - [git commit] this “saves” your changes with git (as opposed to ctrl+S which saves them to your local machine – although you should still do that too)
+ 
+--
+ 
+  - git commit always requires a message so that you know what changes you made. 
+  - ex: git commit -a -m "I created a test repo"
+  - "-a" means commit all (every change) "-m" means (I am adding a message). What you have in quotes is your message.
   
-An error will pop-up when typing if it is outside the range
-
-![excelerror](libs/images/excelerror.PNG)
+--
+  
+**Push**  - [git push] this “uploads” your changes to github.
+ 
 ---
-# 12. Save data as plain text file
+# Work with git in the terminal
 
-- Always save your spreadsheets as a .csv
-- This is a non-proprietary format and can be opened in any spreadsheet program
+- First, let's create and save a simple script (save it as "testscript.R")
+
+--
+
+- Now, let's save it to git
+
+--
+
+
+- click on the terminal tab (next to console). This allows you to interact directly with your terminal
+
+--
+
+- type "git pull"  (it should say already up to date because you have not done anything yet)
+
+--
+
+- type git add testscript.R  (this stages the new script)
+
+--
+
+- type git commit -a -m "I am adding testscript"
+
+--
+
+- type git push 
+  - you may get prompted for your username and password 
+
+---
+# What it should look like
+
+Check github and see if it is there!  
+![first push](libs/Images/pushingtest.PNG)
+
+
+
+---
+# Let's do the same thing by clicking buttons
+
+- make a new script (testscript2.R)
+
+Find the git tab on the right-hand site
+![clickgit2](libs/Images/clickgit2.PNG)
+
+---
+# Let's do the same thing by clicking buttons
+
+- check the box next to testscript2.R (this adds it -- one you add a script, you never have to add it again. Only commit new changes)  
+
+![stagged](libs/Images/stagged.png)
+
+--
+
+- click commit and add a message
+
+---
+# click commit and add a message
+![commit2](libs/Images/commit2.PNG)
+
+- press commit and when it is done hit close and exit out
+- next hit "push"
+- when it is done close it. You should no longer see "testscript2.R" in the upper right-hand side.
+- check github! (Don't forget to refresh the webpage)
+
+---
+# Make some changes!
+- Let's make some changes to testscript.R
+- add any code you want to it, commit it (with a message), and push it
+- click history (the clock on the top) to see what changes were made and by who
+---
+# Oh no!
+
+
+- You notice that your cat walked across the screen totally screwed up your code.  Oh no!  
 
 .center[
-<img src="https://www.efilecabinet.com/wp-content/uploads/2019/03/csv-01.png" />
+<img src="https://media.tenor.com/images/1c3fd7fe0757e0b43e455fae004957d6/tenor.gif", width=50%/>
 ]
----
-# What is wrong with this data sheet?
 
-<img src="https://njsilbiger.github.io/images/Week2/ShortFormat.png" />
+- It's ok... you can revert it
+- Click the blue wheel and then revert
+- Note: commit often (it will only revert back to the last commit you made. This is like pressing the save button. Do it with every major change to your script.)
 
----
-# What is wrong with this data sheet?
-
- ![Lauren's data](libs/images/LaurenData.PNG)
-
----
-# What about this one?
-![Piper's data](libs/images/PiperData.PNG)
-
----
-
-class: center, middle
-
-# In lab today we will make a field/lab sheet, data sheet, and metadata (data dictionary).
-
-But, first 10 minute break
+--- 
+# delete this test repository
 
 ---
 
@@ -397,5 +504,7 @@ class: center, middle
 # Thanks!
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+Some slides modified from Allison Horst, Jarret Byrnes
 
 
