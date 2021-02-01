@@ -458,7 +458,7 @@ Find the git tab on the right-hand site
 ---
 # Let's do the same thing by clicking buttons
 
-- check the box next to testscript2.R (this adds it -- one you add a script, you never have to add it again. Only commit new changes)  
+- check the box next to testscript2.R (this adds it -- once you add a script, you never have to add it again. Only commit new changes)  
 
 ![stagged](libs/Images/stagged.png)
 
