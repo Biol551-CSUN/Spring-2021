@@ -494,8 +494,19 @@ Find the git tab on the right-hand site
 - Click the blue wheel and then revert
 - Note: commit often (it will only revert back to the last commit you made. This is like pressing the save button. Do it with every major change to your script.)
 
---- 
-# delete this test repository
+---
+# Delete this test repository
+
+- click settings and scroll all the way to the bottom ('Danger Zone') and delete repository and follow directions
+
+![settings](libs/Images/settings.PNG)
+
+---
+
+# Next class
+
+- We will learn about proper file structure and how to set-up a transparent script.
+- Send me your git username in slack **right now**. 
 
 ---
 
