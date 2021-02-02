@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 2a</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Nyssa Silbiger" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 2a
+## Reproducible Scripts and Workflow
+### Dr. Nyssa Silbiger
+### CSUN Spring 2021
+### (updated: 2021-02-02)
+
+---
+
+
+
+
+
+---
+# Outline of class
+
+1. Clone class repos
+
+1. Proper file structure
+
+1. Proper script structure
+
+1. Reminder on R packages
+
+1. Import Data
+  
+Lab 
+1. Create file structure for class 
+
+1. Basic markdown for Readme files
+
+
+
+---
+
+# Git Organizations
+
+- Last class you learned how to create your own repo as an individual. Another cool think about GitHub is you can be part of an **organization** where you can keep lots of repos from one group together.
+
+- You have all been added to GitHub Organization **Biol551_CSUN**. 
+- You should have received an email asking you to accept (please do if you haven't already)
+![Org Photo](libs/Images/OrgPhoto.PNG)
+
+---
+# Git Organizations
+- Everything for our class will be in this organization.
+- You will clone **two** repositories from our class organization today.
+
+--
+
+1. Spring-2021
+  - This is where all the information for the class will be.
+  - You **DO NOT** have access to push to this repo so that you do not accidentally change the lecture slides. You can only **pull**
+  - Every day before class use *git pull* to download all the class materials
+
+--
+
+2. Your Last Name
+  - This is where you will turn in all your assignments.  You, and currently only you, have access to **push** changes to your own repo.
+
+--
+
+Who wants to show us how to clone both of these repos onto their local computer?
+
+
+---
+# Working in git for this class
+
+1.  Before class starts, navigate to "Spring-2021" in your projects (upper right-hand corner of RStudio) and **pull.**
+
+--
+1.   Next navigate to your personal repository and **pull**.  
+
+### This is the repo you will work in during class.
+
+
+
+
+
+
+---
+ # Proper file structure
+ 
+ This is a photo of one of my past working directories
+ 
+ &lt;img src="https://njsilbiger.github.io/images/Week1/BadDirectory.png?raw=true%20=100x100"/&gt;
+ 
+ There is **NO** organization here.... It is impossible to find anything...
+ 
+ 
+---
+ # Don't be past me...
+ In general, your repos should be set-up to have At least 3 subfolders: **Data**, **Scripts**, and **Output**.  
+ 
+ Think of one repo as one project or publication or chapter.  Do not put everything you do in one single repo.
+ 
+.center[ 
+ &lt;img src="https://i0.wp.com/raw.githubusercontent.com/martinctc/blog/master/images/RPROJECT_2000dpi.png?w=578&amp;ssl=1", width=40%/&gt;
+]
+
+---
+# File structure for this class...
+
+Here, we will have one more level of structure to keep everything tidy and easy to find.
+
+1. Have one folder for every week
+
+1. Within that weekly folder have a folder named *Data*, *Scripts*, and *Output*. 
+
+It will look like this...
+
+--
+
+- Week_3
+  - Data
+  - Scripts
+  - Output
+  
+- Week_4
+  - Data
+  - Scripts
+  - Output
+
+- so on....
+---
+
+# Adding folders to Git
+
+You can add all the contents in a folder at once by adding the folder
+
+- *git add Week_3/*  will add all the contents in the *Week_3* folder so that you do not have to do it one by one
+
+- Note, git will **not** put an empty folder on GitHub (because there is nothing inside). So, do not worry if you go to add your folder now and don't see anything on GitHub. There is nothing for git to save. 
+
+---
+# Reproducible Projects require clear readme files.
+
+Some examples:
+
+- [Jennifer Fields](https://github.com/jenniferfields/EcoFunORTidepools)
+
+- [Danielle Becker](https://github.com/daniellembecker/Nutrient_sediment_loading_affect_coral_functionality)
+
+
+ 
+---
+# Readme files
+
+1. Give an overview of what the reader will find
+
+2. List the contents of the repository
+
+3. If this is for a **publication**, list authors, journal information, funding (if relevant), citation, and content.
+
+![Maunalua](libs/Images/Maunalua.PNG)
+
+
+ 
+---
+# How to edit a readme file
+
+### Intro to Markdown - "Markdown is a lightweight markup language with plain text formatting syntax."
+
+--
+
+Why write with Markdown when you can press buttons in an interface to format your text? 
+
+1. Markdown can be used for everything. People use it to create websites, documents, notes, books, presentations, email messages, and technical documentation.
+
+--
+
+2. Markdown is portable. Files containing Markdown-formatted text can be opened using virtually any application. If you decide you don’t like the Markdown application you’re currently using, you can import your Markdown files into another Markdown application. That’s in stark contrast to word processing applications like Microsoft Word that lock your content into a proprietary file format.
+
+--
+
+3. Markdown is platform independent. You can create Markdown-formatted text on any device running any operating system.
+
+---
+### Intro to Markdown - "Markdown is a lightweight markup language with plain text formatting syntax."
+
+
+4) Markdown is future proof. Even if the application you’re using stops working at some point in the future, you’ll still be able to read your Markdown-formatted text using a text editing application. 
+
+--
+
+5) Markdown is everywhere. Websites like Reddit and GitHub support Markdown, and lots of desktop and web-based applications support it.
+
+--
+
+## How to learn
+
+- Markdown guides [Markdown Basics](https://www.markdownguide.org/basic-syntax/)
+- Free online tutorials [Online tutorial](https://www.markdowntutorial.com/)
+- Free online Markdown editor [dillinger](https://dillinger.io/)
+
+
+---
+# Creating a transparent script
+
+- Does your collaborators know what you did?
+- Do you know what you did? Can you go back to the code in a year after a reviewer asked you to change your analysis?
+
+New coders tend to start their code right away with no comments or explanations of what they are doing. But, again, we want to produce transparent and reproducible research. There have been times where I set-up a script poorly and had to go back to it after a year to re-analyze some data (reviewers are always asking to change analyses, aren’t they… ;) ). I, the creator of the code, could not figure out for the life of me what I did. It was a painful few days trying to remember why I was doing what I was doing; it definitely could have been avoided by using proper coding etiquette.
+
+
+---
+
+## My attorney is like “bummer...” 
+
+.center[
+&lt;img src="https://media.tenor.com/images/505870ffff0e7dbe9f13e4221b2c32dd/tenor.gif"/ with=125%&gt;
+]  
+
+
+---
+
+## I wrack my brain and come up with this order of things:
+
+.center[
+![arrested2](libs/Images/arrested2.jpg){width=30%}
+]
+
+.foot-note[Still not great...]
+
+
+
+---
+
+
+## But then! I remember I had a datebook with all this information...
+
+![arrested3](libs/Images/arrested3.jpg)
+ .center[&lt;img src="https://media4.giphy.com/media/Xpj7V61MQ4wEQRub8c/giphy.gif"/, width=25%/&gt;]
+
+
+---
+# Do your **Data Sci** like it is going to need an **alibi**.
+
+![alibi](libs/Images/alibi.png)
+
+
+---
+# With data that looks something like...
+
+ ![RepoData](libs/Images/repodata.png)
+
+---
+
+# The workflow we will grow in this class...
+
+*We will do everything in **well-annotated, organized scripts** that contain streamlined and easy-to-follow records of our entire analyses from **raw data** through **final reports**, with **unbreakable file paths** and with **a complete history** of changes made.*   
+
+
+---
+
+![repo data 2](libs/Images/repodata2.png)
+
+
+---
+
+
+# But first, why open science is best science
+.center[
+&lt;img src="https://media.giphy.com/media/LqJALOD5Nqefb0JVQj/giphy.gif"/&gt;
+]
+
+
+---
+# Open Science
+
+.center[
+### *"Open science is not just about improving the way we share data and methods; it is also about improving the way we think, work and interact with each other. It’s about technology enabling social infrastructure that can promote inclusivity to create kinder science."*]
+
+.foot-note[[Open Software Means Kinder Science. By Julia Stewart Lowndes on December 10, 2019](https://blogs.scientificamerican.com/observations/open-software-means-kinder-science/)]
+
+---
+
+# Open Science
+
+## One scientist can only do so much  
+- More data = more Power
+
+--
+
+## Science must be reproducible  
+
+--
+
+## Who paid for this data collection? 
+- If on federal or state grant then the tax payers paid for your data  
+
+--
+
+## "Better and kinder science, done in less time and done together." - Julie Lowndes
+
+---
+
+# Examples of #OpenScience
+
+![Hollie lab](libs/Images/putnam.PNG){width=50%}
+
+---
+
+# Examples of #OpenScience
+
+![Silbiger](libs/Images/silbigerlab.PNG){width=50%}
+
+---
+# Why some people are scared....
+
+.pull-left[
+&lt;img src="https://64.media.tumblr.com/6e146340c3fba8b8ea096fa3e5d831c9/tumblr_o1dkk6vmAw1ul25n3o1_1280.jpg"/&gt;]
+
+.pull-right[
+&lt;img src="https://64.media.tumblr.com/78a7657c6f9f26a0d987270f11a83589/tumblr_inline_o1nbr5uz351s80q9m_540.jpg"/&gt;]
+
+.center[Work together, advance science, and don't waste time and money]
+
+---
+
+# Our tools this semester for open and reproducible science
+
+![R and Git](libs/Images/RandGit.png)
+
+---
+
+# Git and Github solve this problem
+
+## Git 
+- Git is a distributed version control system. 
+- Imagine if Dropbox (saving info on the cloud) and "Track changes" from MS word had a baby.  Git would be that baby.
+- But, it's even better because Git is optimized for the things that data scientists spend a lot of time working on (e.g., code)
+- There is a learning curve, but I promise you it is worth it.
+ 
+--
+
+## Github
+ - Git and GitHub are two different things.
+ - GitHub is an online hosting platform that provides an array of services that are built on the Git system. (There are also other platforms like Bitbucket and GitLab)
+ - Just like we don't *need* RStudio to run R code, we don't *need* GitHub to use Git... but it will make our lives a lot easier
+
+
+.foot-note[https://raw.githack.com/uo-ec607/lectures/master/02-git/02-Git.html]
+
+---
+# From software development...
+Git and GitHub play a big role in global software development.
+- There is a high probability that your fave app., program or package is built using Git-based tools (Rstudio is).
+
+--
+
+# ... to scientific research
+- Git and GitHub help operationalise the ideals of open science and reproducibility
+- Journals have increasingly strict requirements regarding reproducibility and data access. GH makes this easy (DOI integration, off-the-shelf licenses, etc )  
+- I host all my code, data for my research papers, and research protocols on GH. 
+- GH helps us to collaborate with others and, most importantly, **your future self.**
+
+
+---
+# Git and Rstudio work well together
+ 
+ We will start with Rprojects to keep organized.
+
+.center[ 
+ &lt;img src="https://i0.wp.com/raw.githubusercontent.com/martinctc/blog/master/images/RPROJECT_2000dpi.png?w=578&amp;ssl=1", width=50%/&gt;
+]
+
+---
+# 10 min break and then we will make our first repository together
+
+---
+# First, sign into GitHub and we will create a new repository
+
+- Press the new button  
+
+![New button](libs/Images/newrepobutton.PNG)
+
+
+---
+# We are going to make a test repo
+
+- Fill in the name and description
+- Click "add ReadMe"
+
+&lt;img src="libs/Images/testrepo.PNG", width=75% /&gt;
+
+---
+# Here is your empty repo
+![Empty repo](libs/Images/NewRepo.PNG)
+
+---
+# "Clone it" and bring it into Rstudio
+- Click the green "code" button
+- Click the clipboard to copy the link
+![Clone it](libs/Images/Clone1.PNG)
+
+---
+# Open RStudio
+- click the carrot on the top right 
+![Rstudio1](libs/Images/Rstudio1.PNG)
+
+- Click New project
+![Rstudio1](libs/Images/NewProj.PNG)
+
+---
+# Create a version controlled project
+- Click Version control
+![Version](libs/Images/VersControl.PNG)
+
+---
+# Create a version controlled project
+- Click Git
+![Click Git](libs/Images/ClickGit.PNG)
+
+---
+# Create a version controlled project
+- Paste the url that you copied from GitHub
+- Decide where you want it to live on your computer
+- Click Create Project
+
+![Repo](libs/Images/CreateRepo2.PNG)
+
+---
+# You have a version-controlled project!
+![project](libs/Images/TestProject.PNG)
+
+.center[&lt;img src="https://media3.giphy.com/media/l2JJA5fbJ5o328Odi/giphy.gif", width=50%/&gt;]
+
+---
+# So, now what....
+
+### Most important things to know to version-control your repository
+ # P
+ # A
+ # C
+ # P
+
+
+---
+
+# So, now what....
+
+### Most important things to know to version-control your repository
+ # Pull      
+ # Add           
+ # Commit    
+ # Push     
+
+---
+
+# So, now what....
+
+### Most important things to know to version-control your repository
+ # Pull      (please)
+ # Add       (always)    
+ # Commit    (carry)
+ # Push      (pizza)
+ 
+---
+ 
+ # Most important commands
+
+**Pull** - [git pull] this “downloads” any changes to your repository on github, by your collaborators, or your past self on a different machine. (always do this first! You may have forgotten that you made a change.)
+ 
+--
+ 
+**Add**  - [git add] this stages files. It tells git, "I want to add these to the repository"  
+ 
+--
+ 
+**Commit** - [git commit] this “saves” your changes with git (as opposed to ctrl+S which saves them to your local machine – although you should still do that too)
+ 
+--
+ 
+  - git commit always requires a message so that you know what changes you made. 
+  - ex: git commit -a -m "I created a test repo"
+  - "-a" means commit all (every change) "-m" means (I am adding a message). What you have in quotes is your message.
+  
+--
+  
+**Push**  - [git push] this “uploads” your changes to github.
+ 
+---
+# Work with git in the terminal
+
+- First, let's create and save a simple script (save it as "testscript.R")
+
+--
+
+- Now, let's save it to git
+
+--
+
+
+- click on the terminal tab (next to console). This allows you to interact directly with your terminal
+
+--
+
+- type "git pull"  (it should say already up to date because you have not done anything yet)
+
+--
+
+- type git add testscript.R  (this stages the new script)
+
+--
+
+- type git commit -a -m "I am adding testscript"
+
+--
+
+- type git push 
+  - you may get prompted for your username and password 
+
+---
+# What it should look like
+
+Check github and see if it is there!  
+![first push](libs/Images/pushingtest.PNG)
+
+
+
+---
+# Let's do the same thing by clicking buttons
+
+- make a new script (testscript2.R)
+
+Find the git tab on the right-hand site
+![clickgit2](libs/Images/clickgit2.PNG)
+
+---
+# Let's do the same thing by clicking buttons
+
+- check the box next to testscript2.R (this adds it -- once you add a script, you never have to add it again. Only commit new changes)  
+
+![stagged](libs/Images/stagged.png)
+
+--
+
+- click commit and add a message
+
+---
+# click commit and add a message
+![commit2](libs/Images/commit2.PNG)
+
+- press commit and when it is done hit close and exit out
+- next hit "push"
+- when it is done close it. You should no longer see "testscript2.R" in the upper right-hand side.
+- check github! (Don't forget to refresh the webpage)
+
+---
+# Make some changes!
+- Let's make some changes to testscript.R
+- add any code you want to it, commit it (with a message), and push it
+- click history (the clock on the top) to see what changes were made and by who
+---
+# Oh no!
+
+
+- You notice that your cat walked across the screen totally screwed up your code.  Oh no!  
+
+.center[
+&lt;img src="https://media.tenor.com/images/1c3fd7fe0757e0b43e455fae004957d6/tenor.gif", width=50%/&gt;
+]
+
+- It's ok... you can revert it
+- Click the blue wheel and then revert
+- Note: commit often (it will only revert back to the last commit you made. This is like pressing the save button. Do it with every major change to your script.)
+
+---
+# Delete this test repository
+
+- click settings and scroll all the way to the bottom ('Danger Zone') and delete repository and follow directions
+
+![settings](libs/Images/settings.PNG)
+
+---
+
+# Next class
+
+- We will learn about proper file structure and how to set-up a transparent script.
+- Send me your git username in slack **right now**. 
+
+---
+
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+Some slides modified from Allison Horst, Jarret Byrnes
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
