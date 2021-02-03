@@ -1,5 +1,5 @@
 ---
-title: "Week 2a"
+title: "Week 2b"
 subtitle: "Reproducible Scripts and Workflow"
 author: "Dr. Nyssa Silbiger"
 institute: "CSUN Spring 2021"
