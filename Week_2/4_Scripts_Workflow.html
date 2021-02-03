@@ -61,14 +61,14 @@ Lab
 
 --
 
-1. Spring-2021
+1. Spring-2021  
   - This is where all the information for the class will be.
   - You **DO NOT** have access to push to this repo so that you do not accidentally change the lecture slides. You can only **pull**
   - Every day before class use *git pull* to download all the class materials
 
 --
 
-2. Your Last Name
+2. Your Last Name  
   - This is where you will turn in all your assignments.  You, and currently only you, have access to **push** changes to your own repo.
 
 --
@@ -114,7 +114,7 @@ Who wants to show us how to clone both of these repos onto their local computer?
 ---
 # File structure for this class...
 
-Here, we will have one more level of structure to keep everything tidy and easy to find.
+In this class, we will have one more level of structure to keep everything tidy and easy to find.
 
 1. Have one folder for every week
 
@@ -206,395 +206,325 @@ Why write with Markdown when you can press buttons in an interface to format you
 - Free online tutorials [Online tutorial](https://www.markdowntutorial.com/)
 - Free online Markdown editor [dillinger](https://dillinger.io/)
 
+You will practice using Markdown in lab today.
 
 ---
 # Creating a transparent script
 
-- Does your collaborators know what you did?
-- Do you know what you did? Can you go back to the code in a year after a reviewer asked you to change your analysis?
+- Do your collaborators know what you did?
+- Do **you** know what you did? Can you go back to the code in a year after a reviewer asked you to change your analysis?
 
-New coders tend to start their code right away with no comments or explanations of what they are doing. But, again, we want to produce transparent and reproducible research. There have been times where I set-up a script poorly and had to go back to it after a year to re-analyze some data (reviewers are always asking to change analyses, aren’t they… ;) ). I, the creator of the code, could not figure out for the life of me what I did. It was a painful few days trying to remember why I was doing what I was doing; it definitely could have been avoided by using proper coding etiquette.
+--
+
+Your script should be divided into 5 (ish) subsections (depending onw what you are doing)
+
+--
+
+1. A short **intro** to the purpose of the code  
+
+--
+
+2. Loading the **libraries** that you use in the script  
+
+--
+
+3. A list of important **functions** (we won't use these until later in the semester)  
+
+--
+
+4. Read in your **data**  
+
+--
+
+5. Code for your **data analysis**  
+  - This will be divided further based on your own personal analysis  
 
 
 ---
+# Creating a transparent script
 
-## My attorney is like “bummer...” 
+![Scripts](libs/Images/script.PNG)
+
+
+---
+# Creating a transparent script
+
+Section 1: Start with a short intro of what your intend to do with your script. Say who you are, the date you created it, and when you last edited it.
+
+Section 2: Load the libraries. Here, I load all the libraries that I need for my code to run.
+
+Section 3: Functions. If you will be creating your own functions it is best to put them all right up front so that they are available for the whole script. If I have lots of functions, sometimes I will put them in their own script and then source them in so that it is not so messy. More on that later.
+
+Section 4: Load data. This is where you load all your data files.
+
+Section 5 and beyond: All your analyses, which can also be subset into different sections.
+
+***Probably the most important advice that I can give you is to comment, comment, comment, and comment some more on your code.***
+
+
+---
+# Let's create our first simple script
+
+- Navigate to the project with your last name
+- Create a folder titled "Week_2" and 3 subfolders titled "Scripts", "Data", and "Output"
+  - You can do this directly in the folder on your computer, in RStudio by clicking "New folder", or in the terminal by typing *mkdir foldername*
+
+--
+
+### Before we make our script we are going to install two packages.
+
+--
+
+- A package is a library of canned functions. 
+- You download and install them onto your local harddrive in order to use them.
+- To install a package you type **in the console**:
+
+
+```r
+install.packages("PackageName")
+```
+
+- You **do not** need to put this in your script because you only ever do it once (unless you need to update the package). Think of it as installing a program. You only install it once. You do not need to install it again everytime you open it.
+
+---
+# Install packages 
 
 .center[
-&lt;img src="https://media.tenor.com/images/505870ffff0e7dbe9f13e4221b2c32dd/tenor.gif"/ with=125%&gt;
-]  
+### The {here} package helps us easily navigate around our projects.   
+We will use this to make unbreakable file paths.
 
+
+```r
+install.packages("here")
+```
+
+![here](libs/Images/here.png)]
 
 ---
+# What do we mean by "unbreakable file paths"?
 
-## I wrack my brain and come up with this order of things:
+### **Consider**: an absolute file path
+
+
+```r
+my_data &lt;- read_csv("usr/nsilbiger/My Documents/ComputerModeling/Spring 2021/Lab 1/data/some_data.csv”)
+```
+
+Note: the code to read in data is *read_csv("file path to data")*. The file name in this example is **some_data.csv**.  
+
+In this example, we have named our new dataframe *my_data*.
+--
+
+### **How does it break?**
+Let us count the ways...
+
+---
+class: center, middle
+
+![file path 1](libs/Images/filepath1.png)
+
+---
+class: center, middle
+
+![file path 2](libs/Images/filepath2.png)
+
+---
+![a better way](libs/Images/a better way.png)
+---
+# Let try an example with an appropriate R project, file structure, and {here}
 
 .center[
-![arrested2](libs/Images/arrested2.jpg){width=30%}
-]
 
-.foot-note[Still not great...]
-
-
+![file structure](libs/Images/file structure.png)]
 
 ---
+### If I am working within my project, then to read in the sb_temp.csv file (which is in the data folder), I can use the **here::here()** function: 
+
+(the left of the :: is the *package name* and to the right is the *function name*.  In this case, they are both *here*)
 
 
-## But then! I remember I had a datebook with all this information...
+```r
+my_data&lt;-read_csv(here("data","sb_temp.csv"))
+```
 
-![arrested3](libs/Images/arrested3.jpg)
- .center[&lt;img src="https://media4.giphy.com/media/Xpj7V61MQ4wEQRub8c/giphy.gif"/, width=25%/&gt;]
+--
+This code says "read the csv file named sb_temp.csv that is in the folder data." 
 
-
----
-# Do your **Data Sci** like it is going to need an **alibi**.
-
-![alibi](libs/Images/alibi.png)
-
-
----
-# With data that looks something like...
-
- ![RepoData](libs/Images/repodata.png)
-
----
-
-# The workflow we will grow in this class...
-
-*We will do everything in **well-annotated, organized scripts** that contain streamlined and easy-to-follow records of our entire analyses from **raw data** through **final reports**, with **unbreakable file paths** and with **a complete history** of changes made.*   
-
-
----
-
-![repo data 2](libs/Images/repodata2.png)
-
-
----
-
-
-# But first, why open science is best science
+--
 .center[
-&lt;img src="https://media.giphy.com/media/LqJALOD5Nqefb0JVQj/giphy.gif"/&gt;
-]
-
-
----
-# Open Science
-
-.center[
-### *"Open science is not just about improving the way we share data and methods; it is also about improving the way we think, work and interact with each other. It’s about technology enabling social infrastructure that can promote inclusivity to create kinder science."*]
-
-.foot-note[[Open Software Means Kinder Science. By Julia Stewart Lowndes on December 10, 2019](https://blogs.scientificamerican.com/observations/open-software-means-kinder-science/)]
-
----
-
-# Open Science
-
-## One scientist can only do so much  
-- More data = more Power
-
---
-
-## Science must be reproducible  
-
---
-
-## Who paid for this data collection? 
-- If on federal or state grant then the tax payers paid for your data  
-
---
-
-## "Better and kinder science, done in less time and done together." - Julie Lowndes
-
----
-
-# Examples of #OpenScience
-
-![Hollie lab](libs/Images/putnam.PNG){width=50%}
-
----
-
-# Examples of #OpenScience
-
-![Silbiger](libs/Images/silbigerlab.PNG){width=50%}
-
----
-# Why some people are scared....
-
-.pull-left[
-&lt;img src="https://64.media.tumblr.com/6e146340c3fba8b8ea096fa3e5d831c9/tumblr_o1dkk6vmAw1ul25n3o1_1280.jpg"/&gt;]
-
-.pull-right[
-&lt;img src="https://64.media.tumblr.com/78a7657c6f9f26a0d987270f11a83589/tumblr_inline_o1nbr5uz351s80q9m_540.jpg"/&gt;]
-
-.center[Work together, advance science, and don't waste time and money]
-
----
-
-# Our tools this semester for open and reproducible science
-
-![R and Git](libs/Images/RandGit.png)
-
----
-
-# Git and Github solve this problem
-
-## Git 
-- Git is a distributed version control system. 
-- Imagine if Dropbox (saving info on the cloud) and "Track changes" from MS word had a baby.  Git would be that baby.
-- But, it's even better because Git is optimized for the things that data scientists spend a lot of time working on (e.g., code)
-- There is a learning curve, but I promise you it is worth it.
- 
---
-
-## Github
- - Git and GitHub are two different things.
- - GitHub is an online hosting platform that provides an array of services that are built on the Git system. (There are also other platforms like Bitbucket and GitLab)
- - Just like we don't *need* RStudio to run R code, we don't *need* GitHub to use Git... but it will make our lives a lot easier
-
-
-.foot-note[https://raw.githack.com/uo-ec607/lectures/master/02-git/02-Git.html]
-
----
-# From software development...
-Git and GitHub play a big role in global software development.
-- There is a high probability that your fave app., program or package is built using Git-based tools (Rstudio is).
-
---
-
-# ... to scientific research
-- Git and GitHub help operationalise the ideals of open science and reproducibility
-- Journals have increasingly strict requirements regarding reproducibility and data access. GH makes this easy (DOI integration, off-the-shelf licenses, etc )  
-- I host all my code, data for my research papers, and research protocols on GH. 
-- GH helps us to collaborate with others and, most importantly, **your future self.**
-
-
----
-# Git and Rstudio work well together
- 
- We will start with Rprojects to keep organized.
-
-.center[ 
- &lt;img src="https://i0.wp.com/raw.githubusercontent.com/martinctc/blog/master/images/RPROJECT_2000dpi.png?w=578&amp;ssl=1", width=50%/&gt;
+&lt;img src="libs/Images/robustfile.png", width=70% /&gt;
 ]
 
 ---
-# 10 min break and then we will make our first repository together
-
----
-# First, sign into GitHub and we will create a new repository
-
-- Press the new button  
-
-![New button](libs/Images/newrepobutton.PNG)
-
-
----
-# We are going to make a test repo
-
-- Fill in the name and description
-- Click "add ReadMe"
-
-&lt;img src="libs/Images/testrepo.PNG", width=75% /&gt;
-
----
-# Here is your empty repo
-![Empty repo](libs/Images/NewRepo.PNG)
-
----
-# "Clone it" and bring it into Rstudio
-- Click the green "code" button
-- Click the clipboard to copy the link
-![Clone it](libs/Images/Clone1.PNG)
-
----
-# Open RStudio
-- click the carrot on the top right 
-![Rstudio1](libs/Images/Rstudio1.PNG)
-
-- Click New project
-![Rstudio1](libs/Images/NewProj.PNG)
-
----
-# Create a version controlled project
-- Click Version control
-![Version](libs/Images/VersControl.PNG)
-
----
-# Create a version controlled project
-- Click Git
-![Click Git](libs/Images/ClickGit.PNG)
-
----
-# Create a version controlled project
-- Paste the url that you copied from GitHub
-- Decide where you want it to live on your computer
-- Click Create Project
-
-![Repo](libs/Images/CreateRepo2.PNG)
-
----
-# You have a version-controlled project!
-![project](libs/Images/TestProject.PNG)
-
-.center[&lt;img src="https://media3.giphy.com/media/l2JJA5fbJ5o328Odi/giphy.gif", width=50%/&gt;]
-
----
-# So, now what....
-
-### Most important things to know to version-control your repository
- # P
- # A
- # C
- # P
-
-
----
-
-# So, now what....
-
-### Most important things to know to version-control your repository
- # Pull      
- # Add           
- # Commit    
- # Push     
-
----
-
-# So, now what....
-
-### Most important things to know to version-control your repository
- # Pull      (please)
- # Add       (always)    
- # Commit    (carry)
- # Push      (pizza)
- 
----
- 
- # Most important commands
-
-**Pull** - [git pull] this “downloads” any changes to your repository on github, by your collaborators, or your past self on a different machine. (always do this first! You may have forgotten that you made a change.)
- 
---
- 
-**Add**  - [git add] this stages files. It tells git, "I want to add these to the repository"  
- 
---
- 
-**Commit** - [git commit] this “saves” your changes with git (as opposed to ctrl+S which saves them to your local machine – although you should still do that too)
- 
---
- 
-  - git commit always requires a message so that you know what changes you made. 
-  - ex: git commit -a -m "I created a test repo"
-  - "-a" means commit all (every change) "-m" means (I am adding a message). What you have in quotes is your message.
-  
---
-  
-**Push**  - [git push] this “uploads” your changes to github.
- 
----
-# Work with git in the terminal
-
-- First, let's create and save a simple script (save it as "testscript.R")
-
---
-
-- Now, let's save it to git
-
---
-
-
-- click on the terminal tab (next to console). This allows you to interact directly with your terminal
-
---
-
-- type "git pull"  (it should say already up to date because you have not done anything yet)
-
---
-
-- type git add testscript.R  (this stages the new script)
-
---
-
-- type git commit -a -m "I am adding testscript"
-
---
-
-- type git push 
-  - you may get prompted for your username and password 
-
----
-# What it should look like
-
-Check github and see if it is there!  
-![first push](libs/Images/pushingtest.PNG)
-
-
-
----
-# Let's do the same thing by clicking buttons
-
-- make a new script (testscript2.R)
-
-Find the git tab on the right-hand site
-![clickgit2](libs/Images/clickgit2.PNG)
-
----
-# Let's do the same thing by clicking buttons
-
-- check the box next to testscript2.R (this adds it -- once you add a script, you never have to add it again. Only commit new changes)  
-
-![stagged](libs/Images/stagged.png)
-
---
-
-- click commit and add a message
-
----
-# click commit and add a message
-![commit2](libs/Images/commit2.PNG)
-
-- press commit and when it is done hit close and exit out
-- next hit "push"
-- when it is done close it. You should no longer see "testscript2.R" in the upper right-hand side.
-- check github! (Don't forget to refresh the webpage)
-
----
-# Make some changes!
-- Let's make some changes to testscript.R
-- add any code you want to it, commit it (with a message), and push it
-- click history (the clock on the top) to see what changes were made and by who
----
-# Oh no!
-
-
-- You notice that your cat walked across the screen totally screwed up your code.  Oh no!  
+# Install Tidyverse 
 
 .center[
-&lt;img src="https://media.tenor.com/images/1c3fd7fe0757e0b43e455fae004957d6/tenor.gif", width=50%/&gt;
+### “The tidyverse is a coherent system of packages for data manipulation, exploration and visualization that share a common design philosophy.”]
+
+
+
+.pull-left[&lt;img src="https://gblobscdn.gitbook.com/assets%2F-M38c0s4s0YCM6dGwrz1%2F-M7RetZBh2Wf7TnfLhKs%2F-M7RkjP-fqIgI8ZsDmKh%2Ftidyverse2.png?alt=media&amp;token=73bf5842-1ae0-4ca4-8622-ec2ae9063a7a", width=50%/&gt;]
+
+.foot-note[Joseph Rickert  
+[What is the tidyverse](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/?)  
+RStudio Community Blog
 ]
 
-- It's ok... you can revert it
-- Click the blue wheel and then revert
-- Note: commit often (it will only revert back to the last commit you made. This is like pressing the save button. Do it with every major change to your script.)
+
+
+.center[
+
+```r
+install.packages("tidyverse")
+```
+]
+---
+# Let's create our first simple script
+
+- You should now have {here} and the {tidyverse} installed on your computer.  
+
+- Today, we are just going to load some libraries and read in a simple .csv file.  
+
+--
+
+- Copy the **"weightdata.csv"** file from the Spring-2021 repo into your own private repo.  Put it in the **data** folder within **Week_2**.  
+
+--
+
+- Open a new script and save it in your **scripts** folder within **Week_2**. You can name it whatever you want. 
 
 ---
-# Delete this test repository
+# Let's create our first simple script
 
-- click settings and scroll all the way to the bottom ('Danger Zone') and delete repository and follow directions
+The first thing we do is make a header
 
-![settings](libs/Images/settings.PNG)
+
+```r
+### This is my first script.  I am learning how to import data
+### Created by: Dr. Nyssa Silbiger
+### Created on: 2021-02-03
+###############################################
+```
 
 ---
+# Let's create our first simple script
 
-# Next class
+Next, we want to load the libraries that we plan to use.  
+Adding the extra hashtags after load libraries makes a new section (notice the little carrot that appears)
 
-- We will learn about proper file structure and how to set-up a transparent script.
-- Send me your git username in slack **right now**. 
+
+```r
+### Load libraries ########## 
+library(tidyverse)
+```
+
+```
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+```
+
+```
+## v ggplot2 3.3.3     v purrr   0.3.4
+## v tibble  3.0.4     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0
+```
+
+```
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+```r
+library(here)
+```
+
+```
+## here() starts at C:/Users/nyssa/Desktop/Repositories/Spring-2021
+```
+---
+# Let's create our first simple script
+
+Next, let's read in our data using the {here} package.
+weightdata.csv is in folder data, which is in folder Week_2
+
+
+```r
+### Read in data ###
+WeightData&lt;-read_csv(here("Week_2","data","weightdata.csv"))
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   SampleID = col_double(),
+##   Treatment = col_character(),
+##   Weight = col_double()
+## )
+```
 
 ---
+# Let's create our first simple script
 
+Lastly, for today, some analysis.  
+We will simply look at the data.
+
+
+```r
+### Data Analysis #####
+
+head(WeightData) # Looks at the top 6 lines of the dataframe
+```
+
+```
+## # A tibble: 6 x 3
+##   SampleID Treatment Weight
+##      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
+## 1        1 High         1.3
+## 2        2 Low          5.4
+## 3        3 High         2.6
+## 4        4 Low          7.2
+## 5        5 High         4.6
+## 6        6 Low          9.5
+```
+
+---
+# Let's create our first simple script
+
+
+```r
+tail(WeightData) # Looks at the bottom 6 lines of the dataframe
+```
+
+```
+## # A tibble: 6 x 3
+##   SampleID Treatment Weight
+##      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
+## 1        5 High         4.6
+## 2        6 Low          9.5
+## 3        7 High         2.2
+## 4        8 Low          5.1
+## 5        9 High         4.6
+## 6       10 Low          8.7
+```
+
+```r
+View(WeightData) # opens a new window to look at the entire dataframe
+```
+
+
+---
+# For lab today you have three tasks
+
+1. Push the Week 2 folder with your first script and associated data onto your personal GitHub repository
+
+1. Complete the [Online Markdown tutorial](https://www.markdowntutorial.com/)
+
+1. Edit your readme file to say something useful about your repository.
+
+Complete all 3 before Monday at 9am.  Feel free to ask your classmates for help
+
+---
 class: center, middle
 
 # Thanks!
