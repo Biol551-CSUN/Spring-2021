@@ -10,6 +10,7 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
+      highlightSpans: true
       countIncrementalSlides: false
       beforeInit: "macros.js"
 ---
@@ -374,13 +375,154 @@ Would you draw the same conclusions with each of these datasets?
 # Show me the data
 Adding summary statistics, models, etc. is good - but try to also show me the *actual data*
 
-![violin](libs/Images/violin.png)
+.center[
+<img src="libs/Images/violin.png", width=75%/>]
 
 ---
 # Show me the data
 Adding summary statistics, models, etc. is good - but try to also show me the *actual data*
 
-![jitter 2](libs/Images/jitter2.png)
+.center[
+<img src="libs/Images/jitter2.png", width=75%/>]
+
+
+---
+# Show me the data
+Another option to show data + summary: **Marginal Plots**
+
+<img src="libs/Images/marginalplots.png"/>
+
+.footnote[[Datanovia.com ggplot examples](https://www.datanovia.com/en/blog/ggplot-examples-best-reference/#scatter-plot)]
+
+---
+# Does it look **awesome**?
+
+- Never sacrifice clarity for creativity  
+
+- Decluttering your graphs  
+
+- Empty & inked space balance  
+
+- Thoughtful color schemes (always clarity > beauty)  
+
+---
+
+# Declutter your graphs
+### Every element should exist to improve audience understanding
+
+.pull-left[
+![Kondo](libs/Images/kondo.png)]
+
+.pull-right[<img src="https://i.pinimg.com/originals/b1/5e/7c/b15e7c5fafcbae55bc45d1878f74edc5.jpg">]
+
+---
+### **For each element and design decision, ask:**
+- Is this element necessary/helpful for **audience understanding**?
+- Is it presented in the **best way** to encourage audience understanding & retention of the things that I have decided are the most critical?
+
+--
+
+### ** This includes:**
+- Gridlines  
+- Symbols/images  
+- Tick marks & increments  
+- Axis labels & tick mark labels  
+- Angled text  
+- Points, columns, lines, etc.  
+- Legends (avoid redundancy)  
+- Value labels & annotation  
+- Colors & formatting  
+
+
+---
+# This is not awesome
+
+![piechart](libs/Images/piechart.png)
+
+---
+## And ggplot2 defaults have their own issues
+
+.pull-left[
+```{r, plot-label4, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(midwest, aes(x = state, y = percbelowpoverty))+
+  geom_jitter()
+```
+
+#### Things you **must** change here:
+- Update axis labels
+- Reduce width of each groups
+
+#### Things you should **consider** changing:
+- BG color  
+- X & Y limits & expansion  
+- Often overused/unnecessary gridlines  
+- Not prompted to auto-update axis labels  
+- Abbreviations are hard 
+]
+
+.pull-right[
+```{r plot-label4-out, ref.label="plot-label4", echo=FALSE}
+```
+]
+
+---
+# Make it better
+
+![jitter plot 3](libs/Images/jotter3.png)
+
+---
+
+### Things that are **almost always bad**, or a symptom of badness:
+- Color gradients with a single element  
+- Shadows. Why are there shadows?  
+- 3D. With rare exceptions.  
+
+--
+
+### Things that **can be bad**, or a symptom of badness:
+- Multiple legends (probably means you've plotted too much)
+- Overuse of colors  
+- Many symbols of line types  
+- Labels for values (esp. if many) - consider a table of exact value is important
+- Really creative fonts
+
+---
+# What needs changing?
+
+![michigan1](libs/Images/michigan1.png)
+---
+# A possible update
+
+![michigan2](libs/Images/michigan2.png)
+
+---
+class: center, middle
+
+# 10 minute break
+
+---
+
+# Let's ggplot!
+
+<img src="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/img/ggplot2-part-of-tidyverse.png", width="50%"/>
+
+
+---
+# Grammar of graphics (ggplot2)
+.green[ggplot2] is a data visualization package  
+
+Structure of the plot can be summarized like this:
+
+```{r, eval=FALSE}
+ggplot(data = [dataset], 
+       mapping = aes(x = [x-variable], 
+                     y = [y-variable])) +
+   geom_xxx() +
+   other options
+```
+
+*aes()* means *aesthetics*  
+*geom_xx* means *geometry*
 
 ---
 class: center, middle
