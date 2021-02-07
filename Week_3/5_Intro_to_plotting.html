@@ -139,6 +139,248 @@ ggplot(chickwts, aes(x = feed, y = weight))+
 ![](5_Intro_to_plotting_files/figure-html/plot-label-out-1.png)&lt;!-- --&gt;
 ]
 
+---
+# Sawrm plots:   
+Show values of observations within a group, with amount of jitter dependent on density around values
+
+.pull-left[
+
+```r
+library(ggbeeswarm)
+ggplot(iris, aes(x = Species, y = Petal.Length))+
+  geom_jitter(aes(color = Species),
+              alpha = 0.5,
+              show.legend = FALSE)+
+  scale_color_manual(values = c("purple",
+                                "black",
+                                "orange"))+
+  theme_minimal()+
+  labs(y = "Petal Length (cm)")
+```
+]
+
+.pull-right[
+![](5_Intro_to_plotting_files/figure-html/plot-label2-out-1.png)&lt;!-- --&gt;
+]
+
+---
+# Scatter plots:
+Show relationship between two measured variables
+
+.pull-left[
+
+```r
+ggplot(faithful, aes(x = waiting, y = eruptions))+
+  geom_point(aes(color = eruptions),
+             show.legend = FALSE,
+             size=2)+
+  scale_color_gradient(low = "black",
+                       high = "purple")+
+  theme_bw()+
+  labs(x = "Waiting time (min)",
+       y = "Eruption duration (min)",
+       title = "Old Faithful eruption patterns")
+```
+]
+
+.pull-right[
+![](5_Intro_to_plotting_files/figure-html/plot-label3-out-1.png)&lt;!-- --&gt;
+]
+---
+# Why can’t we just look at summary statistics?
+
+.center[
+&lt;img src="https://socviz.co/dataviz-pdfl_files/figure-html4/ch-01-correlations-1.png"/&gt;
+]
+
+---
+# Why can’t we just look at summary statistics?
+
+&lt;img src="https://nbisweden.github.io/RaukR-2019/GeneralStats/Presentation_GeneralStats/DataSaurus.gif.png"/&gt;
+
+### Summary statistics hide important information!!
+
+.foot-note[Originally created by Alberto Cairo in [Download the Datasaurus: Never trust summary statistics alone; always visualize your data](http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html)
+]
+
+---
+# Don't hide your data 
+
+Weissgerber TL, Milic NM, Winham SJ, Garovic VD (2015) **Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm.** PLoS Biol 13(4): e1002128. https://doi.org/10.1371/journal.pbio.1002128  
+
+
+![bar plot](libs/Images/barplot.png)
+
+Would you draw the same conclusions with each of these datasets? 
+
+
+
+
+---
+# The hierarchy of data viz (according to Allison Horst)
+
+1. Is it **correct**?
+
+1. Is it **clear**?
+
+1. Does it communicate data **responsibly**?
+
+1. Does it look **awesome**?
+
+---
+# 1. Is it **correct**?
+
+--
+
+- Observations and experimental design
+
+--
+
+- Avoid data wrangling and calculation mistakes
+  - Keep raw data raw
+  - Check...check.. quadruple check data wrangling/cleaning
+  - Look at your data frames at every step 
+  - Compare your outcomes to expected results
+  - Reproducibility and detailed annotation
+  - Get an outside reviewer to check your code
+  
+--
+
+- Units/labels
+
+---
+
+# 2. Is it **clear**?
+
+-- 
+
+- To many points, variables, or series
+
+- Overwhelming legends
+
+- Lack of useful emphasis
+
+- Are things put in context?
+
+- Is it a pie graph? (Don't do it)
+
+- Overmapping aesthetics
+
+- Is it 3D? (please no)
+
+---
+# Too many poinnts, variables or series
+
+![Too many points](libs/Images/toomanypoints.png)
+
+---
+# Too many everything
+
+![too many everything](libs/Images/toomanyeverything.png)
+---
+# **Emphasize** the things you want the audience or readers to remember
+
+.center[![line1](libs/Images/lineplot1.png)]
+
+---
+# **Emphasize** the things you want the audience or readers to remember
+
+.center[![line2](libs/Images/lineplot2.png)]
+
+---
+# **Legends:**  
+## Put them somewhere that reduces eyes jumping back and forth across the whole page
+
+.center[![legend](libs/Images/legend1.png)]
+
+.foot-note[[Fundamentals of Data Visualization by Claus O. Wilke 
+](https://serialmentor.com/dataviz/)]
+---
+
+# Often for clarity, **labels are often easier than legends**
+ 
+
+.center[![legend2](libs/Images/legend2.png)]
+
+.foot-note[[Fundamentals of Data Visualization by Claus O. Wilke 
+](https://serialmentor.com/dataviz/)]
+---
+
+# Often for clarity, **labels are often easier than legends**
+ 
+
+.center[![legend3](libs/Images/legend3.png)]
+
+
+.foot-note[[Depict Data Studio Directly Labeling Your Line Graphs](https://depictdatastudio.com/directly-labeling-line-graphs/)]
+---
+# Your legends should **definitely** follow a logical order
+
+.center[
+![legend4](libs/Images/legend4.png)]
+
+---
+
+## Consider putting things in **context** if visualizing across plots, for easier comparison
+
+![context](libs/Images/context.png)
+
+.foot-note[[Fundamentals of Data Visualization by Claus O. Wilke 
+](https://serialmentor.com/dataviz/)]
+---
+# 3. Is it **responsible**?
+
+- Is your graph type/model/presentation even appropriate? 
+
+- Misleading axes ranges or direction  
+
+- Masking data within summary statistics  
+
+- Does it include a measure of uncertainty (if applicable)?  
+
+---
+# Misleading axes ranges or direction
+
+- Reversing scale direction  
+- Manipulating scale increments or data to make differences seem larger/less than they are  
+- Cropping value scale to exaggerate differences   
+
+---
+# Reversing scale direction
+
+.center[
+![gun death](libs/Images/gun death.png)]
+
+.footnote[[https://viz.wtf/](https://viz.wtf/)]
+---
+# Manipulating scales
+
+.center[
+![Q growth](libs/Images/Q4growth.png)]
+
+.footnote[[https://viz.wtf/](https://viz.wtf/)]
+
+---
+
+# Manipulating scales
+
+.center[
+&lt;img src="https://64.media.tumblr.com/fe84cf0265eb2890800a9a34507b9fc2/tumblr_q6rmcbb7ph1sgh0voo1_1280.jpg", width="50%"/&gt;
+]
+
+.footnote[[https://viz.wtf/](https://viz.wtf/)]
+
+---
+# Show me the data
+Adding summary statistics, models, etc. is good - but try to also show me the *actual data*
+
+![violin](libs/Images/violin.png)
+
+---
+# Show me the data
+Adding summary statistics, models, etc. is good - but try to also show me the *actual data*
+
+![jitter 2](libs/Images/jitter2.png)
 
 ---
 class: center, middle
@@ -147,7 +389,10 @@ class: center, middle
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
 
-Some slides modified from Allison Horst, Jarret Byrnes
+Some slides modified from Allison Horst, Data Science Box
+
+[Allison Horst ESM 206](https://docs.google.com/presentation/d/1IlQlBbZo53C_NUl-A9MHxQZZiubiiyFKV_nf1hFwAeM/edit#slide=id.g9c1b4376f4_0_211)  
+[Data Science Box](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1)
 
 
     </textarea>
