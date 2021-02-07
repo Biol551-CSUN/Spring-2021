@@ -526,6 +526,45 @@ ggplot(data = [dataset],
 *geom_xx* means *geometry*
 
 ---
+
+# Data: Palmer Penguins
+### Measurements for penguin species, island in Palmer Archipelago, size (flipper length, body mass, bill dimensions), and sex.
+
+.pull-left[
+<img src="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/img/penguins.png", width="75%" />
+]
+
+```{r, eval=FALSE}
+install.packages("palmerpenguins")
+```
+
+```{r}
+library(palmerpenguins)
+glimpse(penguins)
+```
+
+
+---
+# We will make this plot
+
+<img src ="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2_files/figure-html/unnamed-chunk-6-1.png"/>
+
+---
+# Start with the .orange[penguin] dataframe
+
+.pull-left[
+```{r, plot-label5, eval=FALSE}
+`ggplot(data=penguins)`
+
+```
+]
+
+.pull-right[
+```{r plot-label5-out, ref.label="plot-label5", echo=FALSE}
+```
+]
+
+---
 # ggplot2 resources
 
 [data to viz](https://www.data-to-viz.com/#histogram)
