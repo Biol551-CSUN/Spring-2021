@@ -1,0 +1,152 @@
+---
+title: "Week 3a"
+subtitle: "Intro to plotting"
+author: "Dr. Nyssa Silbiger"
+institute: "CSUN Spring 2021"
+date: "(updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+<div style = "position:fixed; visibility: hidden">
+$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$
+$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$
+$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$
+</div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+</script>
+
+<style>
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+</style>
+
+
+```{r flair_color, echo=FALSE}
+library(flair)
+yellow <- "#FFCC29"
+orange <- "#F58634"
+green <- "#007965"
+```
+
+---
+# Outline of class
+
+1. Responsible plotting
+
+1. Intro to ggplot2
+
+
+  
+Lab 
+1. Make your first plot
+
+
+---
+# Review
+
+What are the 5 sections you should always have in your scripts?
+
+---
+
+# Why you should always look at your data
+
+We have to really understand our data to be able to decide on the appropriate analyses to answer our research questions. It can also lead to unexpected & interesting research questions. That requires first **looking** at your data, usually in a number of ways, to ask questions like: 
+
+--
+
+- Are there interesting patterns, groups, trends or relationships?  
+- How are observations distributed?  
+- Are there outliers?  
+- Is there notable bias in observations or missing observations?  
+
+--
+
+**When do I need to look at my data and think about it really hard before analyzing it?**  
+
+--
+
+***EVERY TIME***
+
+--
+
+**When can I just make assumptions about the data and some some regression or hypothesis testing or anything else without exploring it?**
+
+--
+
+***NEVER***
+
+---
+# Start exploring with visualizations that don't hide or assume anything about the data
+
+.center[
+<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/ggplot2_exploratory.png", width="50%"/>
+]
+
+---
+# For continuous (measured) observations you might start with:
+
+- Jitter plots (if logical groups exist)  
+- Beeswarm plots (ggbeeswarm)  
+- Scatterplots (2 variables, or map additional)  
+- More variables: map w/ colors, size?
+
+
+---
+# Jitter plots:   
+Show values of observations within a group, adding some amount of “jitter” so that they don’t all overlap 
+
+.pull-left[
+```{r, plot-label, eval=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+ggplot(chickwts, aes(x = feed, y = weight))+
+  geom_jitter(aes(color = feed),
+              alpha = 0.4,
+              width = 0.1,
+              height = 0,
+              size = 3,
+              show.legend = FALSE)+
+  scale_color_brewer(palette = "Dark2")+
+  theme_light()
+```
+]
+
+.pull-right[
+```{r plot-label-out, ref.label="plot-label", echo=FALSE}
+```
+]
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+Some slides modified from Allison Horst, Jarret Byrnes
+
+
