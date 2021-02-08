@@ -954,10 +954,127 @@ ggplot(data=penguins,
   geom_point(size = 2, alpha = 0.5) #<<
 ```
 ]
+
+---
+class: center, middle
+
+# Faceting
+
+---
+# Faceting
+
+- Smaller plots that display different subsets of the data
+- Useful for exploring conditional relationships and large data
+
+
+--
+## Note:
+In the next few slides I do not put proper titles, axis labels, etc. because I am focusing on faceting. However, remember to always label your plots!
+
+---
+
+
+```{r,warning=FALSE, fig.width= 6, fig.height=6}
+ggplot(penguins, 
+       aes(x = bill_depth_mm,
+           y = bill_length_mm))+
+  geom_point()+
+  facet_grid(species~sex) #<<
+# make multiple plots groups by species on the y (rows) and and sex on the x (columns) 
+```
+
+Notice there is a section labeled **NA** for sex. This is because there were some birds where they did not know the sex.  We will learn how to clean this up next week.
+
+---
+```{r,warning=FALSE, fig.width= 6, fig.height=6}
+ggplot(penguins, 
+       aes(x = bill_depth_mm,
+           y = bill_length_mm))+
+  geom_point()+
+  facet_grid(sex~species) #<<
+# make multiple plots groups by sex on the y (rows) and and species on the x (columns) 
+```
+
+---
+
+```{r, warning = FALSE}
+ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) + 
+  geom_point() +
+  facet_wrap(~ species) #<<
+```
+
+---
+
+```{r, warning = FALSE}
+ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) + 
+  geom_point() +
+  facet_wrap(~ species, ncol=2) # make it two columns #<<
+```
+---
+
+# Faceting summary
+
+- facet_grid():
+  - 2D grid
+  - rows ~ columns
+
+- facet_wrap(): 1d ribbon wrapped according to numbers of rows and columns specified or available plotting area
+
+---
+# Facet and color
+
+.pull-left[
+```{r, plot-label22, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species, #<<
+                )) +
+  geom_point()+
+  scale_color_viridis_d()+
+  facet_grid(species~sex)
+
+```
+]
+
+.pull-right[
+```{r plot-label22-out, ref.label="plot-label22", echo=FALSE, warning = FALSE}
+```
+]
+
+
+---
+# Facet and color, no legend
+
+.pull-left[
+```{r, plot-label23, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species, #<<
+                )) +
+  geom_point()+
+  scale_color_viridis_d()+
+  facet_grid(species~sex)+
+  guides(color = FALSE) #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label23-out, ref.label="plot-label23", echo=FALSE, warning = FALSE}
+```
+]
 ---
 # ggplot2 resources
 
-[data to viz](https://www.data-to-viz.com/#histogram)
+[Data to viz](https://www.data-to-viz.com/#histogram)  
+[ggplot2 cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)  
+[All the geoms](https://ggplot2.tidyverse.org/reference/)  
+[A master list of visuals](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)   
+[Practical ggplot](https://wilkelab.org/practicalgg/)   
+[R graph gallery](https://www.r-graph-gallery.com/)  
+
 
 ---
 class: center, middle
