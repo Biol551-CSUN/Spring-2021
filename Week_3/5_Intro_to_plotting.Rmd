@@ -256,7 +256,7 @@ Would you draw the same conclusions with each of these datasets?
 
 -- 
 
-- To many points, variables, or series
+- Too many points, variables, or series
 
 - Overwhelming legends
 
