@@ -171,8 +171,7 @@ Look up all the different methods
 ]
 
 ---
-# Add a best fit line
-### .orange[Make it a linear model]
+# Add a best fit line: .orange[Make it a linear model]
 
 .pull-left[
 ```{r, plot-labelc, eval=FALSE, warning=FALSE, message=FALSE}
@@ -199,8 +198,7 @@ There are 3 different species in this data, how do you think we should view the 
 
 
 ---
-# Add a best fit line
-### Make it a linear model. .orange[Group by species.]
+# Add a best fit line. Make it a linear model. .orange[Group by species.]
 
 .pull-left[
 ```{r, plot-labeld, eval=FALSE, warning=FALSE, message=FALSE}
@@ -226,8 +224,7 @@ ggplot(data=penguins,
 ]
 
 ---
-# Add a best fit line
-### Make it a linear model. Group by species. .orange[Add some colors by species.]
+# Add a best fit line. Make it a linear model. Group by species. .orange[Add some colors by species.]
 
 .pull-left[
 ```{r, plot-labele, eval=FALSE, warning=FALSE, message=FALSE}
@@ -307,8 +304,7 @@ scale_x_continuous()
 ```
 
 ---
-# Change scales
-### .orange[Change x scale limits (0,20).]
+# Change scales. .orange[Change x scale limits (0,20).]
 
 .pull-left[
 ```{r, plot-labelf, eval=FALSE, warning=FALSE, message=FALSE}
@@ -337,8 +333,7 @@ ggplot(data=penguins,
 ]
 
 ---
-# Change scales
-### Change x scale limits (0,20). .orange[Change y scale limits (0,50).]
+# Change scales. Change x scale limits (0,20). .orange[Change y scale limits (0,50).]  
 Obviously, this is a terrible figure.... but this is how you change the limits
 
 .pull-left[
@@ -369,8 +364,7 @@ ggplot(data=penguins,
 ]
 
 ---
-# Change scales
-### .orange[Change x breaks.]
+# Change scales: .orange[Change x breaks.]
 
 .pull-left[
 ```{r, plot-labelh, eval=FALSE, warning=FALSE, message=FALSE}
@@ -401,8 +395,7 @@ ggplot(data=penguins,
 
 ---
 
-# Change scales
-### Change x breaks. .orange[Change x break labels]
+# Change scales: Change x breaks. .orange[Change x break labels]
 
 .pull-left[
 ```{r, plot-labeli, eval=FALSE, warning=FALSE, message=FALSE}
@@ -433,8 +426,7 @@ ggplot(data=penguins,
 ]
 
 ---
-# Change scales
-### .orange[Manually change color scale.]
+# Change scales: .orange[Manually change color scale.]
 
 .pull-left[
 ```{r, plot-labelj, eval=FALSE, warning=FALSE, message=FALSE}
@@ -553,8 +545,7 @@ library(beyonce)
 ```
 
 ---
-# Change scales
-### .orange[Use one of the Beyonce color palettes.]
+# Change scales: .orange[Use one of the Beyonce color palettes.]
 
 .pull-left[
 ```{r, plot-labelk, eval=FALSE, warning=FALSE, message=FALSE}
@@ -582,8 +573,7 @@ ggplot(data=penguins,
 
 
 ---
-# Change scales
-### .orange[Use one of the Beyonce color palettes.]
+# Change scales: .orange[Use one of the Beyonce color palettes.]
 
 .pull-left[
 ```{r, plot-labell, eval=FALSE, warning=FALSE, message=FALSE}
@@ -631,8 +621,7 @@ Later when we learn how to make a map
 - coord_map()/coord_quickmap()/coord_sf(): Map projections.
 
 ---
-# Change coordinates
-### .orange[Flip the axes.]
+# Change coordinates: .orange[Flip the axes.]
 
 .pull-left[
 ```{r, plot-labelm, eval=FALSE, warning=FALSE, message=FALSE}
@@ -660,8 +649,7 @@ ggplot(data=penguins,
 ]
 
 ---
-# Change coordinates
-### .orange[Fix the axes.]
+# Change coordinates: .orange[Fix the axes.]
 
 .pull-left[
 ```{r, plot-labeln, eval=FALSE, warning=FALSE, message=FALSE}
