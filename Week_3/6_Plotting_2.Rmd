@@ -115,6 +115,7 @@ ggplot(data = [dataset],
 #### Load Libraries ######
 library(palmerpenguins)
 library(tidyverse)
+library(here)
 
 
 ### Load data ######
@@ -158,10 +159,10 @@ ggplot(data=penguins,
    labs(x = "Bill depth (mm)", 
         y = "Bill length (mm)"
         ) 
-
-# look up all the different methods
-?geom_smooth() 
 ```
+Look up all the different methods  
+?geom_smooth() 
+
 ]
 
 .pull-right[
@@ -608,20 +609,428 @@ ggplot(data=penguins,
 ```
 ]
 
+---
+# Coordinates
+
+The default coordinates for ggplot is *cartesian*, where the 2D position of an element is given by the x and y position in *aes()*.
+
+We can manipulate the coordinates system in a few different ways.
+
+We will run through the following examples
+
+- coord_flip(): Cartesian coordinate system with x and y axes flipped.
+
+- coord_fixed(): Cartesian coordinate system with a fixed aspect ratio.
+
+- coord_trans(): Apply arbitrary transformations to x and y positions, after the data has been processed by the stat.
+
+- coord_polar(): Polar coordinates.
+
+Later when we learn how to make a map  
+
+- coord_map()/coord_quickmap()/coord_sf(): Map projections.
+
+---
+# Change coordinates
+### .orange[Flip the axes.]
+
+.pull-left[
+```{r, plot-labelm, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(10)) +
+  coord_flip() # flip x and y axes #<<
+
+
+```
+
+]
+
+.pull-right[
+```{r plot-labelm-out, ref.label="plot-labelm", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Change coordinates
+### .orange[Fix the axes.]
+
+.pull-left[
+```{r, plot-labeln, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(10)) +
+  coord_fixed() # fix axes #<<
+
+
+```
+
+]
+
+.pull-right[
+```{r plot-labeln-out, ref.label="plot-labeln", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Change coordinates: .orange[Transform the x and y-axis (log10)]
+
+I am going to use a different example with exponential data so it shows more clearly
+
+.pull-left[
+```{r, fig.height=4}
+ggplot(diamonds, aes(carat, price)) +
+  geom_point() 
+```
+]
+
+.pull-right[
+```{r, fig.height=4}
+ggplot(diamonds, aes(carat, price)) +
+  geom_point() +
+  coord_trans(x = "log10", y = "log10")
+```
+]
+---
+# Change coordinates: .orange[make them polar]
+
+.pull-left[
+```{r, plot-labelo, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(10)) +
+  coord_polar("x") # make the polar #<<
+
+
+```
+
+]
+
+.pull-right[
+```{r plot-labelo-out, ref.label="plot-labelo", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+
+# Themes
+The theming system is composed of four main components:
+
+--
+
+- Theme **elements** specify the non-data elements that you can control. For example, the plot.title element controls the appearance of the plot title; axis.ticks.x, the ticks on the x axis; legend.key.height, the height of the keys in the legend.
+
+--
+
+- Each element is associated with an **element function**, which describes the visual properties of the element. For example, element_text() sets the font size, color and face of text elements like plot.title.
+
+--
+
+- The theme() function which allows you to override the default theme elements by calling element functions, like theme(plot.title = element_text(color = "red")). This will make the plot title red
+
+--
+
+- **Complete themes**, like theme_grey() set all of the theme elements to values designed to work together harmoniously. These are nicely packaged themes where you do not have to change much to make it look good.
+
+---
+# Complete themes
+
+![theme 1](libs/Images/theme1.PNG)
+
+[https://www.datanovia.com/en/blog/ggplot-themes-gallery/](https://www.datanovia.com/en/blog/ggplot-themes-gallery/)
+---
+# Complete themes
+
+![theme 2](libs/Images/theme2.PNG)
+
+[https://www.datanovia.com/en/blog/ggplot-themes-gallery/](https://www.datanovia.com/en/blog/ggplot-themes-gallery/)
+
+---
+# Change theme: .orange[Make it theme_classic()]
+
+.pull-left[
+```{r, plot-labelp, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(10)) +
+  theme_classic()  #<<
+
+```
+]
+
+.pull-right[
+```{r plot-labelp-out, ref.label="plot-labelp", echo=FALSE, warning = FALSE}
+```
+]
+---
+# Change theme: .orange[Make it theme_bw()]
+
+.pull-left[
+```{r, plot-labelq, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(10)) +
+  theme_bw()  #<<
+```
+]
+
+.pull-right[
+```{r plot-labelq-out, ref.label="plot-labelq", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Custom themes
+
+```{r, eval = FALSE}
+install.packages("ggthemes") # do this in the console
+
+# put the code below in the libraries section of your script
+library(ggthemes)
+```
+
+[See here for ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)
 
 
 ---
-# ggplot2 resources
+# Themes: You can customize your theme further
+#### .orange[Change the font size for the axis labels]
 
-[Data to viz](https://www.data-to-viz.com/#histogram)  
-[ggplot2 cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)  
-[All the geoms](https://ggplot2.tidyverse.org/reference/)  
-[A master list of visuals](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)   
-[Practical ggplot](https://wilkelab.org/practicalgg/)   
-[R graph gallery](https://www.r-graph-gallery.com/)  
+.pull-left[
+```{r, plot-labelr, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(10)) +
+  theme_bw() +
+  theme(axis.title = element_text(size = 20))#<<
+```
+]
 
---
-## More plotting fun and details on "Tidy Tuesday" next class.
+.pull-right[
+```{r plot-labelr-out, ref.label="plot-labelr", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Themes: You can customize your theme further
+#### Change the font size for the axis labels. .orange[Change the color of the axis labels.]
+
+.pull-left[
+```{r, plot-labels, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(10)) +
+  theme_bw() +
+  theme(axis.title = element_text(size = 20,
+                                  color = "red"))#<<
+```
+]
+
+.pull-right[
+```{r plot-labels-out, ref.label="plot-labels", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Themes: You can customize your theme further
+#### Change the font size for the axis labels. Change the color of the axis labels. .orange[Change the background color.]
+
+.pull-left[
+```{r, plot-labelt, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(10)) +
+  theme_bw() +
+  theme(axis.title = element_text(size = 20,
+                                  color = "red"),
+        panel.background = element_rect(fill = "linen"))#<<
+```
+]
+
+.pull-right[
+```{r plot-labelt-out, ref.label="plot-labelt", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+class: center, middle
+
+Type ?theme() to see all the different elements that you can change.
+
+Play around with your plot for ~ 2 minutes and change the theme in a way that you want.
+---
+# Save your plot
+.pull-left[
+```{r, plot-labelu, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(2)) +
+  theme_bw() +
+  theme(axis.title = element_text(size = 20),
+        panel.background = element_rect(fill = "linen")) +
+  ggsave(here("Week_3","output","penguin.png"))#<<
+```
+]
+
+.pull-right[
+```{r plot-labelu-out, ref.label="plot-labelu", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Save your plot: .orange[change the width and height]
+.pull-left[
+```{r, plot-labelw, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(2)) +
+  theme_bw() +
+  theme(axis.title = element_text(size = 20),
+        panel.background = element_rect(fill = "linen")) +
+  ggsave(here("Week_3","output","penguin.png"),
+         width = 7, height = 5) # in inches #<<
+```
+]
+
+.pull-right[
+```{r plot-labelw-out, ref.label="plot-labelw", echo=FALSE, warning = FALSE}
+```
+]
+---
+# Save your plot as an object
+This allows you to modify the plot further later.
+
+.pull-left[
+```{r, plot-labelv, eval=FALSE, warning=FALSE, message=FALSE}
+plot1<-ggplot(data=penguins, #<<
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(2)) +
+  theme_bw() +
+  theme(axis.title = element_text(size = 20),
+        panel.background = element_rect(fill = "linen")) 
+
+```
+]
+.pull-right[
+```{r warning = FALSE}
+
+plot1 # you need to type it out to view it now
+```
+]
+
+---
+# ggplot2 extensions
+
+.center[
+[There are over 80 ggplot2 extentions](https://exts.ggplot2.tidyverse.org/gallery/)  
+[Great resource for ggploting](https://ggplot2-book.org/index.html)
+]
+
+---
+# Lab/homework
+
+I will put you in breakout groups and your team will come up with the best possible plot with the penguin data that you can in **1 hour**.  
+
+- It CANNOT be the same plot that we just made. Look through the data and make a new visual.
+- Make something other than a scatter plot. Look at the other possible geoms from the resources I have given you over the past two classes.  
+- Your script must be formatted correctly (according to the lecture on transparent scripts).  
+- Comment your code appropriately
+- Push to github in the appropriate folders (you will only need a scripts and output folder for this week).  
+  ------------------------------------
+- In an hour you will show the class your plot and step us through your code.
+
+- **Due on github by Monday at 9am.**
+
+
+
 
 
 ---
@@ -631,9 +1040,6 @@ class: center, middle
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
 
-Some slides modified from Allison Horst, Data Science Box
-
-[Allison Horst ESM 206](https://docs.google.com/presentation/d/1IlQlBbZo53C_NUl-A9MHxQZZiubiiyFKV_nf1hFwAeM/edit#slide=id.g9c1b4376f4_0_211)  
-[Data Science Box](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1)
+Some slides modified from [ggplot2-book](https://ggplot2-book.org/polishing.html)
 
 
