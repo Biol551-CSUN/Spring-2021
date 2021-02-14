@@ -349,6 +349,377 @@ filter(.data = penguins,
 
 ---
 ![syntax](libs/images/syntax.PNG)
+
+---
+# mutate: add new columns
+
+.center[
+&lt;img src ="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_mutate.png", width=70%/&gt;
+]
+
+---
+# mutate
+
+![mutate](libs/images/mutate.PNG)
+
+---
+# mutate
+
+Add a new column converting body mass in g to kg and save the new dataframe
+
+
+```r
+data2&lt;-mutate(.data = penguins, 
+*      body_mass_kg = body_mass_g/1000)
+
+View(data2)
+```
+
+--
+
+### Change multiple columns at once
+
+```r
+data2&lt;-mutate(.data = penguins, 
+*      body_mass_kg = body_mass_g/1000,
+*      bill_length_depth = bill_length_mm/bill_depth_mm)
+
+# convert mass to kg 
+# calculate the ratio of bill length to depth
+
+View(data2)
+```
+
+---
+![ifelse](libs/images/ifelse.PNG)
+
+---
+# mutate with ifelse
+
+
+```r
+data2&lt;- mutate(.data = penguins,
+               after_2008 = ifelse(year&gt;2008, "After 2008", "Before 2008"))
+
+View(data2)
+```
+---
+# Think, pair, share
+
+1. Use mutate to create a new column to add flipper length and body mass together
+
+1. Use mutate and ifelse to create a new column where male and female are capitalized 
+
+---
+# What if you have multiple verbs that you want to do to the same dataframe?
+
+--
+
+.center[
+.orange[# The pipe  
+# %&gt;%]
+]
+
+## The "pipe" says "and then do"
+
+Dataframe %&gt;%  # select the dataframe **and then** 
+&gt; verb1() %&gt;%  # do verb 1 **and then** 
+
+&gt;verb2()      # do verb 2
+
+---
+# %&gt;%
+
+
+```r
+me %&gt;%
+  wake_up(time = "6:00") %&gt;%
+  music(turn = "on", to = "Beyonce") %&gt;%
+  shower(wash_hair = TRUE) %&gt;%
+  get_dressed(pants = TRUE, shirt = TRUE) %&gt;%
+  leave_house(car = TRUE)
+```
+
+---
+# %&gt;%
+
+Filter only female penguins and add a new column that calculates the log body mass  
+When you use %&gt;% the dataframe carries over so you don't need to write it out anymore
+
+
+
+```r
+penguins %&gt;% # use penguin dataframe
+  filter(sex == "female") %&gt;% #select females
+  mutate(log_mass = log(body_mass_g)) #calculate log biomass
+```
+
+```
+## # A tibble: 165 x 9
+##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g sex  
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
+##  1 Adelie  Torge~           39.5          17.4              186        3800 fema~
+##  2 Adelie  Torge~           40.3          18                195        3250 fema~
+##  3 Adelie  Torge~           36.7          19.3              193        3450 fema~
+##  4 Adelie  Torge~           38.9          17.8              181        3625 fema~
+##  5 Adelie  Torge~           41.1          17.6              182        3200 fema~
+##  6 Adelie  Torge~           36.6          17.8              185        3700 fema~
+##  7 Adelie  Torge~           38.7          19                195        3450 fema~
+##  8 Adelie  Torge~           34.4          18.4              184        3325 fema~
+##  9 Adelie  Biscoe           37.8          18.3              174        3400 fema~
+## 10 Adelie  Biscoe           35.9          19.2              189        3800 fema~
+## # ... with 155 more rows, and 2 more variables: year &lt;int&gt;, log_mass &lt;dbl&gt;
+```
+
+---
+# Select
+
+Use select() to select certain columns to remain in the dataframe
+
+
+```r
+penguins %&gt;% # use penguin dataframe
+  filter(sex == "female") %&gt;% #select females
+  mutate(log_mass = log(body_mass_g)) %&gt;% #calculate log biomass
+  select(species, island, sex, log_mass)
+```
+
+```
+## # A tibble: 165 x 4
+##    species island    sex    log_mass
+##    &lt;fct&gt;   &lt;fct&gt;     &lt;fct&gt;     &lt;dbl&gt;
+##  1 Adelie  Torgersen female     8.24
+##  2 Adelie  Torgersen female     8.09
+##  3 Adelie  Torgersen female     8.15
+##  4 Adelie  Torgersen female     8.20
+##  5 Adelie  Torgersen female     8.07
+##  6 Adelie  Torgersen female     8.22
+##  7 Adelie  Torgersen female     8.15
+##  8 Adelie  Torgersen female     8.11
+##  9 Adelie  Biscoe    female     8.13
+## 10 Adelie  Biscoe    female     8.24
+## # ... with 155 more rows
+```
+
+---
+# Select
+
+You can also use select() to rename columns.  
+Here, we are renaming species to have a capital S
+
+
+```r
+penguins %&gt;% # use penguin dataframe
+  filter(sex == "female") %&gt;% #select females
+  mutate(log_mass = log(body_mass_g)) %&gt;% #calculate log biomass
+  select(Species = species, island, sex, log_mass)
+```
+
+```
+## # A tibble: 165 x 4
+##    Species island    sex    log_mass
+##    &lt;fct&gt;   &lt;fct&gt;     &lt;fct&gt;     &lt;dbl&gt;
+##  1 Adelie  Torgersen female     8.24
+##  2 Adelie  Torgersen female     8.09
+##  3 Adelie  Torgersen female     8.15
+##  4 Adelie  Torgersen female     8.20
+##  5 Adelie  Torgersen female     8.07
+##  6 Adelie  Torgersen female     8.22
+##  7 Adelie  Torgersen female     8.15
+##  8 Adelie  Torgersen female     8.11
+##  9 Adelie  Biscoe    female     8.13
+## 10 Adelie  Biscoe    female     8.24
+## # ... with 155 more rows
+```
+---
+# Summarize 
+ Computer a table of summarized data  
+  Calculate the mean flipper length (and exclude any NAs)
+ 
+
+```r
+ penguins %&gt;% # 
+* summarise(mean_flipper = mean(flipper_length_mm, na.rm=TRUE))
+```
+
+```
+## # A tibble: 1 x 1
+##   mean_flipper
+##          &lt;dbl&gt;
+## 1         201.
+```
+
+--
+
+Calculate mean and mean flipper length
+ 
+
+```r
+ penguins %&gt;% # 
+* summarise(mean_flipper = mean(flipper_length_mm, na.rm=TRUE),
+*           min_flipper = min(flipper_length_mm, na.rm=TRUE))
+```
+
+```
+## # A tibble: 1 x 2
+##   mean_flipper min_flipper
+##          &lt;dbl&gt;       &lt;int&gt;
+## 1         201.         172
+```
+
+---
+# group_by
+You can summarize values by certain groups.  
+group_by() by itself doesn't do anything, but it is powerful when put before summarize.
+
+
+Let's calculate the mean and max bill length by island
+
+
+```r
+penguins %&gt;%
+* group_by(island) %&gt;%
+  summarise(mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
+            max_bill_length = max(bill_length_mm, na.rm=TRUE))
+```
+
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```
+## # A tibble: 3 x 3
+##   island    mean_bill_length max_bill_length
+##   &lt;fct&gt;                &lt;dbl&gt;           &lt;dbl&gt;
+## 1 Biscoe                45.3            59.6
+## 2 Dream                 44.2            58  
+## 3 Torgersen             39.0            46
+```
+
+---
+# group by
+
+Group by both island **and** sex
+
+
+```r
+penguins %&gt;%
+* group_by(island, sex) %&gt;%
+  summarise(mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
+            max_bill_length = max(bill_length_mm, na.rm=TRUE))
+```
+
+```
+## `summarise()` regrouping output by 'island' (override with `.groups` argument)
+```
+
+```
+## # A tibble: 9 x 4
+## # Groups:   island [3]
+##   island    sex    mean_bill_length max_bill_length
+##   &lt;fct&gt;     &lt;fct&gt;             &lt;dbl&gt;           &lt;dbl&gt;
+## 1 Biscoe    female             43.3            50.5
+## 2 Biscoe    male               47.1            59.6
+## 3 Biscoe    &lt;NA&gt;               45.6            47.3
+## 4 Dream     female             42.3            58  
+## 5 Dream     male               46.1            55.8
+## 6 Dream     &lt;NA&gt;               37.5            37.5
+## 7 Torgersen female             37.6            41.1
+## 8 Torgersen male               40.6            46  
+## 9 Torgersen &lt;NA&gt;               37.9            42
+```
+
+
+---
+# remove NAs
+
+drop_na() 
+  - drops rows with NAs from a specific column
+
+drop all the rows that are missing data on sex
+
+```r
+penguins %&gt;%
+* drop_na(sex)
+```
+
+```
+## # A tibble: 333 x 8
+##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g sex  
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
+##  1 Adelie  Torge~           39.1          18.7              181        3750 male 
+##  2 Adelie  Torge~           39.5          17.4              186        3800 fema~
+##  3 Adelie  Torge~           40.3          18                195        3250 fema~
+##  4 Adelie  Torge~           36.7          19.3              193        3450 fema~
+##  5 Adelie  Torge~           39.3          20.6              190        3650 male 
+##  6 Adelie  Torge~           38.9          17.8              181        3625 fema~
+##  7 Adelie  Torge~           39.2          19.6              195        4675 male 
+##  8 Adelie  Torge~           41.1          17.6              182        3200 fema~
+##  9 Adelie  Torge~           38.6          21.2              191        3800 male 
+## 10 Adelie  Torge~           34.6          21.1              198        4400 male 
+## # ... with 323 more rows, and 1 more variable: year &lt;int&gt;
+```
+---
+# remove NAs
+
+drop_na() 
+  - drops rows with NAs from a specific column
+
+drop all the rows that are missing data on sex
+calculate mean bill length by sex
+
+
+```r
+penguins %&gt;%
+  drop_na(sex) %&gt;%
+* group_by(island, sex) %&gt;%
+  summarise(mean_bill_length = mean(bill_length_mm, na.rm = TRUE))
+```
+
+```
+## `summarise()` regrouping output by 'island' (override with `.groups` argument)
+```
+
+```
+## # A tibble: 6 x 3
+## # Groups:   island [3]
+##   island    sex    mean_bill_length
+##   &lt;fct&gt;     &lt;fct&gt;             &lt;dbl&gt;
+## 1 Biscoe    female             43.3
+## 2 Biscoe    male               47.1
+## 3 Dream     female             42.3
+## 4 Dream     male               46.1
+## 5 Torgersen female             37.6
+## 6 Torgersen male               40.6
+```
+---
+# Pipe into a gpplot
+You can connect your *data wrangling* to a ggplot with the pipe (you won't need to call the dataframe in ggplot if you pipe to it).
+
+Drop NAs from sex, and then plot boxplots of flipper length by sex
+
+
+```r
+penguins %&gt;%
+  drop_na(sex) %&gt;%
+* ggplot(aes(x = sex, y = flipper_length_mm)) +
+  geom_boxplot()
+```
+
+![](7_dplyr_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+
+---
+# Breakout group
+
+Write a script that:
+
+1. calculates the mean and variance of body mass by species, island, and sex without any NAs
+
+1. filters out (i.e. excludes) male penguins, then calculates the log body mass, then selects only the columns for species, island, sex, and log body mass, then use these data to make any plot. Make sure the plot has clean and clear labels and follows best practices. Save the plot in the correct output folder.
+
+Include both part 1 and part 2 in your script and push it to github in the appropriate folders.
+
 ---
 class: center, middle
 

@@ -298,6 +298,238 @@ filter(.data = penguins,
 
 ---
 ![syntax](libs/images/syntax.PNG)
+
+---
+# mutate: add new columns
+
+.center[
+<img src ="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_mutate.png", width=70%/>
+]
+
+---
+# mutate
+
+![mutate](libs/images/mutate.PNG)
+
+---
+# mutate
+
+Add a new column converting body mass in g to kg and save the new dataframe
+
+```{r}
+data2<-mutate(.data = penguins, 
+       body_mass_kg = body_mass_g/1000) #<<
+
+View(data2)
+
+```
+
+--
+
+### Change multiple columns at once
+```{r}
+data2<-mutate(.data = penguins, 
+       body_mass_kg = body_mass_g/1000, #<<
+       bill_length_depth = bill_length_mm/bill_depth_mm) #<<
+
+# convert mass to kg 
+# calculate the ratio of bill length to depth
+
+View(data2)
+
+```
+
+---
+![ifelse](libs/images/ifelse.PNG)
+
+---
+# mutate with ifelse
+
+```{r}
+data2<- mutate(.data = penguins,
+               after_2008 = ifelse(year>2008, "After 2008", "Before 2008"))
+
+View(data2)
+```
+---
+# Think, pair, share
+
+1. Use mutate to create a new column to add flipper length and body mass together
+
+1. Use mutate and ifelse to create a new column where male and female are capitalized 
+
+---
+# What if you have multiple verbs that you want to do to the same dataframe?
+
+--
+
+.center[
+.orange[# The pipe  
+# %>%]
+]
+
+## The "pipe" says "and then do"
+
+Dataframe %>%  # select the dataframe **and then** 
+> verb1() %>%  # do verb 1 **and then** 
+
+>verb2()      # do verb 2
+
+---
+# %>%
+
+```{r, eval = FALSE}
+me %>%
+  wake_up(time = "6:00") %>%
+  music(turn = "on", to = "Beyonce") %>%
+  shower(wash_hair = TRUE) %>%
+  get_dressed(pants = TRUE, shirt = TRUE) %>%
+  leave_house(car = TRUE)
+
+```
+
+---
+# %>%
+
+Filter only female penguins and add a new column that calculates the log body mass  
+When you use %>% the dataframe carries over so you don't need to write it out anymore
+
+
+```{r}
+penguins %>% # use penguin dataframe
+  filter(sex == "female") %>% #select females
+  mutate(log_mass = log(body_mass_g)) #calculate log biomass
+
+```
+
+---
+# Select
+
+Use select() to select certain columns to remain in the dataframe
+
+```{r}
+penguins %>% # use penguin dataframe
+  filter(sex == "female") %>% #select females
+  mutate(log_mass = log(body_mass_g)) %>% #calculate log biomass
+  select(species, island, sex, log_mass)
+
+```
+
+---
+# Select
+
+You can also use select() to rename columns.  
+Here, we are renaming species to have a capital S
+
+```{r}
+penguins %>% # use penguin dataframe
+  filter(sex == "female") %>% #select females
+  mutate(log_mass = log(body_mass_g)) %>% #calculate log biomass
+  select(Species = species, island, sex, log_mass)
+
+```
+---
+# Summarize 
+ Computer a table of summarized data  
+  Calculate the mean flipper length (and exclude any NAs)
+ 
+```{r}
+ penguins %>% # 
+  summarise(mean_flipper = mean(flipper_length_mm, na.rm=TRUE)) #<<
+```
+
+--
+
+Calculate mean and mean flipper length
+ 
+```{r}
+ penguins %>% # 
+  summarise(mean_flipper = mean(flipper_length_mm, na.rm=TRUE), #<<
+            min_flipper = min(flipper_length_mm, na.rm=TRUE))   #<<
+```
+
+---
+# group_by
+You can summarize values by certain groups.  
+group_by() by itself doesn't do anything, but it is powerful when put before summarize.
+
+
+Let's calculate the mean and max bill length by island
+
+```{r}
+penguins %>%
+  group_by(island) %>% #<<
+  summarise(mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
+            max_bill_length = max(bill_length_mm, na.rm=TRUE))
+```
+
+---
+# group by
+
+Group by both island **and** sex
+
+```{r}
+penguins %>%
+  group_by(island, sex) %>% #<<
+  summarise(mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
+            max_bill_length = max(bill_length_mm, na.rm=TRUE))
+```
+
+
+---
+# remove NAs
+
+drop_na() 
+  - drops rows with NAs from a specific column
+
+drop all the rows that are missing data on sex
+```{r}
+penguins %>%
+  drop_na(sex) #<<
+
+```
+---
+# remove NAs
+
+drop_na() 
+  - drops rows with NAs from a specific column
+
+drop all the rows that are missing data on sex
+calculate mean bill length by sex
+
+```{r}
+penguins %>%
+  drop_na(sex) %>%
+  group_by(island, sex) %>% #<<
+  summarise(mean_bill_length = mean(bill_length_mm, na.rm = TRUE))
+
+```
+---
+# Pipe into a gpplot
+You can connect your *data wrangling* to a ggplot with the pipe (you won't need to call the dataframe in ggplot if you pipe to it).
+
+Drop NAs from sex, and then plot boxplots of flipper length by sex
+
+```{r, fig.height=4}
+penguins %>%
+  drop_na(sex) %>%
+  ggplot(aes(x = sex, y = flipper_length_mm)) + #<<
+  geom_boxplot()
+
+```
+
+
+---
+# Breakout group
+
+Write a script that:
+
+1. calculates the mean and variance of body mass by species, island, and sex without any NAs
+
+1. filters out (i.e. excludes) male penguins, then calculates the log body mass, then selects only the columns for species, island, sex, and log body mass, then use these data to make any plot. Make sure the plot has clean and clear labels and follows best practices. Save the plot in the correct output folder.
+
+Include both part 1 and part 2 in your script and push it to github in the appropriate folders.
+
 ---
 class: center, middle
 
