@@ -64,6 +64,8 @@ green <- "#007965"
 Lab 
 1. Practice with dplyr
 
+[dplyr cheat sheet.](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf) Download this now to use as a resource.
+
 
 ---
 # Review
@@ -338,6 +340,12 @@ data2<-mutate(.data = penguins,
 View(data2)
 
 ```
+---
+## Mutating multiple columns at once based on some criteron (i.e. mutate all the numeric columns in one line)?
+
+On your own, look up *mutate_if()*, *mutate_at()*, *mutate_all()*
+
+[Some examples here](https://dplyr.tidyverse.org/reference/mutate_all.html)
 
 ---
 ![ifelse](libs/images/ifelse.PNG)
@@ -351,6 +359,9 @@ data2<- mutate(.data = penguins,
 
 View(data2)
 ```
+
+
+
 ---
 # Think, pair, share
 
