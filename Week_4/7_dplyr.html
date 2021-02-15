@@ -104,14 +104,14 @@ glimpse(penguins)
 ```
 ## Rows: 344
 ## Columns: 8
-## $ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel...
-## $ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse...
-## $ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, ...
-## $ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, ...
-## $ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186...
-## $ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, ...
-## $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male...
-## $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007...
+## $ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, A...
+## $ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torge...
+## $ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34....
+## $ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18....
+## $ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, ...
+## $ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 347...
+## $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, m...
+## $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2...
 ```
 
 ---
@@ -172,19 +172,19 @@ filter(.data = penguins, sex == "female" )
 
 ```
 ## # A tibble: 165 x 8
-##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g sex  
-##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
-##  1 Adelie  Torge~           39.5          17.4              186        3800 fema~
-##  2 Adelie  Torge~           40.3          18                195        3250 fema~
-##  3 Adelie  Torge~           36.7          19.3              193        3450 fema~
-##  4 Adelie  Torge~           38.9          17.8              181        3625 fema~
-##  5 Adelie  Torge~           41.1          17.6              182        3200 fema~
-##  6 Adelie  Torge~           36.6          17.8              185        3700 fema~
-##  7 Adelie  Torge~           38.7          19                195        3450 fema~
-##  8 Adelie  Torge~           34.4          18.4              184        3325 fema~
-##  9 Adelie  Biscoe           37.8          18.3              174        3400 fema~
-## 10 Adelie  Biscoe           35.9          19.2              189        3800 fema~
-## # ... with 155 more rows, and 1 more variable: year &lt;int&gt;
+##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torge~           39.5          17.4              186        3800
+##  2 Adelie  Torge~           40.3          18                195        3250
+##  3 Adelie  Torge~           36.7          19.3              193        3450
+##  4 Adelie  Torge~           38.9          17.8              181        3625
+##  5 Adelie  Torge~           41.1          17.6              182        3200
+##  6 Adelie  Torge~           36.6          17.8              185        3700
+##  7 Adelie  Torge~           38.7          19                195        3450
+##  8 Adelie  Torge~           34.4          18.4              184        3325
+##  9 Adelie  Biscoe           37.8          18.3              174        3400
+## 10 Adelie  Biscoe           35.9          19.2              189        3800
+## # ... with 155 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
 ```
 
 ---
@@ -266,19 +266,19 @@ filter(.data = penguins, sex == "female", body_mass_g &gt;4000)
 
 ```
 ## # A tibble: 58 x 8
-##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g sex  
-##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
-##  1 Gentoo  Biscoe           46.1          13.2              211        4500 fema~
-##  2 Gentoo  Biscoe           48.7          14.1              210        4450 fema~
-##  3 Gentoo  Biscoe           46.5          13.5              210        4550 fema~
-##  4 Gentoo  Biscoe           45.4          14.6              211        4800 fema~
-##  5 Gentoo  Biscoe           43.3          13.4              209        4400 fema~
-##  6 Gentoo  Biscoe           40.9          13.7              214        4650 fema~
-##  7 Gentoo  Biscoe           45.5          13.7              214        4650 fema~
-##  8 Gentoo  Biscoe           45.8          14.6              210        4200 fema~
-##  9 Gentoo  Biscoe           42            13.5              210        4150 fema~
-## 10 Gentoo  Biscoe           46.2          14.5              209        4800 fema~
-## # ... with 48 more rows, and 1 more variable: year &lt;int&gt;
+##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Gentoo  Biscoe           46.1          13.2              211        4500
+##  2 Gentoo  Biscoe           48.7          14.1              210        4450
+##  3 Gentoo  Biscoe           46.5          13.5              210        4550
+##  4 Gentoo  Biscoe           45.4          14.6              211        4800
+##  5 Gentoo  Biscoe           43.3          13.4              209        4400
+##  6 Gentoo  Biscoe           40.9          13.7              214        4650
+##  7 Gentoo  Biscoe           45.5          13.7              214        4650
+##  8 Gentoo  Biscoe           45.8          14.6              210        4200
+##  9 Gentoo  Biscoe           42            13.5              210        4150
+## 10 Gentoo  Biscoe           46.2          14.5              209        4800
+## # ... with 48 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
 ```
 
 ---
@@ -456,19 +456,20 @@ penguins %&gt;% # use penguin dataframe
 
 ```
 ## # A tibble: 165 x 9
-##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g sex  
-##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
-##  1 Adelie  Torge~           39.5          17.4              186        3800 fema~
-##  2 Adelie  Torge~           40.3          18                195        3250 fema~
-##  3 Adelie  Torge~           36.7          19.3              193        3450 fema~
-##  4 Adelie  Torge~           38.9          17.8              181        3625 fema~
-##  5 Adelie  Torge~           41.1          17.6              182        3200 fema~
-##  6 Adelie  Torge~           36.6          17.8              185        3700 fema~
-##  7 Adelie  Torge~           38.7          19                195        3450 fema~
-##  8 Adelie  Torge~           34.4          18.4              184        3325 fema~
-##  9 Adelie  Biscoe           37.8          18.3              174        3400 fema~
-## 10 Adelie  Biscoe           35.9          19.2              189        3800 fema~
-## # ... with 155 more rows, and 2 more variables: year &lt;int&gt;, log_mass &lt;dbl&gt;
+##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torge~           39.5          17.4              186        3800
+##  2 Adelie  Torge~           40.3          18                195        3250
+##  3 Adelie  Torge~           36.7          19.3              193        3450
+##  4 Adelie  Torge~           38.9          17.8              181        3625
+##  5 Adelie  Torge~           41.1          17.6              182        3200
+##  6 Adelie  Torge~           36.6          17.8              185        3700
+##  7 Adelie  Torge~           38.7          19                195        3450
+##  8 Adelie  Torge~           34.4          18.4              184        3325
+##  9 Adelie  Biscoe           37.8          18.3              174        3400
+## 10 Adelie  Biscoe           35.9          19.2              189        3800
+## # ... with 155 more rows, and 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;,
+## #   log_mass &lt;dbl&gt;
 ```
 
 ---
@@ -645,19 +646,19 @@ penguins %&gt;%
 
 ```
 ## # A tibble: 333 x 8
-##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g sex  
-##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
-##  1 Adelie  Torge~           39.1          18.7              181        3750 male 
-##  2 Adelie  Torge~           39.5          17.4              186        3800 fema~
-##  3 Adelie  Torge~           40.3          18                195        3250 fema~
-##  4 Adelie  Torge~           36.7          19.3              193        3450 fema~
-##  5 Adelie  Torge~           39.3          20.6              190        3650 male 
-##  6 Adelie  Torge~           38.9          17.8              181        3625 fema~
-##  7 Adelie  Torge~           39.2          19.6              195        4675 male 
-##  8 Adelie  Torge~           41.1          17.6              182        3200 fema~
-##  9 Adelie  Torge~           38.6          21.2              191        3800 male 
-## 10 Adelie  Torge~           34.6          21.1              198        4400 male 
-## # ... with 323 more rows, and 1 more variable: year &lt;int&gt;
+##    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torge~           39.1          18.7              181        3750
+##  2 Adelie  Torge~           39.5          17.4              186        3800
+##  3 Adelie  Torge~           40.3          18                195        3250
+##  4 Adelie  Torge~           36.7          19.3              193        3450
+##  5 Adelie  Torge~           39.3          20.6              190        3650
+##  6 Adelie  Torge~           38.9          17.8              181        3625
+##  7 Adelie  Torge~           39.2          19.6              195        4675
+##  8 Adelie  Torge~           41.1          17.6              182        3200
+##  9 Adelie  Torge~           38.6          21.2              191        3800
+## 10 Adelie  Torge~           34.6          21.1              198        4400
+## # ... with 323 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
 ```
 ---
 # remove NAs
@@ -693,7 +694,7 @@ penguins %&gt;%
 ## 6 Torgersen male               40.6
 ```
 ---
-# Pipe into a gpplot
+# Pipe into a ggplot
 You can connect your *data wrangling* to a ggplot with the pipe (you won't need to call the dataframe in ggplot if you pipe to it).
 
 Drop NAs from sex, and then plot boxplots of flipper length by sex
@@ -708,6 +709,24 @@ penguins %&gt;%
 
 ![](7_dplyr_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 
+---
+# Before homeworks... ridiculous R package of the day
+
+
+```r
+library(devtools) # load the development tools library
+install_github("jhollist/dadjoke")
+```
+
+
+```r
+library(dadjoke)
+groan()
+```
+
+```
+## Astronomers got tired watching the moon go around the earth for 24 hours. They decided to call it a day.
+```
 
 ---
 # Breakout group

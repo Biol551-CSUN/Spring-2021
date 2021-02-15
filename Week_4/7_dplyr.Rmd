@@ -505,7 +505,7 @@ penguins %>%
 
 ```
 ---
-# Pipe into a gpplot
+# Pipe into a ggplot
 You can connect your *data wrangling* to a ggplot with the pipe (you won't need to call the dataframe in ggplot if you pipe to it).
 
 Drop NAs from sex, and then plot boxplots of flipper length by sex
@@ -518,6 +518,18 @@ penguins %>%
 
 ```
 
+---
+# Before homeworks... ridiculous R package of the day
+
+```{r, eval=FALSE}
+library(devtools) # load the development tools library
+install_github("jhollist/dadjoke")
+```
+
+```{r}
+library(dadjoke)
+groan()
+```
 
 ---
 # Breakout group
