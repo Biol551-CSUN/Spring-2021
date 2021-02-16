@@ -4,7 +4,7 @@ Zone,Zone for submarine groundwater based on Nelson et al. 2015,
 Lat,Latitude,Decimal Degrees
 Long,Longitude,Decimal Degrees
 Site,Site Name,
-Tide,Low of high tide (1 or 2 is the first or second one of the day),
+Tide_time,Low of high tide and Day or Night,
 Season,Season of the year,
 Temp_in,Temperature in situ,C
 Salinity,Salinity,
@@ -14,4 +14,3 @@ NN,Nitrate+nitrite,umol/L
 pH,pH,
 TA,Total alkalinity,umol/Kg
 percent_sgd,Relative amount of submarine groundwater discharge in the water,%
-Day_Night,Day or Night,

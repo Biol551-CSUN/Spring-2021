@@ -58,8 +58,8 @@ green <- "#007965"
 # Outline of class
 
 1. Intro to {tidyr}
- - pivot data between long and wide formats
- - Separate and unite columns
+  - Separate and unite columns
+  - Pivot data between long and wide formats
 
 Lab 
 1. Practice with tidyr
@@ -126,6 +126,112 @@ ChemData_clean<-ChemData %>%
 View(ChemData_clean)  
 
 ```
+
+---
+# Separate function
+
+We notice a silly column named Tide_time, which has tide (low/high) paired with time of day (day/night).  
+
+Nyssa did NOT follow directions for tidy data from the first week of class... Now we have to fix it.
+
+.center[
+<img src ="https://media.tenor.com/images/6a3223dda90636415530c9521d4a5a2a/tenor.gif"/>
+]
+
+---
+# Separate function
+
+Notice that I have two bits of information: Low_Day is low tide during the day.  It would be way easier to plot and analyze the data if we separate those into separate columns.
+
+hit ?separate to see all the things you can do, but the simplest use is:  
+
+separate(  
+  data = [data frame you are using],  
+  col = [column that you want to separate],  
+  into = [name of the new columns],  
+  sep = [what are you separating by?])  
+
+---
+# Separate
+
+Let's continue to build off our data frame
+```{r}
+ChemData_clean<-ChemData %>%
+  filter(complete.cases(.)) %>% #filters out everything that is not a complete row
+  separate(col = Tide_time, # choose the tide time col #<<
+           into = c("Tide","Time"), # separate it into two columns Tide and time #<<
+           sep = "_" ) # separate by _ #<<
+
+head(ChemData_clean)  
+
+```
+
+---
+# Separate
+
+Notice this deletes the original column.  If we wanted to keep it we would add *remove = FALSE*.
+
+---
+# Separate
+
+Let's continue to build off our data frame
+```{r}
+ChemData_clean<-ChemData %>%
+  filter(complete.cases(.)) %>% #filters out everything that is not a complete row
+  separate(col = Tide_time, # choose the tide time col
+           into = c("Tide","Time"), # separate it into two columns Tide and time
+           sep = "_", # separate by _
+           remove = FALSE) # keep the original tide_time column #<<
+
+head(ChemData_clean)  
+
+```
+
+Notice this deletes the original column.  If we wanted to keep it we would add *remove = FALSE*.
+
+---
+# Unite
+What if we have the opposite problem and what to *unite* two columns into one? 
+
+Let's say we want a new column that *unites* site with zone.  We use the unite() function which has the same arguments as separate() 
+
+--
+
+```{r}
+ChemData_clean<-ChemData %>%
+  filter(complete.cases(.)) %>% #filters out everything that is not a complete row
+  separate(col = Tide_time, # choose the tide time col
+           into = c("Tide","Time"), # separate it into two columns Tide and time
+           sep = "_", # separate by _
+           remove = FALSE) %>% # keep the original tide_time column
+  unite(col = "Site_Zone", # the name of the NEW col #<<
+         c(Site,Zone), # the columns to unite #<<
+        sep = ".", # lets put a . in the middle #<<
+        remove = FALSE) # keep the original #<<
+
+head(ChemData_clean)
+```
+
+
+---
+# Today's totally awesome R package
+
+### Put a Bernie on it
+
+
+```{r, eval=FALSE, message = FALSE}
+#devtools::install_github("R-CoderDotCom/ggbernie@main")
+
+```
+
+```{r, message=FALSE, warning=FALSE, fig.height=4, fig.width=5}
+library(ggbernie)
+
+ggplot(ChemData_clean) +
+  geom_bernie(aes(x = pH, y = NN), bernie = "sitting")
+```
+
+
 
 ---
 class: center, middle

@@ -56,8 +56,8 @@ MathJax.Hub.Config({
 # Outline of class
 
 1. Intro to {tidyr}
- - pivot data between long and wide formats
- - Separate and unite columns
+  - Separate and unite columns
+  - Pivot data between long and wide formats
 
 Lab 
 1. Practice with tidyr
@@ -115,14 +115,14 @@ glimpse(ChemData)
 
 ```
 ## Rows: 355
-## Columns: 16
+## Columns: 15
 ## $ Waypoint    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 41, ...
 ## $ Zone        &lt;chr&gt; "Transition", "Transition", "Transition", "Transition", "Diffuse", "Diffuse...
 ## $ Lat         &lt;dbl&gt; 21.27531, 21.27523, 21.27504, 21.27449, 21.27503, 21.27485, 21.27463, 21.27...
 ## $ Long        &lt;dbl&gt; -157.7618, -157.7627, -157.7633, -157.7640, -157.7617, -157.7623, -157.7632...
 ## $ Site        &lt;chr&gt; "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", ...
-## $ Tide        &lt;chr&gt; "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1...
 ## $ Season      &lt;chr&gt; "SPRING", "SPRING", "SPRING", "SPRING", "SPRING", "SPRING", "SPRING", "SPRI...
+## $ Tide_time   &lt;chr&gt; "Low_Day", "Low_Day", "Low_Day", "Low_Day", "Low_Day", "Low_Day", "Low_Day"...
 ## $ Temp_in     &lt;dbl&gt; 23.75506, 23.53256, 22.63450, 24.01982, 23.26102, 24.00517, 23.72550, 24.08...
 ## $ Salinity    &lt;dbl&gt; 27.74029, 30.61192, 28.37008, 32.82124, 29.12293, 34.02018, 32.20640, 33.66...
 ## $ Phosphate   &lt;dbl&gt; 0.54, 0.36, 0.50, 0.25, 0.50, 0.13, 0.28, 0.15, 0.23, 0.11, 0.11, 0.13, 0.0...
@@ -131,7 +131,6 @@ glimpse(ChemData)
 ## $ pH          &lt;dbl&gt; 7.909, 7.965, 8.023, 7.995, 8.005, 8.019, 8.003, 7.978, 7.972, 7.959, 7.953...
 ## $ TA          &lt;dbl&gt; 2161.482, 2145.828, 2272.391, 2219.583, 2151.826, 2216.758, 2220.336, 2266....
 ## $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397933, 1.9431525, 7.275...
-## $ Day_Night   &lt;chr&gt; "Day", "Day", "Day", "Day", "Day", "Day", "Day", "Day", "Day", "Day", "Day"...
 ```
 ---
 # Another way to remove all the NAs
@@ -145,6 +144,155 @@ ChemData_clean&lt;-ChemData %&gt;%
 
 View(ChemData_clean)  
 ```
+
+---
+# Separate function
+
+We notice a silly column named Tide_time, which has tide (low/high) paired with time of day (day/night).  
+
+Nyssa did NOT follow directions for tidy data from the first week of class... Now we have to fix it.
+
+.center[
+&lt;img src ="https://media.tenor.com/images/6a3223dda90636415530c9521d4a5a2a/tenor.gif"/&gt;
+]
+
+---
+# Separate function
+
+Notice that I have two bits of information: Low_Day is low tide during the day.  It would be way easier to plot and analyze the data if we separate those into separate columns.
+
+hit ?separate to see all the things you can do, but the simplest use is:  
+
+separate(  
+  data = [data frame you are using],  
+  col = [column that you want to separate],  
+  into = [name of the new columns],  
+  sep = [what are you separating by?])  
+
+---
+# Separate
+
+Let's continue to build off our data frame
+
+```r
+ChemData_clean&lt;-ChemData %&gt;%
+  filter(complete.cases(.)) %&gt;% #filters out everything that is not a complete row
+* separate(col = Tide_time, # choose the tide time col
+*          into = c("Tide","Time"), # separate it into two columns Tide and time
+*          sep = "_" ) # separate by _
+
+head(ChemData_clean)  
+```
+
+```
+## # A tibble: 6 x 16
+##   Waypoint Zone    Lat  Long Site  Season Tide  Time  Temp_in Salinity Phosphate Silicate    NN
+##      &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1        1 Tran~  21.3 -158. W     SPRING Low   Day      23.8     27.7      0.54    158.   7.92
+## 2        2 Tran~  21.3 -158. W     SPRING Low   Day      23.5     30.6      0.36     92.6  3.37
+## 3        3 Tran~  21.3 -158. W     SPRING Low   Day      22.6     28.4      0.5     144.   7.29
+## 4        4 Tran~  21.3 -158. W     SPRING Low   Day      24.0     32.8      0.25     42.3  0.79
+## 5        5 Diff~  21.3 -158. W     SPRING Low   Day      23.3     29.1      0.5     126.   7.45
+## 6        6 Diff~  21.3 -158. W     SPRING Low   Day      24.0     34.0      0.13     15.0  0.46
+## # ... with 3 more variables: pH &lt;dbl&gt;, TA &lt;dbl&gt;, percent_sgd &lt;dbl&gt;
+```
+
+---
+# Separate
+
+Notice this deletes the original column.  If we wanted to keep it we would add *remove = FALSE*.
+
+---
+# Separate
+
+Let's continue to build off our data frame
+
+```r
+ChemData_clean&lt;-ChemData %&gt;%
+  filter(complete.cases(.)) %&gt;% #filters out everything that is not a complete row
+  separate(col = Tide_time, # choose the tide time col
+           into = c("Tide","Time"), # separate it into two columns Tide and time
+           sep = "_", # separate by _
+*          remove = FALSE) # keep the original tide_time column
+
+head(ChemData_clean)  
+```
+
+```
+## # A tibble: 6 x 17
+##   Waypoint Zone    Lat  Long Site  Season Tide_time Tide  Time  Temp_in Salinity Phosphate Silicate
+##      &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1        1 Tran~  21.3 -158. W     SPRING Low_Day   Low   Day      23.8     27.7      0.54    158. 
+## 2        2 Tran~  21.3 -158. W     SPRING Low_Day   Low   Day      23.5     30.6      0.36     92.6
+## 3        3 Tran~  21.3 -158. W     SPRING Low_Day   Low   Day      22.6     28.4      0.5     144. 
+## 4        4 Tran~  21.3 -158. W     SPRING Low_Day   Low   Day      24.0     32.8      0.25     42.3
+## 5        5 Diff~  21.3 -158. W     SPRING Low_Day   Low   Day      23.3     29.1      0.5     126. 
+## 6        6 Diff~  21.3 -158. W     SPRING Low_Day   Low   Day      24.0     34.0      0.13     15.0
+## # ... with 4 more variables: NN &lt;dbl&gt;, pH &lt;dbl&gt;, TA &lt;dbl&gt;, percent_sgd &lt;dbl&gt;
+```
+
+Notice this deletes the original column.  If we wanted to keep it we would add *remove = FALSE*.
+
+---
+# Unite
+What if we have the opposite problem and what to *unite* two columns into one? 
+
+Let's say we want a new column that *unites* site with zone.  We use the unite() function which has the same arguments as separate() 
+
+--
+
+
+```r
+ChemData_clean&lt;-ChemData %&gt;%
+  filter(complete.cases(.)) %&gt;% #filters out everything that is not a complete row
+  separate(col = Tide_time, # choose the tide time col
+           into = c("Tide","Time"), # separate it into two columns Tide and time
+           sep = "_", # separate by _
+           remove = FALSE) %&gt;% # keep the original tide_time column
+* unite(col = "Site_Zone", # the name of the NEW col
+*        c(Site,Zone), # the columns to unite
+*       sep = ".", # lets put a . in the middle
+*       remove = FALSE) # keep the original
+
+head(ChemData_clean)
+```
+
+```
+## # A tibble: 6 x 18
+##   Waypoint Site_Zone Zone    Lat  Long Site  Season Tide_time Tide  Time  Temp_in Salinity Phosphate
+##      &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1        1 W.Transi~ Tran~  21.3 -158. W     SPRING Low_Day   Low   Day      23.8     27.7      0.54
+## 2        2 W.Transi~ Tran~  21.3 -158. W     SPRING Low_Day   Low   Day      23.5     30.6      0.36
+## 3        3 W.Transi~ Tran~  21.3 -158. W     SPRING Low_Day   Low   Day      22.6     28.4      0.5 
+## 4        4 W.Transi~ Tran~  21.3 -158. W     SPRING Low_Day   Low   Day      24.0     32.8      0.25
+## 5        5 W.Diffuse Diff~  21.3 -158. W     SPRING Low_Day   Low   Day      23.3     29.1      0.5 
+## 6        6 W.Diffuse Diff~  21.3 -158. W     SPRING Low_Day   Low   Day      24.0     34.0      0.13
+## # ... with 5 more variables: Silicate &lt;dbl&gt;, NN &lt;dbl&gt;, pH &lt;dbl&gt;, TA &lt;dbl&gt;, percent_sgd &lt;dbl&gt;
+```
+
+
+---
+# Today's totally awesome R package
+
+### Put a Bernie on it
+
+
+
+```r
+#devtools::install_github("R-CoderDotCom/ggbernie@main")
+```
+
+
+```r
+library(ggbernie)
+
+ggplot(ChemData_clean) +
+  geom_bernie(aes(x = pH, y = NN), bernie = "sitting")
+```
+
+![](8_tidyr_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+
 
 ---
 class: center, middle
