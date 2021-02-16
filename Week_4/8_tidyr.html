@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 4b</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Nyssa Silbiger" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 4b
+## Data wrangling: tidyr
+### Dr. Nyssa Silbiger
+### CSUN Spring 2021
+### (updated: 2021-02-15)
+
+---
+
+
+
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+`$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$`
+`$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$`
+`$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$`
+&lt;/div&gt;
+
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+&lt;/script&gt;
+
+&lt;style&gt;
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+&lt;/style&gt;
+
+
+
+
+---
+# Outline of class
+
+1. Intro to {tidyr}
+ - pivot data between long and wide formats
+ - Separate and unite columns
+
+Lab 
+1. Practice with tidyr
+
+
+
+---
+# Review
+
+1. What function do you use to subset rows by some criterion?  
+
+1. How do I add a new column to my dataframe?
+---
+# Intro to the {tidyr} package (part of the TidyVerse)
+
+.center[
+&lt;img src = "https://robotwealth.com/wp-content/uploads/2020/05/tidyr.png", width=50% /&gt;
+]
+
+---
+# New dataset!
+
+We are going to use a subset of data from Silbiger et al. 2020 Proceedings of the Royal Society: B.
+
+In the data folder for this week in Spring-2021, you will see two .csv files:
+
+1. chemicaldata_manualua.csv
+1. chem_data_dictionary.csv
+
+Move both of them to the data folder of YOUR repo.
+
+Explore the data dictionary to understand what you will be working with.
+
+Basics: I collected biogeochemistry data at sites in Hawai'i with submarine groundwater discharge (fresh groundwater that flows into coastal oceans through cracks in the reef plate). We have data on nutrient and carbonate chemistry from two sites, two seasons, high and low tide, and during the day and night.
+
+---
+# Set up your script for today
+
+```r
+### Today we are going to practice tidy with biogeochemistry data from Hawaii ####
+### Created by: Dr. Nyssa Silbiger #############
+### Updated on: 2021-02-17 ####################
+
+
+#### Load Libraries ######
+library(tidyverse)
+library(here)
+
+
+### Load data ######
+ChemData&lt;-read_csv(here("Week_4","data", "chemicaldata_maunalua.csv"))
+View(ChemData)
+glimpse(ChemData)
+```
+
+```
+## Rows: 355
+## Columns: 16
+## $ Waypoint    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 41, ...
+## $ Zone        &lt;chr&gt; "Transition", "Transition", "Transition", "Transition", "Diffuse", "Diffuse...
+## $ Lat         &lt;dbl&gt; 21.27531, 21.27523, 21.27504, 21.27449, 21.27503, 21.27485, 21.27463, 21.27...
+## $ Long        &lt;dbl&gt; -157.7618, -157.7627, -157.7633, -157.7640, -157.7617, -157.7623, -157.7632...
+## $ Site        &lt;chr&gt; "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", ...
+## $ Tide        &lt;chr&gt; "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1", "L1...
+## $ Season      &lt;chr&gt; "SPRING", "SPRING", "SPRING", "SPRING", "SPRING", "SPRING", "SPRING", "SPRI...
+## $ Temp_in     &lt;dbl&gt; 23.75506, 23.53256, 22.63450, 24.01982, 23.26102, 24.00517, 23.72550, 24.08...
+## $ Salinity    &lt;dbl&gt; 27.74029, 30.61192, 28.37008, 32.82124, 29.12293, 34.02018, 32.20640, 33.66...
+## $ Phosphate   &lt;dbl&gt; 0.54, 0.36, 0.50, 0.25, 0.50, 0.13, 0.28, 0.15, 0.23, 0.11, 0.11, 0.13, 0.0...
+## $ Silicate    &lt;dbl&gt; 157.93, 92.59, 143.60, 42.32, 126.47, 15.04, 56.31, 23.10, 45.88, 7.59, 10....
+## $ NN          &lt;dbl&gt; 7.92, 3.37, 7.29, 0.79, 7.45, 0.46, 1.59, 0.34, 1.91, 0.25, 0.26, 0.36, 0.2...
+## $ pH          &lt;dbl&gt; 7.909, 7.965, 8.023, 7.995, 8.005, 8.019, 8.003, 7.978, 7.972, 7.959, 7.953...
+## $ TA          &lt;dbl&gt; 2161.482, 2145.828, 2272.391, 2219.583, 2151.826, 2216.758, 2220.336, 2266....
+## $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397933, 1.9431525, 7.275...
+## $ Day_Night   &lt;chr&gt; "Day", "Day", "Day", "Day", "Day", "Day", "Day", "Day", "Day", "Day", "Day"...
+```
+---
+# Another way to remove all the NAs
+
+There are several ways we can remove all the NAs in a data set
+
+
+```r
+ChemData_clean&lt;-ChemData %&gt;%
+  filter(complete.cases(.)) #filters out everything that is not a complete row
+
+View(ChemData_clean)  
+```
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+Some slides modified from [Andrew Wheiss ](https://evalsp21.classes.andrewheiss.com/projects/01_lab/slides/01_lab.html#73)
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightSpans": true,
+"countIncrementalSlides": false,
+"ratio": "15:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
