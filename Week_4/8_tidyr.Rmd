@@ -509,6 +509,11 @@ library(ggbernie)
 ggplot(ChemData) +
   geom_bernie(aes(x = Salinity, y = NN), bernie = "sitting")
 ```
+---
+class: center, middle
+
+# Update on final independent project.
+See rubric under "Syllabus_and_Schedule" folder.
 
 ---
 # Lab
