@@ -63,9 +63,13 @@ green <- "#007965"
 
 1. Export csv with summary statistics
 
+1. Overview of final independent project
+
 Lab 
 1. Practice with tidyr
 
+
+Reminder: Don't forget to send me your Tidy Tuesday Repo and don't forget to start doing them. You need to do 8 (there are 10 weeks left). 
 
 
 ---
@@ -73,7 +77,7 @@ Lab
 
 1. What function do you use to subset rows by some criterion?  
 
-1. How do I add a new column to my dataframe?
+1. How do I add a new column to my data frame?
 ---
 # Intro to the {tidyr} package (part of the TidyVerse)
 
