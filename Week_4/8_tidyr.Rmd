@@ -133,6 +133,7 @@ View(ChemData_clean)
 
 ```
 
+![clean1](libs/images/clean1.PNG)
 ---
 # Separate function
 
