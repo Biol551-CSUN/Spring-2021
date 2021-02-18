@@ -5,3 +5,4 @@
 [Danielle Barnas](https://github.com/dbarnas/Tidy_Tuesday)  
 [Alyssa Cohen](https://github.com/alyssacohengitsR/Tidy-Tuesdays)  
 [Shanelle Wikramanayake](https://github.com/shanellewiks/TidyTuesday)  
+[Richard Rachman](https://github.com/awanderingecologist/awanderingecologist_tidytuesday)  
