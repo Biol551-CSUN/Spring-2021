@@ -4,4 +4,4 @@
 [Jamie Kerlin](https://github.com/jamiekerlin/tidytuesday)  
 [Danielle Barnas](https://github.com/dbarnas/Tidy_Tuesday)  
 [Alyssa Cohen](https://github.com/alyssacohengitsR/Tidy-Tuesdays)  
-[Shanelle Wikramanayake](shanellewiks/TidyTuesday)  
+[Shanelle Wikramanayake](https://github.com/shanellewiks/TidyTuesday)  
