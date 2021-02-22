@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 5a</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Nyssa Silbiger" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 5a
+## Data wrangling: lubridate dates and times
+### Dr. Nyssa Silbiger
+### CSUN Spring 2021
+### (updated: 2021-02-22)
+
+---
+
+
+
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+`$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$`
+`$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$`
+`$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$`
+&lt;/div&gt;
+
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+&lt;/script&gt;
+
+&lt;style&gt;
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+&lt;/style&gt;
+
+
+
+
+---
+# Outline of class
+
+Learning about dates and times from the {lubridate} package 
+
+.center[
+&lt;img src = "http://lubridate.tidyverse.org/logo.png", width=20%/&gt;
+]
+
+1. Understanding date formats in base R
+
+1. Converting and manipulating dates and times using {lubridate}
+
+Lab 
+1. Practice with dates
+
+[Download this cheatsheet on lubridate](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_lubridate.pdf)
+
+---
+# Review
+
+1. What function do you use to join two dataframes together while preserving everything in the left dataframe?  
+
+---
+# Start your script.  
+You know what to do..... 
+
+
+```r
+install.packages("lubridate") # package to deal with dates and times
+```
+
+
+```r
+library(tidyverse)
+library(here)
+library(lubridate)
+```
+
+.center[
+&lt;img src = "https://media4.giphy.com/media/3o7aCTfyhYawdOXcFW/giphy.gif", width=60%/&gt;
+]
+
+---
+# What time is it now?
+
+Even though this may seem silly if you have a clock, it is very helpful if you want to time stamp something in your code.
+
+
+```r
+now() #what time is it now?
+```
+
+```
+## [1] "2021-02-22 15:48:55 PST"
+```
+
+--
+
+ You can also ask the time in other time zones.
+ 
+
+```r
+now(tzone = "EST") # what time is it on the east coast
+```
+
+```
+## [1] "2021-02-22 18:48:55 EST"
+```
+
+```r
+now(tzone = "GMT") # what time in GMT
+```
+
+```
+## [1] "2021-02-22 23:48:55 GMT"
+```
+
+---
+# What time is it now?
+
+If you only want the date and not the time
+
+
+```r
+today()
+```
+
+```
+## [1] "2021-02-22"
+```
+
+
+```r
+today(tzone = "GMT")
+```
+
+```
+## [1] "2021-02-22"
+```
+
+--
+
+ You can also ask if it is morning or night right now and if it is a leap year.
+ 
+
+```r
+am(now()) # is it morning?
+```
+
+```
+## [1] FALSE
+```
+
+```r
+leap_year(now()) # is it a leap year?
+```
+
+```
+## [1] FALSE
+```
+
+---
+# Date specifications for lubridate
+
+{lubridate} does a good job of guessing the format of your date if you give just a little hint.
+
+First, your dates **must be a character**.  
+
+A common mistake is that you get an error trying to convert a date when it is a factor. Always check to make sure it is a character (i.e. put quotes around it).
+
+
+
+| Date| function   |       
+|----------|:-------------:|
+| 2021-02-24 | ymd()|
+| 02/24/2021 | mdy()|
+| February 24 2021 | mdy()|
+| 24/02/2021 | dmy()|
+
+
+y = year  
+m = month  
+d = day  
+
+---
+# Date specifications for lubridate
+
+These will all produce the same results as ISO dates 
+
+```r
+ymd("2021-02-24")
+```
+
+```
+## [1] "2021-02-24"
+```
+
+```r
+mdy("02/24/2021")
+```
+
+```
+## [1] "2021-02-24"
+```
+
+```r
+mdy("February 24 2021")
+```
+
+```
+## [1] "2021-02-24"
+```
+
+```r
+dmy("24/02/2021")
+```
+
+```
+## [1] "2021-02-24"
+```
+
+---
+# Date specifications for lubridate
+
+Say you wanted to label something as just the month, day, or year (not a full date).
+
+
+```r
+#create a month
+month(2)
+```
+
+```
+## [1] 2
+```
+
+```r
+# save it as feb
+month(2, label = TRUE) 
+```
+
+```
+## [1] Feb
+## Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; Oct &lt; Nov &lt; Dec
+```
+
+```r
+# spell out the month
+month(2, label = TRUE, abbr = FALSE)
+```
+
+```
+## [1] February
+## Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; July &lt; August &lt; September &lt; October &lt; November &lt; December
+```
+---
+# Date and Time specifications with lubridate
+
+| Time| function   |       
+|----------|:-------------:|
+| 2021-02-24 10:22:20 PM | ymd_hms()|
+|02/24/2021 22:22:20 | mdy_hms()|
+|February 24 2021 10:22 PM | mdy_hm()|
+
+
+y = hour   
+m = minute (1st m)  
+d = second  
+h = hour  
+m = minute (2nd m)  
+s = second 
+
+---
+
+# Date and Time specifications with lubridate
+
+
+```r
+ymd_hms("2021-02-24 10:22:20 PM")
+```
+
+```
+## [1] "2021-02-24 22:22:20 UTC"
+```
+
+```r
+mdy_hms("02/24/2021 22:22:20")
+```
+
+```
+## [1] "2021-02-24 22:22:20 UTC"
+```
+
+```r
+mdy_hm("February 24 2021 10:22 PM")
+```
+
+```
+## [1] "2021-02-24 22:22:00 UTC"
+```
+---
+
+---
+Lab
+
+Practice joins on your own.  You do not have to turn anything in for this lab. 
+
+Reminder: We are starting RMarkdown next week. If you have not yet completed the markdown lab from week 2, do it now. I will expect that you know the basics from that lab assignment **before** class on Monday.  
+
+
+Who wants to share their Tidy Tuesday from last week before we end?
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+Some slides modified from [Tidy Explain ](https://github.com/gadenbuie/tidyexplain#:~:text=A%20mutating%20join%20allows%20you,one%20table%20to%20the%20other.)
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightSpans": true,
+"countIncrementalSlides": false,
+"ratio": "15:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
