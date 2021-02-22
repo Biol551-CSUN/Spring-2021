@@ -6,3 +6,4 @@
 [Alyssa Cohen](https://github.com/alyssacohengitsR/Tidy-Tuesdays)  
 [Shanelle Wikramanayake](https://github.com/shanellewiks/TidyTuesday)  
 [Richard Rachman](https://github.com/awanderingecologist/awanderingecologist_tidytuesday)  
+[Ruth Vergara reyes] (https://github.com/RuthVR/VergaraReyesTidyTuesday.git)  
