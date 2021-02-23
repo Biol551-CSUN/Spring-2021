@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Week 5a</title>
+    <title>Week 5b</title>
     <meta charset="utf-8" />
     <meta name="author" content="Dr. Nyssa Silbiger" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -12,11 +12,11 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Week 5a
+# Week 5b
 ## Data wrangling: lubridate dates and times
 ### Dr. Nyssa Silbiger
 ### CSUN Spring 2021
-### (updated: 2021-02-22)
+### (updated: 2021-02-23)
 
 ---
 
@@ -61,12 +61,12 @@ Learning about dates and times from the {lubridate} package
 &lt;img src = "http://lubridate.tidyverse.org/logo.png", width=20%/&gt;
 ]
 
-1. Understanding date formats in base R
+
 
 1. Converting and manipulating dates and times using {lubridate}
 
 Lab 
-1. Practice with dates
+1. Practice with dates and times
 
 [Download this cheatsheet on lubridate](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_lubridate.pdf)
 
@@ -77,7 +77,7 @@ Lab
 
 ---
 # Start your script.  
-You know what to do..... 
+You know what to do..... (no new data until lab today)
 
 
 ```r
@@ -106,7 +106,7 @@ now() #what time is it now?
 ```
 
 ```
-## [1] "2021-02-22 15:48:55 PST"
+## [1] "2021-02-23 12:16:43 PST"
 ```
 
 --
@@ -119,7 +119,7 @@ now(tzone = "EST") # what time is it on the east coast
 ```
 
 ```
-## [1] "2021-02-22 18:48:55 EST"
+## [1] "2021-02-23 15:16:43 EST"
 ```
 
 ```r
@@ -127,7 +127,7 @@ now(tzone = "GMT") # what time in GMT
 ```
 
 ```
-## [1] "2021-02-22 23:48:55 GMT"
+## [1] "2021-02-23 20:16:43 GMT"
 ```
 
 ---
@@ -141,7 +141,7 @@ today()
 ```
 
 ```
-## [1] "2021-02-22"
+## [1] "2021-02-23"
 ```
 
 
@@ -150,7 +150,7 @@ today(tzone = "GMT")
 ```
 
 ```
-## [1] "2021-02-22"
+## [1] "2021-02-23"
 ```
 
 --
@@ -235,40 +235,7 @@ dmy("24/02/2021")
 ```
 
 ---
-# Date specifications for lubridate
 
-Say you wanted to label something as just the month, day, or year (not a full date).
-
-
-```r
-#create a month
-month(2)
-```
-
-```
-## [1] 2
-```
-
-```r
-# save it as feb
-month(2, label = TRUE) 
-```
-
-```
-## [1] Feb
-## Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; Oct &lt; Nov &lt; Dec
-```
-
-```r
-# spell out the month
-month(2, label = TRUE, abbr = FALSE)
-```
-
-```
-## [1] February
-## Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; July &lt; August &lt; September &lt; October &lt; November &lt; December
-```
----
 # Date and Time specifications with lubridate
 
 | Time| function   |       
@@ -314,16 +281,281 @@ mdy_hm("February 24 2021 10:22 PM")
 ## [1] "2021-02-24 22:22:00 UTC"
 ```
 ---
+# Extracting specific date or time elements from datetimes 
+
+Let's make a vector of dates
+
+
+```r
+# make a character string
+*datetimes&lt;-c("02/24/2021 22:22:20",
+*            "02/25/2021 11:21:10",
+*            "02/26/2021 8:01:52")
+```
+---
+# Extracting specific date or time elements from datetimes 
+
+Let's make a vector of dates .orange[and covert them to datetimes].
+
+
+```r
+# make a character string
+datetimes&lt;-c("02/24/2021 22:22:20", 
+             "02/25/2021 11:21:10", 
+             "02/26/2021 8:01:52") 
+
+# convert to datetimes
+*datetimes &lt;- mdy_hms(datetimes)
+```
+---
+# Extracting specific date or time elements from datetimes 
+
+Let's make a vector of dates and covert them to datetimes. .orange[Extract the months from the character string].
+
+
+```r
+# make a character string
+datetimes&lt;-c("02/24/2021 22:22:20", 
+             "02/25/2021 11:21:10", 
+             "02/26/2021 8:01:52") 
+
+# convert to datetimes
+datetimes &lt;- mdy_hms(datetimes) 
+
+*month(datetimes)
+```
+
+```
+## [1] 2 2 2
+```
+---
+
+# Extracting specific date or time elements from datetimes 
+
+Let's make a vector of dates and covert them to datetimes. .orange[Extract the months from the character string]. You can also save it as the month name.
+
+
+```r
+# make a character string
+datetimes&lt;-c("02/24/2021 22:22:20", 
+             "02/25/2021 11:21:10", 
+             "02/26/2021 8:01:52") 
+
+# convert to datetimes
+datetimes &lt;- mdy_hms(datetimes) 
+
+*month(datetimes, label = TRUE)
+```
+
+```
+## [1] Feb Feb Feb
+## Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; Oct &lt; Nov &lt; Dec
+```
+---
+# Extracting specific date or time elements from datetimes 
+
+Let's make a vector of dates and covert them to datetimes. .orange[Extract the months from the character string]. You can also save it as the month name.
+
+
+```r
+# make a character string
+datetimes&lt;-c("02/24/2021 22:22:20", 
+             "02/25/2021 11:21:10", 
+             "02/26/2021 8:01:52") 
+
+# convert to datetimes
+datetimes &lt;- mdy_hms(datetimes) 
+
+*month(datetimes, label = TRUE, abbr = FALSE) #Spell it out
+```
+
+```
+## [1] February February February
+## 12 Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; July &lt; August &lt; September &lt; October &lt; ... &lt; December
+```
+---
+# Extracting specific date or time elements from datetimes 
+
+Let's make a vector of dates and covert them to datetimes. .orange[Extract the days]. 
+
+
+```r
+# make a character string
+datetimes&lt;-c("02/24/2021 22:22:20", 
+             "02/25/2021 11:21:10", 
+             "02/26/2021 8:01:52") 
+
+# convert to datetimes
+datetimes &lt;- mdy_hms(datetimes) 
+month(datetimes, label = TRUE, abbr = FALSE) #Spell it out 
+```
+
+```r
+*day(datetimes) # extract day
+```
+
+```
+## [1] 24 25 26
+```
+
+```r
+*wday(datetimes, label = TRUE) # extract day of week
+```
+
+```
+## [1] Wed Thu Fri
+## Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat
+```
+---
+# Extracting specific date or time elements from datetimes 
+
+Let's make a vector of dates and covert them to datetimes. .orange[Extract hour, minute, second]. 
+
+
+```r
+# make a character string
+datetimes&lt;-c("02/24/2021 22:22:20", 
+             "02/25/2021 11:21:10", 
+             "02/26/2021 8:01:52") 
+
+# convert to datetimes
+datetimes &lt;- mdy_hms(datetimes) 
+month(datetimes, label = TRUE, abbr = FALSE) #Spell it out 
+day(datetimes) # extract day 
+wday(datetimes, label = TRUE) # extract day of week 
+```
+
+
+```r
+*hour(datetimes)
+*minute(datetimes)
+*second(datetimes)
+```
 
 ---
-Lab
+# Adding dates and times
 
-Practice joins on your own.  You do not have to turn anything in for this lab. 
+Let's say you are doing research in Mo'orea and one of your instruments is set to the correct timezone and the other one is not (not from my own experience or anything....).
 
-Reminder: We are starting RMarkdown next week. If you have not yet completed the markdown lab from week 2, do it now. I will expect that you know the basics from that lab assignment **before** class on Monday.  
+Let's add 4 hours to all the datetimes
 
 
-Who wants to share their Tidy Tuesday from last week before we end?
+```r
+*datetimes + hours(4) # this adds 4 hours
+```
+
+```
+## [1] "2021-02-25 02:22:20 UTC" "2021-02-25 15:21:10 UTC" "2021-02-26 12:01:52 UTC"
+```
+
+Notice the **s** in hour**s**
+
+*hour()* extracts the hour component from a time and *hours()* is used to add hours to a datetime
+
+---
+# Adding dates and times
+
+Let's say you are doing research in Mo'orea and one of your instruments is set to the correct timezone and the other one is not (not from my own experience or anything....).
+
+Let's add 2 days to all the datetimes
+
+
+```r
+datetimes + hours(4) # this adds 4 hours 
+```
+
+```r
+*datetimes + days(2) # this adds 2 days
+```
+
+```
+## [1] "2021-02-26 22:22:20 UTC" "2021-02-27 11:21:10 UTC" "2021-02-28 08:01:52 UTC"
+```
+Notice the **s** in day**s**
+
+*day()* extracts the hour component from a time and *days()* is used to add hours to a datetime  
+
+You can do the same with minutes(), seconds(), months(), years(), etc.
+
+---
+# Rounding dates
+
+Round the dates to the nearest minute and nearest 5 minutes
+
+
+```r
+*round_date(datetimes, "minute") # round to nearest minute
+```
+
+```
+## [1] "2021-02-24 22:22:00 UTC" "2021-02-25 11:21:00 UTC" "2021-02-26 08:02:00 UTC"
+```
+
+```r
+*round_date(datetimes, "5 mins") # round to nearest 5 minute
+```
+
+```
+## [1] "2021-02-24 22:20:00 UTC" "2021-02-25 11:20:00 UTC" "2021-02-26 08:00:00 UTC"
+```
+
+You can do this with any set of times
+
+---
+# Think, pair, share
+
+Read in the conductivity data (CondData.csv) and convert the date column to a datetime. Use the %&gt;% to keep everything clean.
+
+This is temperature and salinity data taken at a site with groundwater while being dragged behind a float. Data were collected every 10 seconds. You will also notice depth data.  That dataset will be used in late during lab. Those data are taken from a pressure sensor, also collected data every 10 seconds. 
+
+---
+# Today's totally awesome R package
+
+Ever wanted to plot with cats? Now you can with {catterplots}!
+
+
+```r
+library(devtools)
+install_github("Gibbsdavidl/CatterPlots") # install the data 
+```
+
+
+```r
+library(CatterPlots)
+# make up some data
+x &lt;-c(1:10)
+y&lt;-c(1:10)
+catplot(xs=x, ys=y, cat=3, catcolor='blue')
+```
+
+![](10_lubridate_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+```
+## $xs
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## $ys
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## $args
+## list()
+## 
+## $canvas
+## [1] 0.0 1.1 0.0 1.1
+```
+---
+#Lab
+
+- Read in both the conductivity and depth data.  
+- Convert date columns appropriately  
+- Round the conductivity data to the nearest 10 seconds so that it matches with the depth data  
+- Join the two dataframes together  (in a way where there will be no NAs... i.e. join in a way where only exact matches between the two dataframes are kept)  
+- take averages of date, depth, temperature, and salinity by minute (hint: easiest way to do this is to make a new column where the hours and minutes are extracted)
+- Make any plot using the averaged data 
+- Do the entire thing using mostly pipes (i.e. you should not have a bunch of different dataframes). Keep it clean. 
+- Don't forget to comment!  
+- Save the output, data, and scripts appropriately
+
 
 ---
 class: center, middle
@@ -332,7 +564,7 @@ class: center, middle
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
 
-Some slides modified from [Tidy Explain ](https://github.com/gadenbuie/tidyexplain#:~:text=A%20mutating%20join%20allows%20you,one%20table%20to%20the%20other.)
+
 
 
     </textarea>
