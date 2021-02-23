@@ -8,3 +8,4 @@
 [Richard Rachman](https://github.com/awanderingecologist/awanderingecologist_tidytuesday)  
 [Ruth Vergara reyes](https://github.com/RuthVR/VergaraReyesTidyTuesday.git)  
 [Anthony Gutierrez](https://github.com/aag19469/TidyTs)  
+[Roland Lacap](https://github.com/rlacap95/TidyTuesday.git)  
