@@ -10,3 +10,4 @@
 [Anthony Gutierrez](https://github.com/aag19469/TidyTs)  
 [Roland Lacap](https://github.com/rlacap95/TidyTuesday.git)  
 [Amanda Chiachi](https://github.com/amandachiachi/tidy-tuesday)  
+[Nikolas Yousefi](https://github.com/nayousefi/TidyTuesday)  
