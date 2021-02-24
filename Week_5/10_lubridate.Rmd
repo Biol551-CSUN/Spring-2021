@@ -395,10 +395,9 @@ library(devtools)
 install_github("Gibbsdavidl/CatterPlots") # install the data 
 ```
 
-```{r, fig.height=4, fig.width=4}
+```{r, fig.height=4, fig.width=4, message = FALSE, warning=FALSE}
 library(CatterPlots)
-# make up some data
-x <-c(1:10)
+x <-c(1:10)# make up some data
 y<-c(1:10)
 catplot(xs=x, ys=y, cat=3, catcolor='blue')
 
