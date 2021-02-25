@@ -11,3 +11,4 @@
 [Roland Lacap](https://github.com/rlacap95/TidyTuesday.git)  
 [Amanda Chiachi](https://github.com/amandachiachi/tidy-tuesday)  
 [Nikolas Yousefi](https://github.com/nayousefi/TidyTuesday)  
+[Kevin Candry](https://github.com/kicandray/TidyTuesday.git)  
