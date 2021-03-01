@@ -425,9 +425,28 @@ Let's say we want to set options for the entire markdown file.
 ![global code](libs/images/GlobalCode.PNG)
 
 ---
+# Total awesome R package
+
+Play a sound!
+
+```{r, eval =FALSE}
+install.packages("beepr")
+
+```
+
+```{r}
+library(beepr)
+
+beep(5)
+beep(9)
+```
+
+---
 class: center, middle
 
-Break
+Share a Tidy Tuesday plot
+
+Then a Break 
 
 ---
 # Lab
