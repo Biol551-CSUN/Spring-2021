@@ -177,9 +177,8 @@ library(palmerpenguins)
 library(tidyverse)
 
 penguins %>%
-  select(species, island, bill_length_mm) %>%
-  filter(species == "Gentoo",
-         island == "Biscoe") %>%
+  group_by(species) %>%
+  summarise(billmean = mean(bill_length_mm, na.rm = TRUE)) %>%
   kbl()  # make it a kable table
 
 ```
@@ -224,6 +223,54 @@ Importantly, every file type has different limitations for the YAML. For example
 
 [Here is a list of different types of outputs.](https://rmarkdown.rstudio.com/lesson-9.html)
 
+---
+# Help with YAML
+
+Check out the {ymlthis} package which has a GUI for writing yml code.
+
+```{r, eval = FALSE}
+install.packages("ymlthis")
+```
+
+Click **Addins** then scroll to "write new RMarkdown or YAML file"
+
+---
+# Today's totally awesome R package
+
+Make a meme in R!
+
+```{r, eval = FALSE}
+devtools::install_github("sctyner/memer")
+```
+
+```{r, out.width="50%"}
+library(memer)
+
+meme_get("DistractedBf") %>% 
+  meme_text_distbf("Silly R package", "BIOL 551 students", "actual coding")
+```
+
+---
+# Today's totally awesome R package
+
+Make a meme in R!
+```{r, out.width="25%"}
+library(memer)
+
+meme_get("DosEquisMan") %>% 
+  meme_text_top("I don't always like coding", size = 28) %>% 
+  meme_text_bottom("But when I do\nIt's always today's totally awesome R package", size = 18)
+  
+```
+
+---
+# Lab
+
+- Take any of the data sheets you have already worked with in class and create at least one table and one figure in an Rmarkdown file.
+- Create the most beautiful RMarkdown output you can during lab hours in either an html, github doc, or pdf format.  
+- Make sure you have headings with clear explanations of what you are doing.  
+- Practice using markdown formatting with bold, italics, and lists.  
+- Make sure your outputs and scripts are saved in the appropriate folders. Keep proper coding etiquette (figures need to be pub quality as usual).
 
 ---
 class: center, middle

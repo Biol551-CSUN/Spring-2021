@@ -180,9 +180,8 @@ library(palmerpenguins)
 library(tidyverse)
 
 penguins %&gt;%
-  select(species, island, bill_length_mm) %&gt;%
-  filter(species == "Gentoo",
-         island == "Biscoe") %&gt;%
+  group_by(species) %&gt;%
+  summarise(billmean = mean(bill_length_mm, na.rm = TRUE)) %&gt;%
   kbl()  # make it a kable table
 ```
 
@@ -190,630 +189,21 @@ penguins %&gt;%
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; island &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; bill_length_mm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; billmean &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 43.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 40.9 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 42.0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 42.9 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 44.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 42.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 59.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 42.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 44.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 44.0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 42.7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 43.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 44.9 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 43.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 43.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 54.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 43.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 51.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 52.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 44.9 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 43.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 51.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 52.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 52.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 44.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.9 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 51.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 55.9 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 41.7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38.79139 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 53.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 43.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 43.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 51.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 55.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 44.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 48.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 47.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 46.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 50.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 45.2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Chinstrap &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 48.83382 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 49.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 47.50488 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -881,6 +271,61 @@ Importantly, every file type has different limitations for the YAML. For example
 
 [Here is a list of different types of outputs.](https://rmarkdown.rstudio.com/lesson-9.html)
 
+---
+# Help with YAML
+
+Check out the {ymlthis} package which has a GUI for writing yml code.
+
+
+```r
+install.packages("ymlthis")
+```
+
+Click **Addins** then scroll to "write new RMarkdown or YAML file"
+
+---
+# Today's totally awesome R package
+
+Make a meme in R!
+
+
+```r
+devtools::install_github("sctyner/memer")
+```
+
+
+```r
+library(memer)
+
+meme_get("DistractedBf") %&gt;% 
+  meme_text_distbf("Silly R package", "BIOL 551 students", "actual coding")
+```
+
+&lt;img src="12_RMarkdown2_files/figure-html/unnamed-chunk-7-1.png" width="50%" /&gt;
+
+---
+# Today's totally awesome R package
+
+Make a meme in R!
+
+```r
+library(memer)
+
+meme_get("DosEquisMan") %&gt;% 
+  meme_text_top("I don't always like coding", size = 28) %&gt;% 
+  meme_text_bottom("But when I do\nIt's always today's totally awesome R package", size = 18)
+```
+
+&lt;img src="12_RMarkdown2_files/figure-html/unnamed-chunk-8-1.png" width="25%" /&gt;
+
+---
+# Lab
+
+- Take any of the data sheets you have already worked with in class and create at least one table and one figure in an Rmarkdown file.
+- Create the most beautiful RMarkdown output you can during lab hours in either an html, github doc, or pdf format.  
+- Make sure you have headings with clear explanations of what you are doing.  
+- Practice using markdown formatting with bold, italics, and lists.  
+- Make sure your outputs and scripts are saved in the appropriate folders. Keep proper coding etiquette (figures need to be pub quality as usual).
 
 ---
 class: center, middle

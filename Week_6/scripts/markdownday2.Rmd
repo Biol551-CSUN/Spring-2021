@@ -13,7 +13,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE,
                       warning = FALSE,
                       message = FALSE,
-                      fig.path=here::here("Week_6/output"))
+                      fig.path="../output/")
 ```
 
 # Introduction
