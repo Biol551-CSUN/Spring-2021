@@ -1,6 +1,6 @@
 ---
-title: "Week 6a"
-subtitle: "Intro to RMarkdown"
+title: "Week 6b"
+subtitle: "Intro to RMarkdown 2"
 author: "Dr. Nyssa Silbiger"
 institute: "CSUN Spring 2021"
 date: "(updated: `r Sys.Date()`)"
