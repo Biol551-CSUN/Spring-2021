@@ -3,9 +3,9 @@ title: "My awesome RMarkdown Doc"
 author: "Nyssa"
 date: "2/27/2021"
 output: 
-  html_document:
-    toc: TRUE
-    toc_float: TRUE
+  rmdformats::readthedown
+    
+    
 ---
 
 ```{r setup, include=FALSE}

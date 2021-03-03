@@ -457,7 +457,10 @@ class: center, middle
 
 # Thanks!
 
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+Some slides modified from many lectures by [Allison Hill](https://alison.rbind.io/post/2020-05-28-how-i-teach-r-markdown/)
+
+
 
 
 
