@@ -629,6 +629,16 @@ tospongebob("My name is Nyssa")
 spongebobsay(what = "hi")
 ```
 
+---
+# Lab
+You need to make a map **using RMarkdown** with one of the following datasets from past Tidy Tuesdays. Make sure, as usual, that you scripts and output are saved appropriately.
+
+[Plastic pollution](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-01-26/readme.md)
+
+[Trees of San Fransisco](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-28/readme.md)
+
+[Meteorites](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11)
+
 
 ---
 class: center, middle
