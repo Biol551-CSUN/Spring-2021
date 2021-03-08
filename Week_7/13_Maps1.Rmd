@@ -75,7 +75,9 @@ Lab
 ---
 # Cool RMarkdown feature in updated RStudio
 
-New text editor!
+New text editor!  
+
+Show me your markdown files!
 
 ---
 # Map packages
@@ -217,7 +219,7 @@ Essentially, having to points in different groups means that ggplot “lifts the
 
 ```{r}
 ggplot()+
-  geom_polygon(data = world, aes(x = long, y = lat, group = group)) ##<
+  geom_polygon(data = world, aes(x = long, y = lat, group = group)) #<<
 
 ```
 ---
@@ -226,7 +228,7 @@ ggplot()+
 What happens if I forget **group = group**?
 ```{r}
 ggplot()+
-  geom_polygon(data = world, aes(x = long, y = lat)) ##<
+  geom_polygon(data = world, aes(x = long, y = lat)) #<<
 
 ```
 
