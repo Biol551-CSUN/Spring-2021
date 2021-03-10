@@ -1,5 +1,5 @@
 ---
-title: "Week 7a"
+title: "Week 7b"
 subtitle: "Intro to Maps part 1"
 author: "Dr. Nyssa Silbiger"
 institute: "CSUN Spring 2021"
@@ -97,7 +97,7 @@ register_google(key = "AIzaSyCVRE8syocGlzCnfOLYs96VTIl-P9F7Qig") ### use your ow
 
 ```{r, eval=FALSE}
 register_google(key = "YOUR KEY HERE") ### use your own API
-#IMPORTANT don't put your key to github!! I ussually save mine in a text file and import it each time
+#IMPORTANT don't put your key to github!! I usually save mine in a text file and import it each time
 ```
 
 ---
@@ -234,11 +234,19 @@ Break
 
 Your homework is to create two version of similar plots, using any dataset you choose. You must create the plots using ggplot2, post-processing with Adobe Illustrator or similar is not allowed. **This homework is a contest, and the winner will win a prize to be disclosed.**  
 
+--
+
 Please submit your homework by posting a markdown document containing the plots, the code you used to create them, and your discussion of the plot within the markdown doc to github. Data also needs to be submitted.   
+
+--
 
 The first plot should be as bad as possible. Your reading from  Claus Wilke’s and Healy's textbook describe the many ways that a plot cab become misleading, difficult to interpret, or or just plain ugly, and you should use all of the tools that you can. Please try to make me, a person who cares a great deal about high-quality data visualization, cry.  
 
+--
+
 You should explain in text all of the ways in which the bad plot is bad. Bullet points are fine, but clearly articulate each principle of data visualization that you have broken.  
+
+--
 
 The second plot should be based on the same or similar data to the first plot, but it should be good. Write briefly about why this is a successful plot.
 
@@ -254,6 +262,11 @@ The second plot should be based on the same or similar data to the first plot, b
 
 **Example bad plot winner**  
 <img src = "https://adsteen.github.io/data_analysis_2020/homework/2020-09-23-homework-7-badplot_files/rihanna_plot.jpeg", width=50%/>
+---
+# Twitter inspiration
+
+[See this thread](https://twitter.com/drdrewsteen/status/1172547872815861760)
+
 ---
 
 class: center, middle
