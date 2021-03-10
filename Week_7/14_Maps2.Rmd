@@ -220,6 +220,32 @@ geocode("the white house")
 geocode("California State University, Northridge")
 ```
 ---
+# Totally awesome R Package
+**emojifont!**
+.pull-left[
+```{r, eval=FALSE}
+install.packages("emojifont")
+```
+
+```{r, warning=FALSE, message=FALSE}
+library(emojifont)
+search_emoji('smile')
+```
+
+
+[More info here](https://cran.r-project.org/web/packages/emojifont/vignettes/emojifont.html)
+]
+
+.pull-right[
+```{r, out.width="60%"}
+ggplot() + 
+  geom_emoji('smile_cat', 
+             x=1:5, y=1:5, 
+             size=10)
+```
+
+]
+---
 # Share your Tidy Tuesday!
 
 Break
