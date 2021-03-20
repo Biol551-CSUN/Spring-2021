@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 8a</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Nyssa Silbiger" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 8a
+## Advanced plotting
+### Dr. Nyssa Silbiger
+### CSUN Spring 2021
+### (updated: 2021-03-20)
+
+---
+
+
+
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+`$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$`
+`$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$`
+`$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$`
+&lt;/div&gt;
+
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+&lt;/script&gt;
+
+&lt;style&gt;
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+&lt;/style&gt;
+
+
+
+
+---
+# Outline of class
+
+
+Advanced plotting
+
+
+
+1. {patchwork} - bringing plots together
+2. {ggrepel} - repel your labels on your plots
+3. {gganimate} - add some animations to your plots
+4. {magick} - photo processing
+
+
+I am just going to give you a little taste of what each of these packages can do.  Please check out the documentation for each to delve deeper.
+
+Lab 
+1. Good plot/Bad plot lab presentations!
+  
+
+---
+# Install new packaged
+
+
+```r
+install.packages("patchwork") # for bringing plots together
+install.packages("ggrepel") # for repelling labels
+install.packages("gganimate") # animations
+install.packages("magick") # for images
+```
+
+
+```r
+library(tidyverse)
+library(here)
+library(patchwork)
+library(ggrepel)
+library(gganimate)
+library(magick)
+library(palmerpenguins)
+```
+---
+# Patchwork
+
+Easily bring your plots together  
+
+&lt;img src = "https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/patchwork_1.jpg"/, width = 80%&gt;
+
+---
+# Patchwork
+
+.orange[Let's start with two simple plots from the Palmer penguin dataset.]
+
+.pull-left[
+
+```r
+# plot 1
+p1&lt;-penguins %&gt;%
+  ggplot(aes(x = body_mass_g, 
+             y = bill_length_mm, 
+             color = species))+
+  geom_point()
+
+p1
+```
+
+&lt;img src="15_AdvancedPlotting_files/figure-html/unnamed-chunk-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+```r
+# plot 2
+p2&lt;-penguins %&gt;%
+  ggplot(aes(x = sex, 
+             y = body_mass_g, 
+             color = species))+
+  geom_jitter(width = 0.2)
+
+
+p2
+```
+
+&lt;img src="15_AdvancedPlotting_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Patchwork
+.orange[Bring the plots together using simple operations.]
+
+
+```r
+*p1+p2
+```
+
+&lt;img src="15_AdvancedPlotting_files/figure-html/unnamed-chunk-5-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# Patchwork
+.orange[Group the legends.]
+
+
+```r
+p1+p2 +
+* plot_layout(guides = 'collect')
+```
+
+&lt;img src="15_AdvancedPlotting_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Patchwork
+.orange[Add labels (A,B).]
+
+
+```r
+p1+p2 +
+  plot_layout(guides = 'collect')+
+* plot_annotation(tag_levels = 'A')
+```
+
+&lt;img src="15_AdvancedPlotting_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+---
+# Patchwork
+.orange[Put one plot on top of the other.]
+.pull-left[
+
+```r
+*p1/p2 +
+  plot_layout(guides = 'collect')+
+  plot_annotation(tag_levels = 'A')
+```
+]
+.pull-right[
+![](15_AdvancedPlotting_files/figure-html/plot1-out-1.png)&lt;!-- --&gt;
+]
+---
+# Patchwork
+
+So many cool ways to bring together and modify plots.  For more info see the many [vignettes here](https://patchwork.data-imaginist.com/articles/patchwork.html).
+
+.center[
+&lt;img src ="https://repository-images.githubusercontent.com/112388106/6e5a3600-6547-11e9-84f6-3656ac797821"/&gt;
+]
+
+---
+# ggrepel
+Easy and clear labels for plots.
+
+.center[
+&lt;img src = "https://ggrepel.slowkow.com/reference/figures/ggrepel-allison_horst.jpg", width=70%/&gt;
+]
+
+---
+# ggrepel
+ Use the mtcars dataset that comes with it.  It is data on cars.
+ 
+
+```r
+View(mtcars)
+```
+
+--
+
+.pull-left[
+
+```r
+ggplot(mtcars, aes(x = wt, 
+                   y = mpg, 
+                   label = rownames(mtcars))) +
+  geom_text() + # creates a text label
+  geom_point(color = 'red') 
+```
+]
+
+.pull-right[
+![](15_AdvancedPlotting_files/figure-html/plot2-out-1.png)&lt;!-- --&gt;
+]
+---
+# ggrepel
+ .orange[Repel the labels.]
+
+.pull-left[
+
+```r
+ggplot(mtcars, aes(x = wt, 
+                   y = mpg, 
+                   label = rownames(mtcars))) +
+  geom_text_repel() + # repel them
+  geom_point(color = 'red') 
+```
+]
+
+.pull-right[
+![](15_AdvancedPlotting_files/figure-html/plot3-out-1.png)&lt;!-- --&gt;
+]
+
+---
+# ggrepel
+ .orange[Use the label function.]
+
+.pull-left[
+
+```r
+ggplot(mtcars, aes(x = wt, 
+                   y = mpg, 
+                   label = rownames(mtcars))) +
+  geom_label_repel() + # repel them
+  geom_point(color = 'red') 
+```
+]
+
+.pull-right[
+![](15_AdvancedPlotting_files/figure-html/plot4-out-1.png)&lt;!-- --&gt;
+]
+---
+# ggrepel
+
+For more cool things you can do with [ggrepel see here](https://ggrepel.slowkow.com/articles/examples.html).
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightSpans": true,
+"countIncrementalSlides": false,
+"ratio": "15:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,268 @@
+---
+title: "Week 8a"
+subtitle: "Advanced plotting"
+author: "Dr. Nyssa Silbiger"
+institute: "CSUN Spring 2021"
+date: "(updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+      ratio: '15:10'
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+<div style = "position:fixed; visibility: hidden">
+$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$
+$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$
+$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$
+</div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+</script>
+
+<style>
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+</style>
+
+
+```{r flair_color, echo=FALSE}
+library(flair)
+yellow <- "#FFCC29"
+orange <- "#F58634"
+green <- "#007965"
+```
+
+---
+# Outline of class
+
+
+Advanced plotting
+
+
+
+1. {patchwork} - bringing plots together
+2. {ggrepel} - repel your labels on your plots
+3. {gganimate} - add some animations to your plots
+4. {magick} - photo processing
+
+
+I am just going to give you a little taste of what each of these packages can do.  Please check out the documentation for each to delve deeper.
+
+Lab 
+1. Good plot/Bad plot lab presentations!
+  
+
+---
+# Install new packaged
+
+```{r, eval=FALSE}
+install.packages("patchwork") # for bringing plots together
+install.packages("ggrepel") # for repelling labels
+install.packages("gganimate") # animations
+install.packages("magick") # for images
+
+```
+
+```{r, warning=TRUE, message=TRUE}
+library(tidyverse)
+library(here)
+library(patchwork)
+library(ggrepel)
+library(gganimate)
+library(magick)
+library(palmerpenguins)
+```
+---
+# Patchwork
+
+Easily bring your plots together  
+
+<img src = "https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/patchwork_1.jpg"/, width = 80%>
+
+---
+# Patchwork
+
+.orange[Let's start with two simple plots from the Palmer penguin dataset.]
+
+.pull-left[
+```{r, message=FALSE, warning=FALSE, out.width='60%', fig.align='center'}
+# plot 1
+p1<-penguins %>%
+  ggplot(aes(x = body_mass_g, 
+             y = bill_length_mm, 
+             color = species))+
+  geom_point()
+
+p1
+```
+]
+
+.pull-right[
+```{r, message=FALSE, warning=FALSE, out.width='60%', fig.align='center'}
+# plot 2
+p2<-penguins %>%
+  ggplot(aes(x = sex, 
+             y = body_mass_g, 
+             color = species))+
+  geom_jitter(width = 0.2)
+
+
+p2
+```
+]
+
+---
+# Patchwork
+.orange[Bring the plots together using simple operations.]
+
+```{r, message=FALSE, warning=FALSE, fig.asp=.5, fig.align='center', out.width='80%'}
+p1+p2 #<<
+```
+
+---
+# Patchwork
+.orange[Group the legends.]
+
+```{r, message=FALSE, warning=FALSE, fig.asp=.5, fig.align='center', out.width='80%'}
+p1+p2 +
+  plot_layout(guides = 'collect')#<<
+```
+
+---
+
+# Patchwork
+.orange[Add labels (A,B).]
+
+```{r, message=FALSE, warning=FALSE, fig.asp=.5, fig.align='center', out.width='80%'}
+p1+p2 +
+  plot_layout(guides = 'collect')+
+  plot_annotation(tag_levels = 'A')#<<
+```
+---
+# Patchwork
+.orange[Put one plot on top of the other.]
+.pull-left[
+```{r plot1, message=FALSE, warning=FALSE, fig.asp=.5, fig.align='center', out.width='80%', eval=FALSE}
+p1/p2 + #<<
+  plot_layout(guides = 'collect')+
+  plot_annotation(tag_levels = 'A')
+```
+]
+.pull-right[
+```{r plot1-out, ref.label="plot1", echo=FALSE, warning = FALSE}
+
+```
+]
+---
+# Patchwork
+
+So many cool ways to bring together and modify plots.  For more info see the many [vignettes here](https://patchwork.data-imaginist.com/articles/patchwork.html).
+
+.center[
+<img src ="https://repository-images.githubusercontent.com/112388106/6e5a3600-6547-11e9-84f6-3656ac797821"/>
+]
+
+---
+# ggrepel
+Easy and clear labels for plots.
+
+.center[
+<img src = "https://ggrepel.slowkow.com/reference/figures/ggrepel-allison_horst.jpg", width=70%/>
+]
+
+---
+# ggrepel
+ Use the mtcars dataset that comes with it.  It is data on cars.
+ 
+```{r, eval = FALSE, warning=FALSE, message=FALSE}
+View(mtcars)
+```
+
+--
+
+.pull-left[
+```{r plot2, eval=FALSE}
+ggplot(mtcars, aes(x = wt, 
+                   y = mpg, 
+                   label = rownames(mtcars))) +
+  geom_text() + # creates a text label
+  geom_point(color = 'red') 
+```
+]
+
+.pull-right[
+```{r plot2-out, ref.label="plot2", echo=FALSE, warning = FALSE}
+
+```
+]
+---
+# ggrepel
+ .orange[Repel the labels.]
+
+.pull-left[
+```{r plot3, eval=FALSE}
+ggplot(mtcars, aes(x = wt, 
+                   y = mpg, 
+                   label = rownames(mtcars))) +
+  geom_text_repel() + # repel them
+  geom_point(color = 'red') 
+```
+]
+
+.pull-right[
+```{r plot3-out, ref.label="plot3", echo=FALSE, warning = FALSE}
+
+```
+]
+
+---
+# ggrepel
+ .orange[Use the label function.]
+
+.pull-left[
+```{r plot4, eval=FALSE}
+ggplot(mtcars, aes(x = wt, 
+                   y = mpg, 
+                   label = rownames(mtcars))) +
+  geom_label_repel() + # repel them
+  geom_point(color = 'red') 
+```
+]
+
+.pull-right[
+```{r plot4-out, ref.label="plot4", echo=FALSE, warning = FALSE}
+
+```
+]
+---
+# ggrepel
+
+For more cool things you can do with [ggrepel see here](https://ggrepel.slowkow.com/articles/examples.html).
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
