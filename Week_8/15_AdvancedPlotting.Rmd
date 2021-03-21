@@ -75,7 +75,7 @@ Lab
   
 
 ---
-# Install new packaged
+# Install new packages
 
 ```{r, eval=FALSE}
 install.packages("patchwork") # for bringing plots together
@@ -85,7 +85,7 @@ install.packages("magick") # for images
 
 ```
 
-```{r, warning=TRUE, message=TRUE}
+```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(here)
 library(patchwork)
@@ -261,8 +261,246 @@ ggplot(mtcars, aes(x = wt,
 
 For more cool things you can do with [ggrepel see here](https://ggrepel.slowkow.com/articles/examples.html).
 ---
+# gganimate
+Make your figure an animation!
+
+.center[
+<img src = "https://repository-images.githubusercontent.com/50872540/14597080-6547-11e9-9821-271c29481839"/>
+]
+
+---
+# gganimate
+Let's go back to our penguin plot, but animate the figure by year. .orange[Our static plot.]
+
+.pull-left[
+```{r plot5, warning=FALSE, message=FALSE, eval = FALSE}
+penguins %>%
+ggplot(aes(x = body_mass_g, 
+            y = bill_depth_mm, 
+            color = species)) +
+  geom_point() 
+```
+]
+
+.pull-right[
+```{r plot5-out, ref.label="plot5", echo=FALSE, warning = FALSE}
+
+```
+]
+
+---
+# gganimiate
+.orange[Add a transition.]
+
+
+.pull-left[
+```{r warning=FALSE, message=FALSE, eval = FALSE}
+penguins %>%
+ggplot(aes(x = body_mass_g, 
+            y = bill_depth_mm, 
+            color = species)) +
+  geom_point() +
+  transition_states( #<<
+     year, # what are we animating by #<<
+     transition_length = 2, #The relative length of the transition. #<<
+     state_length = 1 # The length of the pause between transitions  #<<
+   ) #<<
+```
+]
+
+.pull-right[
+![gif](output/penguingif.gif)
+]
+---
+# gganimate
+.orange[Change the **ease** aesthetics.]
+
+
+.pull-left[
+```{r warning=FALSE, message=FALSE, eval = FALSE}
+penguins %>%
+ggplot(aes(x = body_mass_g, 
+            y = bill_depth_mm, 
+            color = species)) +
+  geom_point() +
+  transition_states(
+     year, # what are we animating by
+     transition_length = 2, #The relative length of the transition.
+     state_length = 1 # The length of the pause between transitions
+   )+
+  ease_aes("bounce-in-out") #<<
+```
+
+A few examples:
+- linear (default)
+- bounce
+- sine
+- circular
+- many more...
+]
+
+
+.pull-right[
+![gif](output/penguinbounce.gif)]
+
+---
+# gganimate
+.orange[Add a transition title.]
+
+
+.pull-left[
+```{r warning=FALSE, message=FALSE, eval = FALSE}
+penguins %>%
+ggplot(aes(x = body_mass_g, 
+            y = bill_depth_mm, 
+            color = species)) +
+  geom_point() +
+  transition_states(
+     year, # what are we animating by
+     transition_length = 2, #The relative length of the transition.
+     state_length = 1 # The length of the pause between transitions
+   )+
+  ease_aes("sine-in-out") +
+  ggtitle('Year: {closest_state}') #<<
+```
+]
+
+.pull-right[
+![gif](output/penguintitle.gif)
+]
+---
+.orange[Save it as a .gif.]
+
+
+.pull-left[
+```{r warning=FALSE, message=FALSE, eval = FALSE}
+penguins %>%
+ggplot(aes(x = body_mass_g, 
+            y = bill_depth_mm, 
+            color = species)) +
+  geom_point() +
+  transition_states(
+     year, # what are we animating by
+     transition_length = 2, #The relative length of the transition.
+     state_length = 1 # The length of the pause between transitions
+   )+
+  ease_aes("sine-in-out") +
+  ggtitle('Year: {closest_state}') +
+  anim_save(here("Week_8","output","mypengiungif.gif"))#<<
+```
+]
+
+.pull-right[
+![gif](output/penguintitle.gif)]
+
+---
+# gganimate
+
+For more things to do [see here](https://gganimate.com/articles/gganimate.html).
+
+.center[
+<img src="https://gganimate.com/reference/figures/README-unnamed-chunk-4-1.gif"/>
+]
+
+---
+# magick
+Advanced image processing.
+
+.center[
+<img src="https://jeroen.github.io/images/magick.png", width=80%/>
+]
+
+
+---
+# Magick
+.orange[Put a penguin in it.]  
+Read in an image of a pengiun (can be on your computer or the internet).
+
+
+```{r}
+penguin<-image_read("https://pngimg.com/uploads/penguin/pinguin_PNG9.png")
+
+penguin
+```
+
+---
+# Magick
+To put it on a plot you first need to save your plot as an image.
+
+```{r, warning = FALSE, message=FALSE,out.width='50%', fig.align='center'}
+penguins %>%
+ggplot(aes(x = body_mass_g, 
+            y = bill_depth_mm, 
+            color = species)) +
+  geom_point() +
+  ggsave(here("Week_8","output","penguinplot.png"))
+```
+
+
+---
+# Magick
+Read in the plot as a magick image and make a composite plot
+```{r, warning = FALSE, message=FALSE, fig.align='center', out.width='40%'}
+penplot<-image_read(here("Week_8","output","penguinplot.png"))
+out <- image_composite(penplot, penguin, offset = "+70+30")
+out
+```
+---
+# Magick
+You can do this with gifs too.
+
+```{r, warning=FALSE, message=FALSE, out.width='40%', fig.align='center'}
+# Read in a penguin gif
+pengif<-image_read("https://media3.giphy.com/media/H4uE6w9G1uK4M/giphy.gif")
+outgif <- image_composite(penplot, pengif, gravity = "center")
+animation <- image_animate(outgif, fps = 10, optimize = TRUE)
+animation
+```
+---
+# Magick
+
+For more magick plotting [see here](https://cran.r-project.org/web/packages/magick/vignettes/intro.html).
+
+.center[
+<img src="https://ropensci.org/blog/2017/11/07/magick-knitr/0E5cqaz.png"/>
+]
+---
+class: center, middle
+
+# 10 minute break
+
+---
+# Good plot/Bad plot presentations
+
+Order of presentations
+
+.pull-left[
+Jamie Kerlin  
+Kirill Musaev   
+Jasmin Abdulla   
+Natalie Beckman-Smith    
+Nikolas Yousefi   
+Kevin Candray   
+Evan Rank  
+Anthony Gutierrez  
+Ruth Vergara Reyes   
+Shanelle Wikramanayake  	
+]
+.pull-right[
+Danielle Barnas   
+Alyssa Cohen   
+Richard Rachman  
+Amanda Chiachi  
+Emily Rukstales  
+Claudia Sanchez Rea  
+Shane Jordan    
+Emily Wilson  
+Roland Lacap 
+]
+
+---
 class: center, middle
 
 # Thanks!
 
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
