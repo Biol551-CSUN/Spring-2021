@@ -10,7 +10,7 @@ library(tidyverse)
 library(kableExtra)
 library(shiny)
 
-load(here::here("01_basics", "ZurichDogs.RData"))
+load(here::here("Week_10","shiny-info","01_basics", "ZurichDogs.RData"))
 
 # Define UI
 ui <- fluidPage(
