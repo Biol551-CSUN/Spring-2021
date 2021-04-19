@@ -154,8 +154,6 @@ paste0("High temp", "Low pH")
 ---
 # Manipulation
 
-Paste words together.  This can be useful if say you have a two columns of treatments and you want to combine them into one (e.g., high temp, low temp and high pH, low pH).
-
 Working with vectors  
 
 ```{r}
@@ -212,7 +210,7 @@ str_dup(seq_data, times = c(2, 3)) # times is the number of times to duplicate e
 ---
 # Whitespace
 
-Say you have a column and you did not copy and paste your treatments like you learned in the first week of class.  You now have some words with extra white spaces and R things its an entirely new word.  Here is how to deal with that...
+Say you have a column and you did not copy and paste your treatments like you learned in the first week of class.  You now have some words with extra white spaces and R thinks its an entirely new word.  Here is how to deal with that...
 
 ```{r}
 badtreatments<-c("High", " High", "High ", "Low", "Low")
@@ -631,7 +629,7 @@ wordcloud2(words, shape = 'triangle', size=0.3) # make a wordcloud out of the to
 
 ### {ggirl} (gg in real life)
 
-Have you ever made a plot that you lost so much and though, "I want to send this to someone!" Well, now you can! Turn your ggplots into a postcard.  
+Have you ever made a plot that you love so much and thought, "I want to send this to someone!" Well, now you can! Turn your ggplots into a postcard.  
 (*Note, I wouldn't be mad if random postcards of ggplot showed up in my mailbox...*)
 
 [Check out ggirl here](https://jnolis.com/blog/introducing_ggirl/)
