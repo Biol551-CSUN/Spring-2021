@@ -19,6 +19,7 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(anicon)
 ```
 <div style = "position:fixed; visibility: hidden">
 $$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$
@@ -632,7 +633,7 @@ wordcloud2(words, shape = 'triangle', size=0.3) # make a wordcloud out of the to
 Have you ever made a plot that you love so much and thought, "I want to send this to someone!" Well, now you can! Turn your ggplots into a postcard.  
 (*Note, I wouldn't be mad if random postcards of ggplot showed up in my mailbox...*)
 
-[Check out ggirl here](https://jnolis.com/blog/introducing_ggirl/)
+[Check out ggirl here](https://jnolis.com/blog/introducing_ggirl/) `r anicon::faa("trophy",animate = "tada", colour = "blue")`
 
 ![](libs/images/ggirl.PNG)
 ---
