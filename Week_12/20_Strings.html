@@ -23,7 +23,7 @@ class: center, middle, inverse, title-slide
 ## Working with words
 ### Dr. Nyssa Silbiger
 ### CSUN Spring 2021
-### (updated: 2021-04-18)
+### (updated: 2021-04-21)
 
 ---
 
@@ -195,8 +195,7 @@ paste("My favorite shape is a", shapes)
 ```
 
 ```
-## [1] "My favorite shape is a Square"  
-## [2] "My favorite shape is a Circle"  
+## [1] "My favorite shape is a Square"   "My favorite shape is a Circle"  
 ## [3] "My favorite shape is a Triangle"
 ```
 
@@ -704,14 +703,14 @@ tail(austen_books())
 
 ```
 ## # A tibble: 6 x 2
-##   text                                                    book     
-##   &lt;chr&gt;                                                   &lt;fct&gt;    
-## 1 "possible, more distinguished in its domestic virtues ~ Persuasi~
-## 2 "national importance."                                  Persuasi~
-## 3 ""                                                      Persuasi~
-## 4 ""                                                      Persuasi~
-## 5 ""                                                      Persuasi~
-## 6 "Finis"                                                 Persuasi~
+##   text                                                               book      
+##   &lt;chr&gt;                                                              &lt;fct&gt;     
+## 1 "possible, more distinguished in its domestic virtues than in its" Persuasion
+## 2 "national importance."                                             Persuasion
+## 3 ""                                                                 Persuasion
+## 4 ""                                                                 Persuasion
+## 5 ""                                                                 Persuasion
+## 6 "Finis"                                                            Persuasion
 ```
 
 
@@ -887,7 +886,7 @@ sent_word_counts %&gt;%
 
 
 ---
-![](16_Strings_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+![](20_Strings_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
 ---
 # Make a wordcloud
 
@@ -904,8 +903,8 @@ words&lt;-cleaned_books %&gt;%
 wordcloud2(words, shape = 'triangle', size=0.3) # make a wordcloud out of the top 100 words
 ```
 
-<div id="htmlwidget-dcfcf6c824dce20c028c" style="width:504px;height:504px;" class="wordcloud2 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dcfcf6c824dce20c028c">{"x":{"word":["mr","mrs","must","said","much","miss","one","well","every","think","now","good","might","never","time","know","little","can","nothing","though","soon","without","say","great","see","first","may","two","quite","fanny","made","thought","shall","man","dear","ever","lady","always","sir","day","make","room","emma","thing","young","sure","sister","like","however","house","away","long","elizabeth","go","give","indeed","even","last","better","many","upon","way","elinor","felt","enough","come","hope","friend","family","oh","just","done","us","mind","seemed","father","home","jane","wish","mother","still","catherine","feelings","happy","saw","something","moment","came","really","look","place","half","love","till","crawford","marianne","perhaps","yes","yet","almost"],"freq":[3015,2446,2071,2041,1935,1855,1831,1523,1456,1440,1405,1380,1369,1362,1337,1332,1295,1186,1175,1075,1058,1047,1046,981,976,972,956,876,870,862,845,839,834,830,822,821,817,813,806,797,795,790,787,772,766,742,727,725,714,699,693,689,687,684,682,664,644,643,639,635,632,631,623,618,613,608,601,593,578,572,570,569,566,563,563,558,550,550,542,541,540,539,535,534,529,525,515,509,504,503,503,501,495,495,493,492,491,489,488,476],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-dark","minSize":0,"weightFactor":0.017910447761194,"backgroundColor":"white","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"triangle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<div id="htmlwidget-cfa7fd1466bdac38e97b" style="width:504px;height:504px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cfa7fd1466bdac38e97b">{"x":{"word":["mr","mrs","must","said","much","miss","one","well","every","think","now","good","might","never","time","know","little","can","nothing","though","soon","without","say","great","see","first","may","two","quite","fanny","made","thought","shall","man","dear","ever","lady","always","sir","day","make","room","emma","thing","young","sure","sister","like","however","house","away","long","elizabeth","go","give","indeed","even","last","better","many","upon","way","elinor","felt","enough","come","hope","friend","family","oh","just","done","us","mind","seemed","father","home","jane","wish","mother","still","catherine","feelings","happy","saw","something","moment","came","really","look","place","half","love","till","crawford","marianne","perhaps","yes","yet","almost"],"freq":[3015,2446,2071,2041,1935,1855,1831,1523,1456,1440,1405,1380,1369,1362,1337,1332,1295,1186,1175,1075,1058,1047,1046,981,976,972,956,876,870,862,845,839,834,830,822,821,817,813,806,797,795,790,787,772,766,742,727,725,714,699,693,689,687,684,682,664,644,643,639,635,632,631,623,618,613,608,601,593,578,572,570,569,566,563,563,558,550,550,542,541,540,539,535,534,529,525,515,509,504,503,503,501,495,495,493,492,491,489,488,476],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-dark","minSize":0,"weightFactor":0.017910447761194,"backgroundColor":"white","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"triangle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
 
 ---
 # Today's totally awesome R package

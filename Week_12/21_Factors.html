@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## Working with factors
 ### Dr. Nyssa Silbiger
 ### CSUN Spring 2021
-### (updated: 2021-04-20)
+### (updated: 2021-04-21)
 
 ---
 
@@ -162,20 +162,20 @@ glimpse(starwars)
 ```
 ## Rows: 87
 ## Columns: 14
-## $ name       &lt;chr&gt; "Luke Skywalker", "C-3PO", "R2-D2", "Dart~
-## $ height     &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183~
-## $ mass       &lt;dbl&gt; 77, 75, 32, 136, 49, 120, 75, 32, 84, 77,~
-## $ hair_color &lt;chr&gt; "blond", NA, NA, "none", "brown", "brown,~
-## $ skin_color &lt;chr&gt; "fair", "gold", "white, blue", "white", "~
-## $ eye_color  &lt;chr&gt; "blue", "yellow", "red", "yellow", "brown~
-## $ birth_year &lt;dbl&gt; 19.0, 112.0, 33.0, 41.9, 19.0, 52.0, 47.0~
-## $ sex        &lt;chr&gt; "male", "none", "none", "male", "female",~
-## $ gender     &lt;chr&gt; "masculine", "masculine", "masculine", "m~
-## $ homeworld  &lt;chr&gt; "Tatooine", "Tatooine", "Naboo", "Tatooin~
-## $ species    &lt;chr&gt; "Human", "Droid", "Droid", "Human", "Huma~
-## $ films      &lt;list&gt; &lt;"The Empire Strikes Back", "Revenge of ~
-## $ vehicles   &lt;list&gt; &lt;"Snowspeeder", "Imperial Speeder Bike"&gt;~
-## $ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&gt;, ~
+## $ name       &lt;chr&gt; "Luke Skywalker", "C-3PO", "R2-D2", "Darth Vader~
+## $ height     &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, ~
+## $ mass       &lt;dbl&gt; 77.0, 75.0, 32.0, 136.0, 49.0, 120.0, 75.0, 32.0~
+## $ hair_color &lt;chr&gt; "blond", NA, NA, "none", "brown", "brown, grey",~
+## $ skin_color &lt;chr&gt; "fair", "gold", "white, blue", "white", "light",~
+## $ eye_color  &lt;chr&gt; "blue", "yellow", "red", "yellow", "brown", "blu~
+## $ birth_year &lt;dbl&gt; 19.0, 112.0, 33.0, 41.9, 19.0, 52.0, 47.0, NA, 2~
+## $ sex        &lt;chr&gt; "male", "none", "none", "male", "female", "male"~
+## $ gender     &lt;chr&gt; "masculine", "masculine", "masculine", "masculin~
+## $ homeworld  &lt;chr&gt; "Tatooine", "Tatooine", "Naboo", "Tatooine", "Al~
+## $ species    &lt;chr&gt; "Human", "Droid", "Droid", "Human", "Human", "Hu~
+## $ films      &lt;list&gt; &lt;"The Empire Strikes Back", "Revenge of the Sit~
+## $ vehicles   &lt;list&gt; &lt;"Snowspeeder", "Imperial Speeder Bike"&gt;, &lt;&gt;, &lt;~
+## $ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&gt;, "TIE Ad~
 ```
 
 ---
@@ -246,7 +246,7 @@ star_counts %&gt;%
   geom_col()
 ```
 
-![](17_Factors_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](21_Factors_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 
 Would be more helpful to view in order of lowest to highest...
 ---
@@ -261,7 +261,7 @@ star_counts %&gt;%
   geom_col()
 ```
 
-![](17_Factors_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](21_Factors_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 ---
 # reordering factors
 
@@ -275,7 +275,7 @@ star_counts %&gt;%
 * labs(x = "Species")
 ```
 
-![](17_Factors_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](21_Factors_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 ---
 # reordering line plots
@@ -290,11 +290,11 @@ glimpse(income_mean)
 ```
 ## Rows: 3,708
 ## Columns: 5
-## $ year            &lt;dbl&gt; 2019, 2019, 2019, 2019, 2019, 2019, ~
-## $ race            &lt;chr&gt; "All Races", "All Races", "All Races~
-## $ dollar_type     &lt;chr&gt; "Current Dollars", "Current Dollars"~
-## $ income_quintile &lt;chr&gt; "Lowest", "Second", "Middle", "Fourt~
-## $ income_dollars  &lt;dbl&gt; 15286, 40652, 68938, 111112, 254449,~
+## $ year            &lt;dbl&gt; 2019, 2019, 2019, 2019, 2019, 2019, 2018, 2~
+## $ race            &lt;chr&gt; "All Races", "All Races", "All Races", "All~
+## $ dollar_type     &lt;chr&gt; "Current Dollars", "Current Dollars", "Curr~
+## $ income_quintile &lt;chr&gt; "Lowest", "Second", "Middle", "Fourth", "Hi~
+## $ income_dollars  &lt;dbl&gt; 15286, 40652, 68938, 111112, 254449, 451122~
 ```
 
 --
@@ -319,7 +319,7 @@ ggplot(aes(x = year, y = income_dollars_sum, color = income_quintile))+
   geom_line()
 ```
 
-![](17_Factors_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](21_Factors_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 Notice the legend order.... Would be more helpful if it is sorted
 
@@ -337,7 +337,7 @@ total_income%&gt;%
 * labs(color = "income quantile")
 ```
 
-![](17_Factors_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](21_Factors_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 ---
 # reorder levels directly in a vector because I said so
 
