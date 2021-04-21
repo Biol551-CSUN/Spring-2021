@@ -329,7 +329,7 @@ starwars_clean
 ```
 
 ---
-# Other helpful factor resournces
+# Other helpful factor resources
 
 [From Assigned reading](https://r4ds.had.co.nz/factors.html)  
 [Jenny Bryan Stat 545](https://stat545.com/factors-boss.html)
@@ -363,13 +363,15 @@ class: center, middle
 ---
 # Lab
 
-Working with intertidal data. Today you will need to use skills that you have learned in working with words to clean up some issues with the character data and use what you learned today to reorder your factors into orders that make sense.  
+Working with intertidal data. Today you will need to use skills that you have learned in working with words to clean up some issues with the character data and use what you learned today to reorder your factors into orders that make sense.  (Also the column headers could be better...)
 
 Your goal, as per usual, is to make a plot, any plot where one of the axes is a factor.  Save everything in the appropriate folders.
 
 You have two possible files to play with in the data folder (you don't HAVE to use both): intertidal.csv and intertidal_latitude.csv (as well as a data dictionary)
 
-Importantly, if you decide to visualize anything by tide height it should go from low to mid to high tide. 
+Importantly, if you decide to visualize anything by tide height it should go from low to mid to high tide.   
+
+Due Monday, 9am.
 
 
 ---
