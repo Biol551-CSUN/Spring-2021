@@ -1,6 +1,6 @@
 ---
-title: "Week 12b"
-subtitle: "Working with factors"
+title: "Week 13a"
+subtitle: "Iterative coding"
 author: "Dr. Nyssa Silbiger"
 institute: "CSUN Spring 2021"
 date: "(updated: `r Sys.Date()`)"
@@ -48,7 +48,7 @@ MathJax.Hub.Config({
 </style>
 
 
-```{r flair_color, echo=FALSE}
+```{r flair_color, echo=FALSE, warning=FALSE, message=FALSE}
 library(flair)
 yellow <- "#FFCC29"
 orange <- "#F58634"
@@ -58,8 +58,13 @@ green <- "#007965"
 ---
 # Outline of class
 
+Working with iterative data  
+
+1. for loops
+2. map functions from purrr (more cat puns!)
 
 
+<img src = "https://paulvanderlaken.files.wordpress.com/2018/12/pp550x5501.jpg", width=40%/>
 ---
 # Set-up your script
 
@@ -70,7 +75,34 @@ library(here)
 
 ### load data
 
+
 ---
+# for loops
+
+**for loops** are one way to run an iterative process (do something over and over again). However, with the *tidyverse* you can avoid needing loops for almost any basic coding needs.  Where it does come in handy is in population modeling and Bayesian modeling, for example. Also, is it a integral to programming and is happening "under the hood" whether you use them or not.
+
+Also.... people be VERY opinionated on learning for loops.
+
+[Twitter war on for loops](https://twitter.com/NSilbiger/status/1385696966445727748)
+
+
+---
+# for loops
+
+For loops have two major parts:an indexing statement and a command (or set of commands) to repeat.  
+
+The command looks like this:  
+`for(index in sequence){`  
+  `command to repeat}`
+---
+# {purrr}
+
+[purr cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/purrr.pdf)
+---
+# Totally awesome R package
+
+[{gganatogram}](https://r-charts.com/miscellaneous/gganatogram/)
+
 
 ---
 class: center, middle
