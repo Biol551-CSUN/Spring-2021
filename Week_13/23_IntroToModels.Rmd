@@ -1,0 +1,159 @@
+---
+title: "Week 13a"
+subtitle: "Iterative coding"
+author: "Dr. Nyssa Silbiger"
+institute: "CSUN Spring 2021"
+date: "(updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+      ratio: '15:10'
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(anicon)
+```
+<div style = "position:fixed; visibility: hidden">
+$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$
+$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$
+$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$
+</div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+</script>
+
+<style>
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+</style>
+
+
+```{r flair_color, echo=FALSE, warning=FALSE, message=FALSE}
+library(flair)
+yellow <- "#FFCC29"
+orange <- "#F58634"
+green <- "#007965"
+```
+
+---
+# Outline of class
+
+Intro to modeling 
+
+1. Intro to basic linear modeling
+2. Viewing results in base R, broom, and modelsummary
+3. Running many models at the same time with purrr
+4. Intro to tidy models
+
+```{r, echo=FALSE, out.width='50%'}
+library(tweetrmd)
+tweet_screenshot("https://twitter.com/Notawful/status/1386725220086648834")
+```
+
+---
+# Set-up your script
+
+
+
+```{r, eval=FALSE}
+install.packages('modelsummary')
+install.packages('tidymodels')
+install.packages('broom')
+```
+
+
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(palmerpenguins)
+library(broom)
+```
+
+
+.pull-left[
+<img src="https://user-images.githubusercontent.com/987057/82849698-05ba5700-9ec7-11ea-93a0-67dcd9151848.png", width=60%/>
+]
+
+.pull-right[
+<img src="https://www.tidymodels.org/images/tidymodels.png", width=60%/>
+]
+
+---
+# Intro to basic linear modeling
+
+#### WARNING: This is NOT a stats class.  Please make sure you understand the theory behind the statistics that you are using before you use them. Also, even though we spent the semester learning about cleaning and visualization you MUST use stats to interpret your data. 
+
+Today, I am going to show you a few cool packages that help with some modeling. There are TONS of packages and you should choose what makes the most sense to your unique type of data. 
+
+--
+
+Explanation of lm... with arguments
+
+---
+# Model the penguin dataset
+
+Plot and model penguins
+
+---
+# Results: base R
+
+---
+# Results tidied with broom
+
+
+---
+# Results in model summary
+
+---
+# Many models with purrr, dplyr, and broom
+
+```{r, eval=FALSE}
+ models<- penguins %>%
+#    select(species, bill_length_mm, body_mass_g)%>%
+    nest(-species)%>%
+    mutate(fit = 
+             map(data, ~lm(bill_length_mm~body_mass_g, data = .)))
+
+ models %>%
+   mutate(tidied = map(fit, tidy),
+          glanced = map(fit, glance)) %>%
+   select(species, tidied, glanced, augmeneted) %>%
+   unnest(augmented)
+
+ 
+ mod<-lm(bill_length_mm~body_mass_g*species, data = penguins)
+
+ augment(mod) 
+```
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+Many slides modified from the following resources:   
+
+[R4DS](https://r4ds.had.co.nz/iteration.html) and [Advanced R](https://adv-r.hadley.nz/functionals.html)

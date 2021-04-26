@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 13a</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Nyssa Silbiger" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 13a
+## Iterative coding
+### Dr. Nyssa Silbiger
+### CSUN Spring 2021
+### (updated: 2021-04-26)
+
+---
+
+
+
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+`$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$`
+`$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$`
+`$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$`
+&lt;/div&gt;
+
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+&lt;/script&gt;
+
+&lt;style&gt;
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+&lt;/style&gt;
+
+
+
+
+---
+# Outline of class
+
+Intro to modeling 
+
+1. Intro to basic linear modeling
+2. Viewing results in base R, broom, and modelsummary
+3. Running many models at the same time with purrr
+4. Intro to tidy models
+
+&lt;img src="23_IntroToModels_files/figure-html/unnamed-chunk-1-1.png" width="50%" /&gt;
+
+---
+# Set-up your script
+
+
+
+
+```r
+install.packages('modelsummary')
+install.packages('tidymodels')
+install.packages('broom')
+```
+
+
+
+
+```r
+library(tidyverse)
+library(here)
+library(palmerpenguins)
+library(broom)
+```
+
+
+.pull-left[
+&lt;img src="https://user-images.githubusercontent.com/987057/82849698-05ba5700-9ec7-11ea-93a0-67dcd9151848.png", width=60%/&gt;
+]
+
+.pull-right[
+&lt;img src="https://www.tidymodels.org/images/tidymodels.png", width=60%/&gt;
+]
+
+---
+# Intro to basic linear modeling
+
+#### WARNING: This is NOT a stats class.  Please make sure you understand the theory behind the statistics that you are using before you use them. Also, even though we spent the semester learning about cleaning and visualization you MUST use stats to interpret your data. 
+
+Today, I am going to show you a few cool packages that help with some modeling. There are TONS of packages and you should choose what makes the most sense to your unique type of data. 
+
+--
+
+Explanation of lm... with arguments
+
+---
+# Model the penguin dataset
+
+Plot and model penguins
+
+---
+# Results: base R
+
+---
+# Results tidied with broom
+
+
+---
+# Results in model summary
+
+---
+# Many models with purrr, dplyr, and broom
+
+
+```r
+ models&lt;- penguins %&gt;%
+#    select(species, bill_length_mm, body_mass_g)%&gt;%
+    nest(-species)%&gt;%
+    mutate(fit = 
+             map(data, ~lm(bill_length_mm~body_mass_g, data = .)))
+
+ models %&gt;%
+   mutate(tidied = map(fit, tidy),
+          glanced = map(fit, glance)) %&gt;%
+   select(species, tidied, glanced, augmeneted) %&gt;%
+   unnest(augmented)
+
+ 
+ mod&lt;-lm(bill_length_mm~body_mass_g*species, data = penguins)
+
+ augment(mod) 
+```
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+Many slides modified from the following resources:   
+
+[R4DS](https://r4ds.had.co.nz/iteration.html) and [Advanced R](https://adv-r.hadley.nz/functionals.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightSpans": true,
+"countIncrementalSlides": false,
+"ratio": "15:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
